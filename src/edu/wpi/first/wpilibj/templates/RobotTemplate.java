@@ -6,10 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 package edu.wpi.first.wpilibj.templates;
-//Hello World
 
 
 import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -18,18 +18,32 @@ import edu.wpi.first.wpilibj.SimpleRobot;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotTemplate extends SimpleRobot {
+public class RobotTemplate extends SimpleRobot implements Constants{
+
+    public Joystick leftStick, rightStick;
+    public DriveTrain drive;
+
+
+    public void robotInit()
+    {
+        leftStick = new Joystick(LEFT_STICK_PORT);
+        rightStick = new Joystick(RIGHT_STICK_PORT);
+
+    }
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
     public void autonomous() {
-        
+
     }
 
     /**
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-
+        while(isOperatorControl())
+        {
+            drive.update(leftStick, rightStick);
+        }
     }
 }
