@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package edu.wpi.first.wpilibj.templates;
+//Hello World
 
 
 import edu.wpi.first.wpilibj.SimpleRobot;
