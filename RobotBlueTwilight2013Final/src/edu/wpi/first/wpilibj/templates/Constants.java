@@ -7,7 +7,7 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Tim
+ * @author Tim & Derrick
  */
 public interface Constants
 {
