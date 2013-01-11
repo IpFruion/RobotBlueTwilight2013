@@ -10,13 +10,20 @@ package edu.wpi.first.wpilibj.templates;
  * @author Dlock
  */
 import edu.wpi.first.wpilibj.Joystick;
-public class Controller implements Constants {
+import net.java.games.input.*;
+public class ControllerInput implements Constants {
     
     
     Joystick JJL;
     Joystick JJR;
+    int[] s;
+    
+
+    
+    
+    
     boolean isCorrect;
-    public Controller(int[] Port, boolean isJoy, String isDrive)
+    public ControllerInput(int[] Port, boolean isJoy, String isDrive)
     {
         
         if ((isJoy == true)&&(isDrive.equalsIgnoreCase("Drive") == true))
@@ -28,6 +35,7 @@ public class Controller implements Constants {
         {
             JJL = new Joystick(Port[0]);
         }
+        
         isCorrect = isJoy;
     }
     

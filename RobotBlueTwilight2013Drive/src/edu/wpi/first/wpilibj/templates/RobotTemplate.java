@@ -24,13 +24,13 @@ public class RobotTemplate extends SimpleRobot implements Constants {
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
-    public Controller stick;
+    public ControllerInput stick;
     public DriveTrain drive;
     public int[] ports = {LEFT_STICK_PORT, RIGHT_STICK_PORT};
 
     public void robotInit()
     {
-        stick = new Controller(ports, true, "Drive");
+        stick = new ControllerInput(ports, true, "Drive");
     }
     public void autonomous() {
         
