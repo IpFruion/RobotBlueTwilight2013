@@ -9,6 +9,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 
 /**
@@ -19,10 +20,20 @@ import edu.wpi.first.wpilibj.SimpleRobot;
  * directory.
  */
 //Alec Pierce and Derrick Lockwood
-public class RobotTemplate extends SimpleRobot {
+public class RobotTemplate extends SimpleRobot implements Constants {
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
+    public Joystick leftStick, rightStick;
+    public DriveTrain drive;
+
+
+    public void robotInit()
+    {
+        leftStick = new Joystick(LEFT_STICK_PORT);
+        rightStick = new Joystick(RIGHT_STICK_PORT);
+
+    }
     public void autonomous() {
         
     }
@@ -31,6 +42,9 @@ public class RobotTemplate extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-
+        while(isOperatorControl())
+        {
+            drive.update(leftStick, rightStick);
+        }
     }
 }
