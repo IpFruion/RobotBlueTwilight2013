@@ -18,10 +18,10 @@ public class DriveTrain implements Constants
     Jaguar rightJag = new Jaguar(RIGHT_JAG_PORT);
     public Motor left, right;
     
-    public void update(Controller leftStick, Controller rightStick)
+    public void update(Controller stick)
     {
-        double rightValue = rightStick.getY();
-        double leftValue = leftStick.getY();
+        double rightValue = stick.getLY();
+        double leftValue = stick.getRY();
         left.set(leftValue);
         right.set(rightValue * -1);
     }

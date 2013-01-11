@@ -24,14 +24,13 @@ public class RobotTemplate extends SimpleRobot implements Constants {
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
-    public Controller leftStick, rightStick;
+    public Controller stick;
     public DriveTrain drive;
+    public int[] ports = {LEFT_STICK_PORT, RIGHT_STICK_PORT};
 
     public void robotInit()
     {
-        leftStick = new Controller(LEFT_STICK_PORT, true);
-        rightStick = new Controller(RIGHT_STICK_PORT, true);
-
+        stick = new Controller(ports, true, "Drive");
     }
     public void autonomous() {
         
@@ -43,7 +42,7 @@ public class RobotTemplate extends SimpleRobot implements Constants {
     public void operatorControl() {
         while(isOperatorControl())
         {
-            drive.update(leftStick, rightStick);
+            drive.update(stick);
         }
     }
 }
