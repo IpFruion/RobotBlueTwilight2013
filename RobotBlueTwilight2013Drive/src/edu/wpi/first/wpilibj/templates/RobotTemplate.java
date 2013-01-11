@@ -24,14 +24,14 @@ public class RobotTemplate extends SimpleRobot implements Constants {
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
-    public Joystick leftStick, rightStick;
+    public Controller leftStick, rightStick;
     public DriveTrain drive;
 
 
     public void robotInit()
     {
-        leftStick = new Joystick(LEFT_STICK_PORT);
-        rightStick = new Joystick(RIGHT_STICK_PORT);
+        leftStick = new Controller(LEFT_STICK_PORT, true);
+        rightStick = new Controller(RIGHT_STICK_PORT, true);
 
     }
     public void autonomous() {
