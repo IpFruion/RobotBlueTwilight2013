@@ -28,8 +28,12 @@ public class RobotTemplate extends SimpleRobot implements Constants {
     public Controller leftStick, rightStick;
     public DriveTrain drive;
 
+<<<<<<< HEAD
     //Hello from Alec
     //ju
+=======
+    
+>>>>>>> Took out lazy comment
     public void robotInit()
     {
         leftStick = new Controller(LEFT_STICK_PORT, true);
