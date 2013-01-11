@@ -1,4 +1,8 @@
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Alec'sBranch
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) FIRST 2008. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -27,7 +31,16 @@ public class RobotTemplate extends SimpleRobot implements Constants {
     public Controller leftStick, rightStick;
     public DriveTrain drive;
 
+<<<<<<< HEAD
     
+=======
+<<<<<<< HEAD
+    //Hello from Alec
+    //ju
+=======
+    
+>>>>>>> Took out lazy comment
+>>>>>>> Alec'sBranch
     public void robotInit()
     {
         leftStick = new Controller(LEFT_STICK_PORT, true);
