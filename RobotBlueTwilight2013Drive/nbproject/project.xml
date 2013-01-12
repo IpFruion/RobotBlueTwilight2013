@@ -84,7 +84,7 @@
             <compilation-unit>
                 <package-root>src</package-root>
                 <classpath mode="boot">${sunspot.bootclasspath}</classpath>
-                <classpath mode="compile">/Users/Dlock/sunspotfrcsdk/lib/WPILibJ/classes.jar:/Users/Dlock/Downloads/dist/jinput.jar</classpath>
+                <classpath mode="compile">/Users/Dlock/sunspotfrcsdk/lib/WPILibJ/classes.jar:/Users/Dlock/Downloads/dist/jinput.jar:/Users/Dlock/Downloads/dist</classpath>
                 <built-to>build</built-to>
                 <source-level>1.4</source-level>
             </compilation-unit>

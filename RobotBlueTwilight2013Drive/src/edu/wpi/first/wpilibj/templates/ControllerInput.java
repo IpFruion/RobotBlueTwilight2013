@@ -18,9 +18,6 @@ public class ControllerInput implements Constants {
     Joystick JJR;
     int[] s;
     
-
-    
-    
     
     boolean isCorrect;
     public ControllerInput(int[] Port, boolean isJoy, String isDrive)
