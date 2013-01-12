@@ -11,7 +11,7 @@ package edu.wpi.first.wpilibj.templates;
  */
 import edu.wpi.first.wpilibj.Joystick;
 import net.java.games.input.*;
-public class ControllerInput implements Constants {
+public class ControllerInput extends BTController {
     
     
     Joystick JJL;
@@ -20,7 +20,7 @@ public class ControllerInput implements Constants {
     
     
     boolean isCorrect;
-    public ControllerInput(int[] Port, boolean isJoy, String isDrive)
+    public ControllerInput(int[] Port)
     {
         
         if ((isJoy == true)&&(isDrive.equalsIgnoreCase("Drive") == true))

@@ -5,8 +5,7 @@
 
 package edu.wpi.first.wpilibj.templates;
 
-import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.Joystick;
+
 
 /**
  *
@@ -14,14 +13,13 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class DriveTrain implements Constants
 {
-    Jaguar leftJag = new Jaguar(LEFT_JAG_PORT);
-    Jaguar rightJag = new Jaguar(RIGHT_JAG_PORT);
-    public Motor left, right;
+    Jaguar left = new Jaguar(LEFT_JAG_PORT);
+    Jaguar right = new Jaguar(RIGHT_JAG_PORT);
     
-    public void update(ControllerInput stick)
+    public void update(DriveController stick)
     {
-        double rightValue = stick.getLY();
-        double leftValue = stick.getRY();
+        double rightValue = stick.getRMotorSpeed();
+        double leftValue = stick.getLMotorSpeed();
         left.set(leftValue);
         right.set(rightValue * -1);
     }
