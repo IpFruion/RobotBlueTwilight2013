@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     This is a sample netbeans project file for a Sun Spot Application project.
     You may edit it freely, it doesn't affect the ant-powered build.
 
- --><project xmlns="http://www.netbeans.org/ns/project/1">
+ -->
+<project xmlns="http://www.netbeans.org/ns/project/1">
     <type>org.netbeans.modules.ant.freeform</type>
     <configuration>
         <general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
@@ -19,37 +20,43 @@
             </properties>
             <folders>
                 <source-folder>
+                    <label>RobotBlueTwilight2013Climb</label>
+                    <location>.</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
                     <label>src</label>
                     <type>java</type>
                     <location>src</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
-                <source-folder>
-                    <label>RobotBlueTwilight2013Climb</label>
-                    <location>.</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
             </folders>
             <ide-actions>
                 <action name="build">
+                    <script>nbproject/nbjdk.xml</script>
                     <target>jar-app</target>
                 </action>
                 <action name="clean">
+                    <script>nbproject/nbjdk.xml</script>
                     <target>clean</target>
                 </action>
                 <action name="run">
+                    <script>nbproject/nbjdk.xml</script>
                     <target>deploy</target>
                     <target>run</target>
                 </action>
                 <action name="rebuild">
+                    <script>nbproject/nbjdk.xml</script>
                     <target>clean</target>
                     <target>jar-app</target>
                 </action>
                 <action name="debug">
+                    <script>nbproject/nbjdk.xml</script>
                     <target>deploy</target>
                     <target>debug-run</target>
                 </action>
                 <action name="javadoc">
+                    <script>nbproject/nbjdk.xml</script>
                     <target>javadoc</target>
                 </action>
             </ide-actions>
