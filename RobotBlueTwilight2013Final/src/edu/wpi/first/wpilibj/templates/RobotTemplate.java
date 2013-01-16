@@ -1,9 +1,9 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) FIRST 2008. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+/**----------------------------------------------------------------------------
+ * Copyright (c) FIRST 2003. All Rights Reserved.                             
+ * Open Source Software - may be modified and shared by FRC teams. The code   
+ * must be accompanied by the FIRST BSD license file in the root directory of 
+ * the project.                                                               
+ *----------------------------------------------------------------------------*/
 
 package edu.wpi.first.wpilibj.templates;
 //hi, alec
@@ -30,8 +30,7 @@ public class RobotTemplate extends SimpleRobot implements Constants{
         rightStick = new Joystick(RIGHT_STICK_PORT);
 
     }
-    /**
-     * This function is called once each time the robot enters autonomous mode.
+    /* This function is called once each time the robot enters autonomous mode.
      */
     public void autonomous() {
 

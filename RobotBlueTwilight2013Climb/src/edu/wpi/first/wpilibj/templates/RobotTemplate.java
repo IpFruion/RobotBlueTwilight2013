@@ -16,10 +16,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 
 
 
-/**
- * 
- * @author luke
- */
+/*@author luke*/
 
 
 /**
@@ -34,16 +31,13 @@ public class RobotTemplate extends SimpleRobot {
 
 
    
-    /**
-     * This function is called once each time the robot enters autonomous mode.
-     */
+    /*This function is called once each time the robot enters autonomous mode.*/
+    
     public void autonomous() {
         
     }
 
-    /**
-     * This function is called once each time the robot enters operator control.
-     */
+   /*This function is called once each time the robot enters operator control.*/
     public void operatorControl() {
 
     }
