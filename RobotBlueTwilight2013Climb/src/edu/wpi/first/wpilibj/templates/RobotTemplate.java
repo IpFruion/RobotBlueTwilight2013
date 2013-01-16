@@ -27,11 +27,12 @@ import edu.wpi.first.wpilibj.Jaguar;
  * directory.
  */
 public class RobotTemplate extends SimpleRobot {
+    Timer timer;
+    
     
 
 
-   
-    /*This function is called once each time the robot enters autonomous mode.*/
+   /*This function is called once each time the robot enters autonomous mode.*/
     
     public void autonomous() {
         
