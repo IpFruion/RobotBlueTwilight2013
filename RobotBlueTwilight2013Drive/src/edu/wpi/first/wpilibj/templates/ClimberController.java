@@ -6,7 +6,7 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Robotics
+ * @author alec
  */
 public interface ClimberController {
     

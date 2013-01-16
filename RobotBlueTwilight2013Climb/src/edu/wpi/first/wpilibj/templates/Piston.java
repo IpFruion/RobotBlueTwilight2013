@@ -8,6 +8,6 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author Robotics
  */
-public interface ClimberController {
+public interface Piston {
     
 }

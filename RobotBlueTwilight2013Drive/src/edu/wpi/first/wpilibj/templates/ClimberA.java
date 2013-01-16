@@ -6,8 +6,8 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Robotics
+ * @author alec & Luke Davies
  */
-public interface ClimberController {
+public class ClimberA extends Climber{
     
 }

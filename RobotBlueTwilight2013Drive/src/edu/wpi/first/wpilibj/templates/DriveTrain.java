@@ -5,7 +5,9 @@
 
 package edu.wpi.first.wpilibj.templates;
 
-
+import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 /**
  *
@@ -13,14 +15,28 @@ package edu.wpi.first.wpilibj.templates;
  */
 public class DriveTrain implements Constants
 {
-    Jaguar left = new Jaguar(LEFT_JAG_PORT);
-    Jaguar right = new Jaguar(RIGHT_JAG_PORT);
-    
+    CANJaguar left;
+    CANJaguar right;
+    Piston shift = new Piston(SHIFTER_EXTEND_PORT, SHIFTER_RETRACT_PORT);
+    public DriveTrain()
+    {
+        try
+        {
+            left = new CANJaguar(LEFT_JAG_PORT);
+            right = new CANJaguar(RIGHT_JAG_PORT);
+        }
+        catch (CANTimeoutException e)
+        {}
+    }
     public void update(DriveController stick)
     {
         double rightValue = stick.getRMotorSpeed();
         double leftValue = stick.getLMotorSpeed();
-        left.set(leftValue);
-        right.set(rightValue * -1);
+        shift.set(stick.getShifterSetting());
+        try{
+            left.setX(leftValue);
+            right.setX(rightValue * -1);
+        }
+        catch(CANTimeoutException e){}
     }
 }

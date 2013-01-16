@@ -18,5 +18,8 @@ public interface Constants
     //Joysticks
     public static final int LEFT_STICK_PORT = 1;
     public static final int RIGHT_STICK_PORT = 2;
-
+    
+    //Solenoids
+    public static final int SHIFTER_EXTEND_PORT = 1;
+    public static final int SHIFTER_RETRACT_PORT = 2;
 }
