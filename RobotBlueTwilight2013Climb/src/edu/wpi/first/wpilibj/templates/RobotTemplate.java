@@ -28,6 +28,8 @@ import edu.wpi.first.wpilibj.Jaguar;
  */
 public class RobotTemplate extends SimpleRobot {
     Timer timer;
+    Jaguar leftJaguar;
+    Jaguar rightJaguar;
     
     
 
