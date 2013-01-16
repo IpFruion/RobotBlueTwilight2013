@@ -8,8 +8,8 @@
 package edu.wpi.first.wpilibj.templates;
 //hi, alec
 
-import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SimpleRobot;
 
 /**
  * The VM is configured to automatically run this class, and to call the
