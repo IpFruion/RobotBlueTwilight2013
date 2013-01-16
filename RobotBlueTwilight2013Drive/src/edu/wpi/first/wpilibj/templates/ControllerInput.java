@@ -13,13 +13,21 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class ControllerInput extends BTController {
 
+    Joystick xboxController;
+    public ControllerInput()
+    {
+        xboxController = new Joystick(1);
+    }
     public boolean getShiftButton() {
+        return xboxController.getRawButton(6);
     }
 
     public double getLMotorSpeed() {
+        return xboxController.getRawAxis(2);
     }
 
     public double getRMotorSpeed() {
+        return xboxController.getRawAxis(5);
     }
     
     
