@@ -9,7 +9,6 @@
 package edu.wpi.first.wpilibj.templates;
 
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 
 /**
@@ -30,7 +29,7 @@ public class RobotTemplate extends SimpleRobot implements Constants {
 
     public void robotInit()
     {
-        stick = new ControllerInput(ports);
+        stick = new JoystickController();
     }
     public void autonomous() {
         

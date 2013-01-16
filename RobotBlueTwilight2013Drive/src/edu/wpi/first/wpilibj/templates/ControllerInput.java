@@ -7,20 +7,27 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Dlock
+ * @author Dlock & others
  */
-import edu.wpi.first.wpilibj.Joystick;
-import net.java.games.input.*;
+
 public class ControllerInput extends BTController {
+
+    public double getLMotorSpeed() {
+        
+    }
+
+    public double getRMotorSpeed() {
+    }
+
     
     
-    Joystick JJL;
-    Joystick JJR;
+    
+    
     int[] s;
     
     
     boolean isCorrect;
-    public ControllerInput(int[] Port)
+    public ControllerInput()
     {
         
         if ((isJoy == true)&&(isDrive.equalsIgnoreCase("Drive") == true))
@@ -71,6 +78,9 @@ public class ControllerInput extends BTController {
        }
        //Add controller config
        return 0.;
+    }
+
+    public boolean getShiftButton() {
     }
     
 }
