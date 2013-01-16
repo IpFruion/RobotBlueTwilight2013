@@ -8,6 +8,17 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author Robotics
  */
-public class BTController {
-    
+public abstract class BTController implements DriveController, ShooterController, ClimberController, Constants {
+    public abstract boolean getShiftButton();
+    private boolean lastButtonState = false;
+    private boolean shifterState = false;
+    public boolean getShifterSetting(){
+        boolean currentState = getShiftButton();
+        if (!lastButtonState&&currentState)
+        {
+            shifterState = !shifterState; 
+        }
+        lastButtonState = currentState;
+        return shifterState;
+    }
 }
