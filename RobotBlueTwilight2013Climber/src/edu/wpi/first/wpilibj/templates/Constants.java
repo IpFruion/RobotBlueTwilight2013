@@ -22,4 +22,6 @@ public interface Constants
     //Solenoids
     public static final int SHIFTER_EXTEND_PORT = 1;
     public static final int SHIFTER_RETRACT_PORT = 2;
+    public static final int LIFTOFF_EXTEND_PORT = 3;
+    public static final int LIFTOFF_RETRACT_PORT = 4;
 }

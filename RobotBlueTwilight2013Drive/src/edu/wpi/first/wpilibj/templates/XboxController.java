@@ -11,10 +11,10 @@ package edu.wpi.first.wpilibj.templates;
  */
 import edu.wpi.first.wpilibj.Joystick;
 
-public class ControllerInput extends BTController {
+public class XboxController extends BTController {
 
     Joystick xboxController;
-    public ControllerInput()
+    public XboxController()
     {
         xboxController = new Joystick(1);
     }

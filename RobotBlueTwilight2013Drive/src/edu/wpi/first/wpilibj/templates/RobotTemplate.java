@@ -29,7 +29,7 @@ public class RobotTemplate extends SimpleRobot implements Constants {
 
     public void robotInit()
     {
-        stick = new ControllerInput();
+        stick = new XboxController();
     }
     public void autonomous() {
         

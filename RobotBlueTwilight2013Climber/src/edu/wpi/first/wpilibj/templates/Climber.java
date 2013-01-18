@@ -8,6 +8,7 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author alec
  */
-public abstract class Climber {
+public abstract class Climber implements Constants {
     
+    Piston offGround = new Piston(LIFTOFF_EXTEND_PORT, LIFTOFF_RETRACT_PORT);
 }
