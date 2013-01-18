@@ -8,6 +8,6 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author Robotics
  */
-public class Climb2  extends Climb{
+public class Climb2 extends Climb{
     
 }
