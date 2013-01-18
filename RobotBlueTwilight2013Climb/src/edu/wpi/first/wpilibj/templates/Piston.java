@@ -6,10 +6,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Solenoid;
 
-/**
- *
- * @author alec
- */
+/*@author Robotics*/
 public class Piston {
     private Solenoid extend, retract;
     public Piston(int extendPort, int retractPort){
