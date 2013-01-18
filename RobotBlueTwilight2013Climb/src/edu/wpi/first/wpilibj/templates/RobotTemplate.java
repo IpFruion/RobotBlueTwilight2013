@@ -26,9 +26,9 @@ import edu.wpi.first.wpilibj.Timer;
  * directory.
  */
 public class RobotTemplate extends SimpleRobot {
-    Timer timer;
-    Jaguar leftJaguar;
-    Jaguar rightJaguar;
+    public Timer timer;
+     public Jaguar leftJaguar;
+    public Jaguar rightJaguar;
     
     
 
