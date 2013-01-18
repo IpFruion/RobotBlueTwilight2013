@@ -6,8 +6,9 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Robotics
+ * @author alec
  */
-public abstract class Climb{
+public interface ShooterController  {
+    public double getShootMotorSpeed();
     
 }

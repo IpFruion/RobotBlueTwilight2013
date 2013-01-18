@@ -8,6 +8,6 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author alec
  */
-public interface ClimberController {
+public class ClimberB extends Climber {
     
 }

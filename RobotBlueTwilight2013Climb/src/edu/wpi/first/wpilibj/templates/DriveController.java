@@ -8,6 +8,8 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author alec
  */
-public interface ClimberController {
-    
+public interface DriveController {
+    public double getLMotorSpeed();
+    public double getRMotorSpeed();
+    public boolean getShifterSetting();
 }

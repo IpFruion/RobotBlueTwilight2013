@@ -1,26 +1,16 @@
-/**----------------------------------------------------------------------------
- * Copyright (c) FIRST 2013. All Rights Reserved.                             
- * Open Source Software - may be modified and shared by FRC teams. The code   
- * must be accompanied by the FIRST BSD license file in the root directory of 
- * the project.                                                               
- * ----------------------------------------------------------------------------
- */
+
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) FIRST 2008. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Jaguar;
-
-
-
-/**
- * 
- * @author luke
- */
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,14 +19,18 @@ import edu.wpi.first.wpilibj.Jaguar;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotTemplate extends SimpleRobot {
-    
-
-
-   
+//Alec Pierce and Derrick Lockwood
+public class RobotTemplate extends SimpleRobot implements Constants {
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
+    public BTController stick;
+    public DriveTrain drive;
+
+    public void robotInit()
+    {
+        stick = new ControllerInput();
+    }
     public void autonomous() {
         
     }
@@ -45,6 +39,9 @@ public class RobotTemplate extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-
+        while(isOperatorControl())
+        {
+            drive.update(stick);
+        }
     }
 }

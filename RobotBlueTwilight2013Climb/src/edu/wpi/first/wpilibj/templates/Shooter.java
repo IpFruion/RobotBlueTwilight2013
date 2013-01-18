@@ -6,8 +6,8 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Robotics
+ * @author alec
  */
-public class Climb2  extends Climb{
+public abstract class Shooter {
     
 }
