@@ -29,6 +29,10 @@ public class ControllerInput extends BTController {
     public double getRMotorSpeed() {
         return xboxController.getRawAxis(5);
     }
+
+    public boolean isClimb() {
+        return xboxController.getRawButton(5);
+    }
     
     
 }

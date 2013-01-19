@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.Joystick;
  *
  * @author alec
  */
-public class JoystickController extends BTController {
+//add extends BTController
+public class JoystickController {
     
     private Joystick leftStick, rightStick, manipStick; 
     public JoystickController(){

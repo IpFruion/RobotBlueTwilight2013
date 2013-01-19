@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.Joystick;
  *
  * @author alec
  */
-public class JoystickController extends BTController {
+//Add extends BTController
+public class JoystickController  {
     
     private Joystick leftStick, rightStick, manipStick; 
     public JoystickController(){
@@ -27,6 +28,10 @@ public class JoystickController extends BTController {
 
     public boolean getShiftButton() {
         return rightStick.getRawButton(2);
+    }
+
+    public boolean isClimb() {
+        return manipStick.getRawButton(3);
     }
     
 }
