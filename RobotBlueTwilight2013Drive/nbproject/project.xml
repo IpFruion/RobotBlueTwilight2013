@@ -9,6 +9,9 @@
     <configuration>
         <general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
             <name>RobotBlueTwilight2013Drive</name>
+        </general-data>
+        <general-data xmlns="http://www.netbeans.org/ns/freeform-project/2">
+            <name>RobotBlueTwilight2013Drive</name>
             <properties>
                 <property-file>${user.home}/.sunspotfrc.properties</property-file>
                 <property-file>build.properties</property-file>
@@ -19,6 +22,12 @@
                     <label>src</label>
                     <type>java</type>
                     <location>src</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>RobotBlueTwilight2013Drive</label>
+                    <location>.</location>
+                    <encoding>UTF-8</encoding>
                 </source-folder>
             </folders>
             <ide-actions>
@@ -66,6 +75,7 @@
                     <ide-action name="rebuild"/>
                     <ide-action name="debug"/>
                     <ide-action name="javadoc"/>
+                    <separator/>
                     <action>
                         <label>Sun SPOT-deploy</label>
                         <target>deploy</target>
@@ -74,7 +84,6 @@
                         <label>Sun SPOT-jar-deploy</label>
                         <target>jar-deploy</target>
                     </action>
-                    <separator/>
                 </context-menu>
             </view>
             <subprojects/>
