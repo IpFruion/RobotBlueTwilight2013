@@ -3,6 +3,9 @@
  * the editor.
  */
 package edu.wpi.first.wpilibj.templates;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.DigitalInput;
+
 
 /*@author Robotics */
 public interface ClimberController {
