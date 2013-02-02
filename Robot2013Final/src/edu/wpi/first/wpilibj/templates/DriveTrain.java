@@ -18,7 +18,9 @@ import edu.wpi.first.wpilibj.can.CANTimeoutException;
 public class DriveTrain implements Constants
 {
     BTMotor left;
+    BTMotor left_2;
     BTMotor right;
+    BTMotor right_2;
     
     Piston shifter;
     public DriveTrain()
@@ -26,7 +28,9 @@ public class DriveTrain implements Constants
         
         shifter = new Piston(SHIFTER_EXTEND_PORT,SHIFTER_RETRACT_PORT);
         left = new BTMotor(LEFT_JAG_PORT, true);
+        left_2 = new BTMotor(LEFT_JAG_PORT_2, true);
         right = new BTMotor(RIGHT_JAG_PORT, true);
+        right_2 = new BTMotor(RIGHT_JAG_PORT_2, true);
     }
     public void update(ControlBoard stick)
     {
