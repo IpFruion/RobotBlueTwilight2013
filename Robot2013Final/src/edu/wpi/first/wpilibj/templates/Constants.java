@@ -13,7 +13,9 @@ public interface Constants
 {
     //Jags
     public static final int LEFT_JAG_PORT = 1;
+    public static final int LEFT_JAG_PORT_2 = 6;
     public static final int RIGHT_JAG_PORT = 2;
+    public static final int RIGHT_JAG_PORT_2 = 7;
     public static final int SHOOTER_MOTOR_PORT = 3;
     public static final int LINEAR_SHOOTER_MOTOR1_PORT = 4;
     public static final int LINEAR_SHOOTER_MOTOR2_PORT = 5;
