@@ -16,12 +16,14 @@ public class LinearShooter extends BTShooter implements Constants {
     public BTMotor motShoot2;
     public Relay pitchMotor;
     public boolean currentState = false;
+    public Piston shootPiston;
     
     public void Shooter()
     {
         motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, true);
         motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, true);
         pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
+        shootPiston = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
     }
     public void update(ControlBoard cb)
     {
@@ -35,10 +37,11 @@ public class LinearShooter extends BTShooter implements Constants {
             currentState = !currentState;
         }
         if (currentState)
-        {
-            
+        {            
            motShoot1.setX(cb.getShootMotorSpeed());
            motShoot2.setX(cb.getShootMotorSpeed());
+           shootPiston.setPistonState(true);
+           shootPiston.setPistonState(false);
         }
         else
         {

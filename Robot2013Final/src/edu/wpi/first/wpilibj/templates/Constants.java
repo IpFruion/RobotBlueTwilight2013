@@ -27,6 +27,8 @@ public interface Constants
     //Solenoids
     public static final int SHIFTER_EXTEND_PORT = 4;
     public static final int SHIFTER_RETRACT_PORT = 3;
+    public static final int SHOOTER_EXTEND_PORT = 1;
+    public static final int SHOOTER_RETRACT_PORT = 2;
     
     //Relay
     public static final int COMP_RELAY_PORT = 1;
