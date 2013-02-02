@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
  *
  * @author alec
  */
-public class RadialShooter implements Constants {
+public class RadialShooter extends BTShooter implements Constants {
     
     public BTMotor motShoot;
     public Relay pitchMotor;

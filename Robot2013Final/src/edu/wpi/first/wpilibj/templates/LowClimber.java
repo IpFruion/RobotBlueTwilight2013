@@ -8,6 +8,6 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author alec
  */
-public class LowClimber{
+public class LowClimber extends BTClimber{
     
 }

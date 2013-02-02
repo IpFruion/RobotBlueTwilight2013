@@ -6,8 +6,8 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author alec
+ * @author Dlock
  */
-public class HighClimber extends BTClimber{
+public class BTShooter {
     
 }
