@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * @author Dlock
  */
 public abstract class BTClimber {
-   public abstract void update(Joystick rightStick); 
+   public abstract void update(ControlBoard cb); 
    public abstract void extend();
    public abstract void retract();
 }

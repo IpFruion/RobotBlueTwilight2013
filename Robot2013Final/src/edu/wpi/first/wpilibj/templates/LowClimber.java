@@ -19,11 +19,8 @@ public class LowClimber extends BTClimber{
         arm2 = new Piston(5, 6);
     }
     
-    public void update(Joystick rightStick) {
-        if (rightStick.getRawButton(10)) // button for extend arm
-            extend();
-        else if (rightStick.getRawButton(9)) // button for retract arm
-            retract();
+    public void update(ControlBoard cb) {
+        
     }
 
     public void extend() {
