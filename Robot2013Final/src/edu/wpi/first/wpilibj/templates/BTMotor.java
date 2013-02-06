@@ -13,29 +13,30 @@ import edu.wpi.first.wpilibj.Jaguar;
  */
 public class BTMotor {
     
-    private boolean isCANBus;
+    private boolean isCANBus = false;
     private CANJaguar CANMotor;
     private Jaguar PWMMotor;
     
     public BTMotor(int port, boolean isCan)
     {
+        isCANBus = isCan;
         if( port<=0 )
         {
             port = 1;
         }
-        if (isCan)
+        if (isCANBus)
         {
             try{
                 CANMotor = new CANJaguar(port);
             }
-            catch(Exception e){}
+            catch(Exception CANTimeoutException){
+                System.out.println("Error initialising CANJaguar for Shooter");
+            }
         }
         else
         {
             PWMMotor = new Jaguar(port);
         }
-        isCANBus = isCan;
-        
     }
     public void setX(double x)
     {
@@ -44,8 +45,9 @@ public class BTMotor {
             try{
                 CANMotor.setX(x);
             }
-            catch(Exception e){}
-            
+            catch(Exception CANTimeoutException){
+                System.out.println("Error setting CANJaguar speed");
+            }
         }
         else
         {

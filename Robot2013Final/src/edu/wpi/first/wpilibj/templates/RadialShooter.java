@@ -34,8 +34,8 @@ public class RadialShooter extends BTShooter implements Constants {
     }
     public void update(ControlBoard cb)
     {
-        setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
-        shoot(cb.canShoot());
+        setSpeed(true, cb.getShootMotorSpeed());
+        shoot(true);
     }
     public void shoot(boolean canShoot)
     {
@@ -49,7 +49,8 @@ public class RadialShooter extends BTShooter implements Constants {
         }
         else
         {
-            motShoot.setX(0);
+            double newSpeed = 0.0;
+            motShoot.setX(newSpeed);
         }
     }
     public boolean pitchSet(int centerY)
