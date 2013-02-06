@@ -4,10 +4,12 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import com.sun.squawk.debugger.Log;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 
 
@@ -24,18 +26,23 @@ public class RadialShooter extends BTShooter implements Constants {
     public DigitalInput highSensor;
     public AxisCamera a;
     public Piston shooter;
+    public CANJaguar canMotor;
     
-    public void RadialShooter()
+    public RadialShooter() throws CANTimeoutException
     {
-        motShoot = new BTMotor(SHOOTER_MOTOR_PORT, true);
-        pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
-        lowSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
-        highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
+        canMotor = new CANJaguar(SHOOTER_MOTOR_PORT);
+        //motShoot = new BTMotor(SHOOTER_MOTOR_PORT, true);
+        //pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
+        //lowSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
+        //highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
         shooter = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
     }
     public void update(ControlBoard cb)
     {
-        setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
+        if(canMotor == null) {
+            Log.log("Not working");
+        }
+        setSpeed(true, -.9);
         shoot(cb.canShoot());
     }
     public void shoot(boolean canShoot)
@@ -46,7 +53,11 @@ public class RadialShooter extends BTShooter implements Constants {
     {
         if (speedset)
         {
-            motShoot.setX(speed);
+            try {
+                canMotor.setX(speed);
+            } catch (CANTimeoutException ex) {
+                System.out.println("Motor not initializing");
+            }
         }
         else
         {

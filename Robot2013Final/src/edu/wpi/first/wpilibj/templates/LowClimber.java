@@ -15,7 +15,7 @@ public class LowClimber extends BTClimber{
     Piston arm2;
     
     public LowClimber() {
-        arm1 = new Piston(3, 4);
+        arm1 = new Piston(7, 8);
         arm2 = new Piston(5, 6);
     }
     
