@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 /**
  *
- * @author alec
+ * @author Sai V
+ * 
  */
 public class RadialShooter extends BTShooter implements Constants {
     
@@ -30,12 +31,12 @@ public class RadialShooter extends BTShooter implements Constants {
         pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
         lowSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
         highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
-        shooter = new Piston(SHIFTER_EXTEND_PORT, SHIFTER_RETRACT_PORT);
+        shooter = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
     }
     public void update(ControlBoard cb)
     {
-        setSpeed(true, cb.getShootMotorSpeed());
-        shoot(true);
+        setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
+        shoot(cb.canShoot());
     }
     public void shoot(boolean canShoot)
     {
@@ -49,8 +50,7 @@ public class RadialShooter extends BTShooter implements Constants {
         }
         else
         {
-            double newSpeed = 0.0;
-            motShoot.setX(newSpeed);
+            motShoot.setX(0);
         }
     }
     public boolean pitchSet(int centerY)

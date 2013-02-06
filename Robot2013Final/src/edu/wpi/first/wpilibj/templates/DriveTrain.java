@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 /**
  *
- * @author Tim
+ * @author Alec Pierce
  */
 public class DriveTrain implements Constants
 {
