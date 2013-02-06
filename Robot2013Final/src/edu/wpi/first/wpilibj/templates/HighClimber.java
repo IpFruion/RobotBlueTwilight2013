@@ -14,7 +14,7 @@ public class HighClimber extends BTClimber{
     Piston shortArm;
     Piston longArm;
     
-    public AlternateClimber() {
+    public HighClimber() {
         shortArm = new Piston(3, 4);
         longArm = new Piston(5, 6);
     }
@@ -29,19 +29,19 @@ public class HighClimber extends BTClimber{
     }
     
     public void extend() {
-        shortArm.set(true);
+        shortArm.setPistonState(true);
         wait(1);
-        longArm.set(true);
+        longArm.setPistonState(true);
     }
     
     public void extendShortArm() {
-        shortArm.set(true);
+        shortArm.setPistonState(true);
     }
 
     public void retract() {
        if(shortArm.get() && longArm.get()) {
-        shortArm.set(false);
-        longArm.set(false);
+        shortArm.setPistonState(false);
+        longArm.setPistonState(false);
         }
     }
     
