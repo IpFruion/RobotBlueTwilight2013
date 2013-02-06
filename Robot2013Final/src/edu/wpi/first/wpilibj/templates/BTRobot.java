@@ -43,8 +43,7 @@ public class BTRobot extends SimpleRobot {
         auto = new BTAutonomous();
         shoot = new RadialShooter();
     }
-    public void autonomous() {
-        
+    public void autonomous() { 
     }
 
     /**
