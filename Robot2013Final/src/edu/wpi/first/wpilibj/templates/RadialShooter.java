@@ -30,7 +30,7 @@ public class RadialShooter extends BTShooter implements Constants {
         pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
         lowSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
         highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
-        shooter = new Piston(SHIFTER_EXTEND_PORT, SHIFTER_RETRACT_PORT);
+        shooter = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
     }
     public void update(ControlBoard cb)
     {

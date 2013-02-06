@@ -41,6 +41,7 @@ public class BTRobot extends SimpleRobot {
         hc = new HighClimber();
         lc = new LowClimber();
         auto = new BTAutonomous();
+        shoot = new RadialShooter();
     }
     public void autonomous() {
         
@@ -54,7 +55,10 @@ public class BTRobot extends SimpleRobot {
         while(isOperatorControl())
         {
             drive.update(cb);
-            shoot.update(cb);
+            if (cb.xboxController.getRawButton(1))
+            {
+                shoot.update(cb);
+            }
         }
         comp.stop();
     }

@@ -39,7 +39,9 @@ public class DriveTrain implements Constants
         boolean isShift = stick.getShifterSetting();
         
         left.setX(leftValue);
+        left_2.setX(leftValue);
         right.setX(rightValue * -1);
+        right_2.setX(rightValue * -1);
         
         shifter.setPistonState(isShift);
         
