@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 /**
  *
- * @author alec
+ * @author Sai V
+ * 
  */
 public class RadialShooter extends BTShooter implements Constants {
     
