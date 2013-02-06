@@ -15,17 +15,13 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class BTMotor {
     
-    private boolean isCANBus;
+    private boolean isCANBus = true;
     private CANJaguar CANMotor;
     private Jaguar PWMMotor;
     
     public BTMotor(int port, boolean isCan)
     {
         isCANBus = isCan;
-        if( port<=0 )
-        {
-            port = 1;
-        }
         if (isCANBus)
         {
             //int maxTries = 0;
