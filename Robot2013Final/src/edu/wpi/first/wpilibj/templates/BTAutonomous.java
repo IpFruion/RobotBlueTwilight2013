@@ -6,7 +6,7 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Dlock
+ * @author Luke
  */
 public class BTAutonomous {
     
