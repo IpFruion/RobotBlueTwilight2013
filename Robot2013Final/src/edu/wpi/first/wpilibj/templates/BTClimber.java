@@ -4,10 +4,14 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  *
  * @author Dlock
  */
-public class BTClimber {
-    
+public abstract class BTClimber {
+   public abstract void update(Joystick rightStick); 
+   public abstract void extend();
+   public abstract void retract();
 }
