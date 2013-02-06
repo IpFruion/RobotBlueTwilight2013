@@ -25,18 +25,36 @@ public class HighClimber extends BTClimber implements Constants{
         
         if (cb.canClimb())
         {
-            
+            run();
         }
         
     }
-    
-    public void extend() {
+    public void run()
+    {
+        tilt();
+        highPull();
+        for (int i = 0; i<2; i++)
+        {
+            lowPull();
+            highPull();
+        }
+    }
+    public void tilt()
+    {
+        tiltPiston.setPistonState(true);
+        wait(500);
+        lowPull();
+        tiltPiston.setPistonState(false);
+        
+    }
+    public void lowPull() {
         shortArm.setPistonState(true);
-        wait(1);
-        longArm.setPistonState(true);
+        wait(1000);
+        shortArm.setPistonState(false);
+        wait(1000);
     }
     
-    public void extendShortArm() {
+    public void highPull() {
         shortArm.setPistonState(true);
     }
 
@@ -49,7 +67,7 @@ public class HighClimber extends BTClimber implements Constants{
     
     public void wait(int millis) {
         try {
-            Thread.sleep(millis*1000);
+            Thread.sleep(millis);
         } catch(Exception e) {
             
         }
