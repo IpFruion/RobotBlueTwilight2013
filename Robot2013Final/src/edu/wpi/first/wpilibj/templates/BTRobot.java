@@ -33,6 +33,9 @@ public class BTRobot extends SimpleRobot {
     public LowClimber lc;
     public BTAutonomous auto;
 
+    /**
+     * This is the Robot starting command
+     */
     public void robotInit()
     {
         cb = new ControlBoard();

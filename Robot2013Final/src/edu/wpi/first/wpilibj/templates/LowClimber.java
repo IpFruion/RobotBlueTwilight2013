@@ -29,13 +29,13 @@ public class LowClimber extends BTClimber{
     public void extend() {
         arm1.setPistonState(true);
         wait(1);
-        arm2.set(true);
+        arm2.setPistonState(true);
     }
 
     public void retract() {
        if(arm1.get() && arm2.get()) {
-        arm1.set(false);
-        arm2.set(false); 
+        arm1.setPistonState(false);
+        arm2.setPistonState(false); 
        }
     }
     
