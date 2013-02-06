@@ -12,5 +12,20 @@ import edu.wpi.first.wpilibj.Encoder;
  * @author Luke
  */
 public class BTAutonomous {
-    
+  public BTController stick;
+    public DriveTrain drive;
+    public CompressorInit comp;
+    public Timer timer;
+    public Gyro gyro;
+    public Encoder encoder;
+    int DRIVE_ENCODER_CHANNEL_A = 1;
+    int DRIVE_ENCODER_CHANNEL_B = 2;
+    public void robotInit()
+    {
+        stick = new BTController();
+        drive = new DriveTrain();
+        comp = new CompressorInit();
+        timer = new Timer();
+        encoder = new Encoder(DRIVE_ENCODER_CHANNEL_A, DRIVE_ENCODER_CHANNEL_B);
+    }  
 }
