@@ -27,30 +27,25 @@ public class LinearShooter extends BTShooter implements Constants {
     }
     public void update(ControlBoard cb)
     {
-        shoot(cb);
+        setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
+        shoot(cb.canShoot());
     }
-    public void shoot(ControlBoard cb)
+    public void setSpeed(boolean speedset, double speed)
     {
-        
-        if(cb.canShoot())
+        if (speedset)
         {
-            currentState = !currentState;
-        }
-        if (currentState)
-        {            
-           motShoot1.setX(cb.getShootMotorSpeed());
-           motShoot2.setX(cb.getShootMotorSpeed());
-           shootPiston.setPistonState(true);
-           shootPiston.setPistonState(false);
+            motShoot1.setX(speed);
+            motShoot2.setX(speed);
         }
         else
         {
-            try{
-                motShoot1.setX(0);
-                motShoot1.setX(0);}
-            catch(Exception e)
-            {}
+            motShoot1.setX(0);
+            motShoot2.setX(0);
         }
+    }
+    public void shoot(boolean canShoot)
+    {
+            shootPiston.setPistonState(canShoot);
     }
     public void pitch(boolean hitLimit)
     {

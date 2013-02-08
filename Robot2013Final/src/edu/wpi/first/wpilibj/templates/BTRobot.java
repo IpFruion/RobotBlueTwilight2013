@@ -29,7 +29,7 @@ public class BTRobot extends SimpleRobot {
     public ControlBoard cb;
     public DriveTrain drive;
     public CompressorInit comp;
-    public RadialShooter shoot;
+    public LinearShooter shoot;
 //    public HighClimber hc;
 //    public LowClimber lc;
 //    public BTAutonomous auto;
@@ -45,7 +45,7 @@ public class BTRobot extends SimpleRobot {
             //        hc = new HighClimber();
             //        lc = new LowClimber();
             //        auto = new BTAutonomous();
-        shoot = new RadialShooter();
+        shoot = new LinearShooter();
     }
     public void autonomous() { 
     }
@@ -57,7 +57,7 @@ public class BTRobot extends SimpleRobot {
         comp.run();
         while(isOperatorControl())
         {
-            drive.update(cb);
+           // drive.update(cb);
             shoot.update(cb);
         }
         comp.stop();
