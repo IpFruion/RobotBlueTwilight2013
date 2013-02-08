@@ -10,26 +10,26 @@ import edu.wpi.first.wpilibj.Joystick;
  *
  * @author alec
  */
-public class LowClimber extends BTClimber{
+public class LowClimber extends BTClimber implements Constants{
     Piston arm1;
     Piston arm2;
     
     public LowClimber() {
-        arm1 = new Piston(3, 4);
-        arm2 = new Piston(5, 6);
+        arm1 = new Piston(LOW_ARM1_EXTEND_PORT, LOW_ARM1_RETRACT_PORT);
+        arm2 = new Piston(LOW_ARM2_EXTEND_PORT, LOW_ARM2_RETRACT_PORT);
     }
     
-    public void update(Joystick rightStick) {
-        if (rightStick.getRawButton(10)) // button for extend arm
-            extend();
-        else if (rightStick.getRawButton(9)) // button for retract arm
-            retract();
+    public void update(ControlBoard cb) {
+        if (cb.canClimb())
+        {
+            lowPull();
+        }
     }
 
-    public void extend() {
+    public void lowPull() {
         arm1.setPistonState(true);
-        wait(1);
         arm2.setPistonState(true);
+        wait(1);
     }
 
     public void retract() {

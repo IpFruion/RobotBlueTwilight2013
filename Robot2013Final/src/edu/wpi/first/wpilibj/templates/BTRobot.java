@@ -12,6 +12,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,9 +30,9 @@ public class BTRobot extends SimpleRobot {
     public DriveTrain drive;
     public CompressorInit comp;
     public RadialShooter shoot;
-    public HighClimber hc;
-    public LowClimber lc;
-    public BTAutonomous auto;
+//    public HighClimber hc;
+//    public LowClimber lc;
+//    public BTAutonomous auto;
 
     /**
      * This is the Robot starting command
@@ -41,9 +42,9 @@ public class BTRobot extends SimpleRobot {
         cb = new ControlBoard();
         drive = new DriveTrain();
         comp = new CompressorInit();
-        hc = new HighClimber();
-        lc = new LowClimber();
-        auto = new BTAutonomous();
+            //        hc = new HighClimber();
+            //        lc = new LowClimber();
+            //        auto = new BTAutonomous();
         shoot = new RadialShooter();
     }
     public void autonomous() { 
@@ -57,10 +58,7 @@ public class BTRobot extends SimpleRobot {
         while(isOperatorControl())
         {
             drive.update(cb);
-            if (cb.xboxController.getRawButton(1))
-            {
-                shoot.update(cb);
-            }
+            shoot.update(cb);
         }
         comp.stop();
     }

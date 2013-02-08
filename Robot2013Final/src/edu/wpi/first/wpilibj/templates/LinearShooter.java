@@ -4,7 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Relay;
 
 /**
  *
@@ -18,7 +18,7 @@ public class LinearShooter extends BTShooter implements Constants {
     public boolean currentState = false;
     public Piston shootPiston;
     
-    public void Shooter()
+    public LinearShooter()
     {
         motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, true);
         motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, true);

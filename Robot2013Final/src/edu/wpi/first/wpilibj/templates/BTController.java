@@ -53,7 +53,14 @@ public class BTController {
         }
         return motorstate;
     }
-    
+    public boolean canClimb()
+    {
+        if (buttonDetector(xboxController.getRawButton(1)))
+        {
+            return true;
+        }
+        return false;
+    }
     public boolean buttonDetector(boolean isButton)
     {
         boolean currentState = isButton;

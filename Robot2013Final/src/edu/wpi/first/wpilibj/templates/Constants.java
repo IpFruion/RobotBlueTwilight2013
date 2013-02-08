@@ -29,6 +29,17 @@ public interface Constants
     public static final int SHIFTER_RETRACT_PORT = 3;
     public static final int SHOOTER_EXTEND_PORT = 1;
     public static final int SHOOTER_RETRACT_PORT = 2;
+    public static final int HIGH_SHORT_ARM_EXTEND_PORT = 5;
+    public static final int HIGH_SHORT_ARM_RETRACT_PORT = 6;
+    public static final int HIGH_LONG_EXTEND_PORT = 7;
+    public static final int HIGH_LONG_RETRACT_PORT = 8;
+    public static final int HIGH_TILT_EXTEND_PORT = 9;
+    public static final int HIGH_TILT_RETRACT_PORT = 10;
+    public static final int LOW_ARM1_EXTEND_PORT = 11;
+    public static final int LOW_ARM1_RETRACT_PORT = 12;
+    public static final int LOW_ARM2_EXTEND_PORT = 13;
+    public static final int LOW_ARM2_RETRACT_PORT = 14;
+    
     
     //Relay
     public static final int COMP_RELAY_PORT = 1;
