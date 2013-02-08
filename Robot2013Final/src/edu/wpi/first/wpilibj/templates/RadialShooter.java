@@ -24,7 +24,6 @@ public class RadialShooter extends BTShooter implements Constants {
     public Relay pitchMotor;
     public DigitalInput lowSensor;
     public DigitalInput highSensor;
-    public AxisCamera a;
     public Piston shooter;
     
     public RadialShooter() 
@@ -41,7 +40,7 @@ public class RadialShooter extends BTShooter implements Constants {
         if(motShoot == null) {
             Log.log("Not working");
         }
-        setSpeed(true, -.9);
+        setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
         shoot(cb.canShoot());
     }
     public void shoot(boolean canShoot)
