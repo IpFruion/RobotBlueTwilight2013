@@ -26,12 +26,11 @@ public class RadialShooter extends BTShooter implements Constants {
     public DigitalInput highSensor;
     public AxisCamera a;
     public Piston shooter;
-    public CANJaguar canMotor;
     
-    public RadialShooter() throws CANTimeoutException
+    public RadialShooter() 
     {
-        canMotor = new CANJaguar(SHOOTER_MOTOR_PORT);
-        //motShoot = new BTMotor(SHOOTER_MOTOR_PORT, true);
+        //canMotor = new CANJaguar(SHOOTER_MOTOR_PORT);
+        motShoot = new BTMotor(SHOOTER_MOTOR_PORT, true);
         //pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
         //lowSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
         //highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
@@ -39,7 +38,7 @@ public class RadialShooter extends BTShooter implements Constants {
     }
     public void update(ControlBoard cb)
     {
-        if(canMotor == null) {
+        if(motShoot == null) {
             Log.log("Not working");
         }
         setSpeed(true, -.9);
@@ -53,11 +52,7 @@ public class RadialShooter extends BTShooter implements Constants {
     {
         if (speedset)
         {
-            try {
-                canMotor.setX(speed);
-            } catch (CANTimeoutException ex) {
-                System.out.println("Motor not initializing");
-            }
+            motShoot.setX(speed);
         }
         else
         {

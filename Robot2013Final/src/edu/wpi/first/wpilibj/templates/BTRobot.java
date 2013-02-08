@@ -39,7 +39,6 @@ public class BTRobot extends SimpleRobot {
      */
     public void robotInit()
     {
-        try { 
         cb = new ControlBoard();
         drive = new DriveTrain();
         comp = new CompressorInit();
@@ -47,9 +46,6 @@ public class BTRobot extends SimpleRobot {
             //        lc = new LowClimber();
             //        auto = new BTAutonomous();
         shoot = new RadialShooter();
-        } catch (CANTimeoutException ex) {
-            ex.printStackTrace();
-        }
     }
     public void autonomous() { 
     }
@@ -62,10 +58,7 @@ public class BTRobot extends SimpleRobot {
         while(isOperatorControl())
         {
             drive.update(cb);
-            if (cb.xboxController.getRawButton(1))
-            {
-                shoot.update(cb);
-            }
+            shoot.update(cb);
         }
         comp.stop();
     }
