@@ -19,7 +19,7 @@ public class BTController {
     Joystick xboxController;
     public BTController()
     {
-        xboxController = new Joystick(1);
+        xboxController = new Joystick(3);
     }
     public boolean getShifterSetting() {
         if(buttonDetector(xboxController.getRawButton(6)))
@@ -47,7 +47,7 @@ public class BTController {
     }
 
     public boolean isShooterMotorOn() {
-        if(xboxController.getRawButton(4))
+        if(buttonDetector(xboxController.getRawButton(4)))
         {
             motorstate = !motorstate;
         }
@@ -55,7 +55,7 @@ public class BTController {
     }
     public boolean canClimb()
     {
-        if (xboxController.getRawButton(1))
+        if (buttonDetector(xboxController.getRawButton(1)))
         {
             return true;
         }

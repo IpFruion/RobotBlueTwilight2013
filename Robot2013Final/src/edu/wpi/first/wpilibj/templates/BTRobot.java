@@ -32,7 +32,7 @@ public class BTRobot extends SimpleRobot {
     public CompressorInit comp;
     public LinearShooter shoot;
 //    public HighClimber hc;
-    public LowClimber lc;
+//    public LowClimber lc;
 //    public BTAutonomous auto;
 
     /**
@@ -40,11 +40,12 @@ public class BTRobot extends SimpleRobot {
      */
     public void robotInit()
     {
+        System.out.println("In Robot Init");
         cb = new ControlBoard();
         drive = new DriveTrain();
         comp = new CompressorInit();
             //        hc = new HighClimber();
-        lc = new LowClimber();
+            //        lc = new LowClimber();
             //        auto = new BTAutonomous();
         shoot = new LinearShooter();
     }
@@ -55,13 +56,13 @@ public class BTRobot extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
+        System.out.println("In Operator Control");
         comp.run();
         
         while(isOperatorControl())
         {
-            drive.update(cb);
+           // drive.update(cb);
             shoot.update(cb);
-            lc.update(cb);
         }
         comp.stop();
     }
