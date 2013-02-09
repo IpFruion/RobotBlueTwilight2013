@@ -10,51 +10,34 @@ import edu.wpi.first.wpilibj.Joystick;
  *
  * @author alec
  */
-public class HighClimber extends BTClimber implements Constants{
+public class HighClimber extends BTClimber{
     Piston shortArm;
     Piston longArm;
-    Piston tiltPiston;
     
     public HighClimber() {
-        shortArm = new Piston(HIGH_SHORT_ARM_EXTEND_PORT, HIGH_SHORT_ARM_RETRACT_PORT);
-        longArm = new Piston(HIGH_LONG_EXTEND_PORT, HIGH_LONG_RETRACT_PORT);
-        tiltPiston = new Piston(HIGH_TILT_EXTEND_PORT, HIGH_TILT_RETRACT_PORT);
+        shortArm = new Piston(3, 4);
+        longArm = new Piston(5, 6);
     }
     
-    public void update(ControlBoard cb) {
-        
-        if (cb.canClimb())
-        {
-            run();
+    public void update(Joystick rightStick) {
+        if (rightStick.getRawButton(10)) { // button for extend arm
+            extend();
         }
-        
-    }
-    public void run()
-    {
-        tilt();
-        highPull();
-        for (int i = 0; i<2; i++)
-        {
-            lowPull();
-            highPull();
+        else if (rightStick.getRawButton(9)) { // button for retract arm
+            retract(); 
+        }
+        else if (rightStick.getRawButton(11)) { // button for extend short arm last level
+            extendShortArm();
         }
     }
-    public void tilt()
-    {
-        tiltPiston.setPistonState(true);
-        wait(500);
-        lowPull();
-        tiltPiston.setPistonState(false);
-        
-    }
-    public void lowPull() {
+    
+    public void extend() {
         shortArm.setPistonState(true);
-        wait(1000);
-        shortArm.setPistonState(false);
-        wait(1000);
+        wait(1);
+        longArm.setPistonState(true);
     }
     
-    public void highPull() {
+    public void extendShortArm() {
         shortArm.setPistonState(true);
     }
 
@@ -67,7 +50,7 @@ public class HighClimber extends BTClimber implements Constants{
     
     public void wait(int millis) {
         try {
-            Thread.sleep(millis);
+            Thread.sleep(millis*1000);
         } catch(Exception e) {
             
         }

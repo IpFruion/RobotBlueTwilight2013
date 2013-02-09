@@ -4,10 +4,8 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
-import com.sun.squawk.debugger.Log;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
@@ -15,27 +13,20 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class BTMotor {
     
-    private boolean isCANBus = true;
+    private boolean isCANBus = false;
     private CANJaguar CANMotor;
     private Jaguar PWMMotor;
     
     public BTMotor(int port, boolean isCan)
     {
         isCANBus = isCan;
-        if (isCANBus)
-        {
-            //int maxTries = 0;
-            //while(CANMotor == null && maxTries < 10)
-            //{
-                try{
-                    CANMotor = new CANJaguar(port);
-                }
-                catch(Exception CANTimeoutException){
-                    Log.log("Error initialising CANJaguar");
-                }
-            //}
-            //if (maxTries >= 10)
-                //Log.log("CANJaguar(" + port + ") failed to initialize.");
+        if (isCANBus) {
+            try{
+                CANMotor = new CANJaguar(port);
+            }
+            catch(Exception CANTimeoutException){
+                System.out.println("Error initialising CANJaguar for Shooter");
+            }
         }
         else
         {
@@ -50,7 +41,7 @@ public class BTMotor {
                 CANMotor.setX(x);
             }
             catch(Exception CANTimeoutException){
-                Log.log("Error setting CANJaguar speed");
+                System.out.println("Error setting CANJaguar speed");
             }
         }
         else
