@@ -10,11 +10,25 @@ package edu.wpi.first.wpilibj.templates;
 public class BTAutonomous{
     int currentStep;
     public void update(ControlBoard cb){
-  //drive(howLong)
-  //turn(degrees)
-  //shoot()
-  //isStepDone()
-   //stop()
-  
+
+    }
+
+    public void drive(int duration){
+
+    }
+    public void turn(int degrees){
+    
+    
+    }
+    public void shoot(){
+    
+    
+    }
+    public void isStepDone(){
+    
+    
+    }
+    public void stop(){
+    
     }
 }
