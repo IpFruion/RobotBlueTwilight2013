@@ -20,6 +20,7 @@ public interface Constants
     public static final int LINEAR_SHOOTER_MOTOR1_PORT = 3;
     public static final int LINEAR_SHOOTER_MOTOR2_PORT = 4;
 
+    
     //Joysticks
     public static final int LEFT_STICK_PORT = 1;
     public static final int RIGHT_STICK_PORT = 2;

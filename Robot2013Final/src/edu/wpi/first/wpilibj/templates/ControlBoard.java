@@ -10,13 +10,12 @@ package edu.wpi.first.wpilibj.templates;
  */
 public class ControlBoard extends BTController {
     
-    public ControlBoard()
-    {
+    public ControlBoard() {
         
     }
-    public double getShootMotorSpeed()
-    {
+    
+    public double getShootMotorSpeed() {
         //add slider for adjust speed
-        return 1.0;
+        return -1.0;
     }
 }

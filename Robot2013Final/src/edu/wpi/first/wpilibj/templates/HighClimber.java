@@ -16,6 +16,7 @@ public class HighClimber extends BTClimber implements Constants{
     Piston tiltPiston;
     
     public HighClimber() {
+        
         shortArm = new Piston(HIGH_SHORT_ARM_EXTEND_PORT, HIGH_SHORT_ARM_RETRACT_PORT);
         longArm = new Piston(HIGH_LONG_EXTEND_PORT, HIGH_LONG_RETRACT_PORT);
         tiltPiston = new Piston(HIGH_TILT_EXTEND_PORT, HIGH_TILT_RETRACT_PORT);
