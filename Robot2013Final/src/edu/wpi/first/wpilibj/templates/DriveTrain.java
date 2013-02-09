@@ -22,10 +22,10 @@ public class DriveTrain implements Constants
     {
         
         shifter = new Piston(SHIFTER_EXTEND_PORT,SHIFTER_RETRACT_PORT);
-        left = new BTMotor(LEFT_JAG_PORT, true);
-        left_2 = new BTMotor(LEFT_JAG_PORT_2, true);
-        right = new BTMotor(RIGHT_JAG_PORT, true);
-        right_2 = new BTMotor(RIGHT_JAG_PORT_2, true);
+        left = new BTMotor(LEFT_JAG_PORT, false);
+        //left_2 = new BTMotor(LEFT_JAG_PORT_2, true);
+        right = new BTMotor(RIGHT_JAG_PORT, false);
+        //right_2 = new BTMotor(RIGHT_JAG_PORT_2, true);
     }
     public void update(ControlBoard stick)
     {
@@ -34,9 +34,9 @@ public class DriveTrain implements Constants
         boolean isShift = stick.getShifterSetting();
         
         left.setX(leftValue);
-        left_2.setX(leftValue);
+        //left_2.setX(leftValue);
         right.setX(rightValue * -1);
-        right_2.setX(rightValue * -1);
+        //right_2.setX(rightValue * -1);
         
         shifter.setPistonState(isShift);
         
