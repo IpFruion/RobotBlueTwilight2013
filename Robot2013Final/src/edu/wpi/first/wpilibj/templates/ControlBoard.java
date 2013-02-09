@@ -6,9 +6,12 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Dlock
+ * @author Alec Pierce
  */
 public class ControlBoard extends BTController {
+    
+    private DriveInfo left;
+    private DriveInfo right;
     
     public ControlBoard() {
         
@@ -17,5 +20,16 @@ public class ControlBoard extends BTController {
     public double getShootMotorSpeed() {
         //add slider for adjust speed
         return -1.0;
+    }
+    
+    public DriveInfo getDriveLeft(){
+        return left;
+    }
+    
+    public DriveInfo getDriveRight(){
+        return right;
+    }
+    public void setDrive(DriveInfo left, DriveInfo right){
+        
     }
 }
