@@ -1,0 +1,13 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.xml
+/RobotBlueTwilight2013Drive/nbproject/private/
+/RobotBlueTwilight2013Drive/build/
+/RobotBlueTwilight2013Climb/build/
+/RobotBlueTwilight2013Climb/nbproject/private/
+/RobotBlueTwilight2013Final/build/
+/RobotBlueTwilight2013Shooter/nbproject/private/
