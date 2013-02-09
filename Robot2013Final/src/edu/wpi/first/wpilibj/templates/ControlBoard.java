@@ -3,12 +3,14 @@
  * and open the template in the editor.
  */
 package edu.wpi.first.wpilibj.templates;
-
 /**
  *
- * @author Dlock
- */
-public class ControlBoard extends BTController {
+ * @author Alec Pierce
+ */ 
+public class ControlBoard extends BTController implements DriveInfo{
+    
+    private DriveInfo left;
+    private DriveInfo right;
     
     public ControlBoard()
     {
@@ -17,6 +19,17 @@ public class ControlBoard extends BTController {
     public double getShootMotorSpeed()
     {
         //add slider for adjust speed
-        return 1.0;
+        return .9;
     }
+    public DriveInfo getDriveLeft(){
+        //get ints for direction, percent, and duration for left 
+        return left;
+    }
+    public DriveInfo getDriveRight(){
+        //gets ints for direction, percent, and duration for right
+        return right;
+    }
+    public void setDrive(DriveInfo left, DriveInfo right){
+        //sets ints to what we want them to be
+    } 
 }
