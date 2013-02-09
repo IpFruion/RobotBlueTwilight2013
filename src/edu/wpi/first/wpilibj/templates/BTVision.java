@@ -71,7 +71,7 @@ public class BTVision {
         cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 500, 65535, false);
     }
 
-    public void update() {
+    public void update(ControlBoard cb) {
             try {
                 /**
                  * Do the image capture with the camera and apply the algorithm described above. This
@@ -124,7 +124,7 @@ public class BTVision {
                 }
                 
                 centerRange = Math.abs(target[0].centerMassX - 160.);
-                int bestTarget;
+                int bestTarget = 0;
                 for (int i = 0; i < target.length; i++)
                 {
                     if(Math.abs(160 - target[i].centerMassX) < centerRange)
@@ -133,6 +133,9 @@ public class BTVision {
                         bestTarget = i;
                     }
                 }
+                
+                targetingAdjustments(target[bestTarget]);
+                //TODO: make robot shoot
                 /**
                  * all images in Java must be freed after they are used since they are allocated out
                  * of C data structures. Not calling free() will cause the memory to accumulate over
@@ -148,6 +151,31 @@ public class BTVision {
                 ex.printStackTrace();
             }
         }
+    
+    /**
+     * Tells the control board what the necessary adjustments are to hit the optimal target.
+     * 
+     * @param tg The target you want to hit
+     */
+    //TODO: add overrides in case adjustments are impractical/impossible
+    public void targetingAdjustments(Target tg)
+    {
+        double lower = 140, upper = 180; //These should be fixed once we figure out how
+        //Calculate upper, lower bounds for x center of mass
+        if (tg.centerMassX < lower)
+        {
+            //calculate how much to rotate
+            //tell controlboard to rotate robot by that much
+        }
+        else if (tg.centerMassY > upper)
+        {
+            //calculate how much to rotate
+            //tell controlboard to rotate robot by that much
+        }
+        
+        //calculate distance/speed of motors needed based on tg.centerMassY
+        //tell control board to change whatever is necessary
+    }
     
     /**
      * Computes the estimated distance to a target using the height of the particle in the image. For more information and graphics
