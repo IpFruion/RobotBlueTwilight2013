@@ -27,7 +27,7 @@ public class RadialShooter extends BTShooter implements Constants {
     
     public RadialShooter()
     {
-        motShoot = new BTMotor(SHOOTER_MOTOR_PORT, true);
+        motShoot = new BTMotor(RADIAL_SHOOTER_MOTOR_PORT, true);
         pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
         //lowSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
         //highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);

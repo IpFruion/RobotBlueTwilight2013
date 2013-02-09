@@ -56,7 +56,6 @@ public class BTRobot extends SimpleRobot {
      */
     public void operatorControl() {
         comp.run();
-        
         while(isOperatorControl())
         {
             drive.update(cb);
