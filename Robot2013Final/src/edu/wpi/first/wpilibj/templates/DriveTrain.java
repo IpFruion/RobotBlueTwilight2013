@@ -20,7 +20,7 @@ public class DriveTrain implements Constants
     Piston shifter;
     public DriveTrain()
     {
-        
+        //YOU NEED TO HAVE IT FOR BOTH ROBOTS!!!! so canbus and pwm and 2 motors not 4
         shifter = new Piston(SHIFTER_EXTEND_PORT,SHIFTER_RETRACT_PORT);
         left = new BTMotor(LEFT_JAG_PORT, true);
         left_2 = new BTMotor(LEFT_JAG_PORT_2, true);

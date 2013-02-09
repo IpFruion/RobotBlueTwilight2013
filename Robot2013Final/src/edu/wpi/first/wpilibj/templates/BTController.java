@@ -47,7 +47,7 @@ public class BTController {
     }
 
     public boolean isShooterMotorOn() {
-        if(buttonDetector(xboxController.getRawButton(4)))
+        if(xboxController.getRawButton(4))
         {
             motorstate = !motorstate;
         }
@@ -55,7 +55,7 @@ public class BTController {
     }
     public boolean canClimb()
     {
-        if (buttonDetector(xboxController.getRawButton(1)))
+        if (xboxController.getRawButton(1))
         {
             return true;
         }
