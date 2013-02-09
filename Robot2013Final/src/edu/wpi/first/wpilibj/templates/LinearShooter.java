@@ -27,7 +27,7 @@ public class LinearShooter extends BTShooter implements Constants {
     }
     public void update(ControlBoard cb)
     {
-        setSpeed(true, cb.getShootMotorSpeed());
+        setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
         shoot(cb.canShoot());
     }
     public void shoot(boolean canShoot)
@@ -35,13 +35,6 @@ public class LinearShooter extends BTShooter implements Constants {
         if (canShoot) {            
            shootPiston.setPistonState(true);
            shootPiston.setPistonState(false);
-        }
-        else {
-            try {
-                killShot();
-            } catch(Exception e) {
-                Log.log("Cannot set linear shooter to 0");
-            }
         }
     }
     
