@@ -1,5 +1,6 @@
 package edu.wpi.first.wpilibj.templates;
 
+import com.sun.squawk.debugger.Log;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.*;
@@ -87,7 +88,6 @@ public class BTVision {
                 Scores scores[] = new Scores[filteredImage.getNumberParticles()];
                 Target target[] = new Target[filteredImage.getNumberParticles()];
                 
-                System.out.println("Scores");
                 for (int i = 0; i < scores.length; i++) {
                     ParticleAnalysisReport report = filteredImage.getParticleAnalysisReport(i);
                     scores[i] = new Scores();
@@ -105,19 +105,18 @@ public class BTVision {
                         target[i].centerMassX = report.center_mass_x_normalized;
                         target[i].centerMassY = report.center_mass_y_normalized;
                         target[i].distance = computeDistance(thresholdImage, report, i, false);
-                        System.out.println("particle: " + i + "is a High Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
-			System.out.println("Distance: " + computeDistance(thresholdImage, report, i, false));
+                        //target is high goal, sets Target variables
                     } else if (scoreCompare(scores[i], true)) {
                         target[i].isTarget = true;
                         target[i].isHigh = false;
                         target[i].centerMassX = report.center_mass_x_normalized;
                         target[i].centerMassY = report.center_mass_y_normalized;
                         target[i].distance = computeDistance(thresholdImage, report, i, false);
-			System.out.println("particle: " + i + "is a Middle Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
-			System.out.println("Distance: " + computeDistance(thresholdImage, report, i, true));
+                        //target is middle goal, sets Target variables
                     } else {
                         target[i].isTarget = false;
-                        System.out.println("particle: " + i + "is not a goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+                        target[i].centerMassX = -10000.;
+                        //target is not a target
                     }
 			System.out.println("rect: " + scores[i].rectangularity + "ARinner: " + scores[i].aspectRatioInner);
 			System.out.println("ARouter: " + scores[i].aspectRatioOuter + "xEdge: " + scores[i].xEdge + "yEdge: " + scores[i].yEdge);	
@@ -125,30 +124,31 @@ public class BTVision {
                 
                 centerRange = Math.abs(target[0].centerMassX - 160.);
                 int bestTarget = 0;
-                for (int i = 0; i < target.length; i++)
-                {
-                    if(Math.abs(160 - target[i].centerMassX) < centerRange)
-                    {
+                for (int i = 0; i < target.length; i++) {
+                    if(Math.abs(160 - target[i].centerMassX) < centerRange) {
                         centerRange = Math.abs(160 - target[i].centerMassX);
                         bestTarget = i;
                     }
                 }
-                
-                targetingAdjustments(target[bestTarget]);
-                //TODO: make robot shoot
+                if (target[bestTarget].centerMassX > 0.) {
+                    targetingAdjustments(target[bestTarget]);
+                }
+                else {
+                    Log.log("No targets found");
+                }
                 /**
                  * all images in Java must be freed after they are used since they are allocated out
                  * of C data structures. Not calling free() will cause the memory to accumulate over
-                 * each pass of this loop.
+                 * each pass.
                  */
                 filteredImage.free();
                 convexHullImage.free();
                 thresholdImage.free();
                 image.free();
             } catch (AxisCameraException ex) {        // this is needed if the camera.getImage() is called
-                ex.printStackTrace();
+                Log.log("Axis Camera Exception, error targeting");
             } catch (NIVisionException ex) {
-                ex.printStackTrace();
+                Log.log("NIVision Exception, error targeting");
             }
         }
     
@@ -158,23 +158,22 @@ public class BTVision {
      * @param tg The target you want to hit
      */
     //TODO: add overrides in case adjustments are impractical/impossible
-    public void targetingAdjustments(Target tg)
-    {
+    public void targetingAdjustments(Target tg) {
         double lower = 140, upper = 180; //These should be fixed once we figure out how
         //Calculate upper, lower bounds for x center of mass
-        if (tg.centerMassX < lower)
-        {
+        if (tg.centerMassX < lower) {
             //calculate how much to rotate
             //tell controlboard to rotate robot by that much
         }
-        else if (tg.centerMassY > upper)
-        {
+        else if (tg.centerMassY > upper) {
             //calculate how much to rotate
             //tell controlboard to rotate robot by that much
         }
         
         //calculate distance/speed of motors needed based on tg.centerMassY
         //tell control board to change whatever is necessary
+        
+        //TODO: Robot.shoot
     }
     
     /**
