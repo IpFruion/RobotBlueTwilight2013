@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -47,7 +48,7 @@ public class BTController {
     }
 
     public boolean isShooterMotorOn() {
-        if(buttonDetector(xboxController.getRawButton(4)))
+        if(xboxController.getRawButton(4))
         {
             motorstate = !motorstate;
         }
@@ -55,7 +56,7 @@ public class BTController {
     }
     public boolean canClimb()
     {
-        if (buttonDetector(xboxController.getRawButton(1)))
+        if (xboxController.getRawButton(1))
         {
             return true;
         }
@@ -71,5 +72,4 @@ public class BTController {
         lastButtonState = currentState;
         return false;
     }
-    
 }
