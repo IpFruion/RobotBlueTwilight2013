@@ -35,7 +35,7 @@ public class RadialShooter extends BTShooter implements Constants {
     }
     
     public void update(ControlBoard cb) {
-        setSpeed(true, cb.getShootMotorSpeed());
+        setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
         shoot(cb.canShoot());
     }
     
