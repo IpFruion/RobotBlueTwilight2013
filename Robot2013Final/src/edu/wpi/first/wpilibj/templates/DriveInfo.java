@@ -8,7 +8,7 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author alec
  */
-public interface DriveInfo {
+public class DriveInfo {
 //These are examples for the int
     //+ or - int
     public int direction = 1;
