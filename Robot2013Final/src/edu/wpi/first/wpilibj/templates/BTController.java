@@ -19,7 +19,7 @@ public class BTController {
     Joystick xboxController;
     public BTController()
     {
-        xboxController = new Joystick(1);
+        xboxController = new Joystick(3);
     }
     public boolean getShifterSetting() {
         if(buttonDetector(xboxController.getRawButton(6)))

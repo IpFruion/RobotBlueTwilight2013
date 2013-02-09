@@ -17,6 +17,6 @@ public class ControlBoard extends BTController {
     public double getShootMotorSpeed()
     {
         //add slider for adjust speed
-        return -.9;
+        return .9;
     }
 }

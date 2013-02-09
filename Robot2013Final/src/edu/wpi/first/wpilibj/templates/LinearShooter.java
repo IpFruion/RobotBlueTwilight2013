@@ -20,8 +20,8 @@ public class LinearShooter extends BTShooter implements Constants {
     
     public LinearShooter()
     {
-        motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, true);
-        motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, true);
+        motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, false);
+        motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, false);
         pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
         shootPiston = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
     }

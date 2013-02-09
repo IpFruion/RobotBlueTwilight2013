@@ -10,6 +10,7 @@ package edu.wpi.first.wpilibj.templates;
 
 
 
+import com.sun.squawk.debugger.Log;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.can.CANTimeoutException;
@@ -39,6 +40,7 @@ public class BTRobot extends SimpleRobot {
      */
     public void robotInit()
     {
+        System.out.println("In Robot Init");
         cb = new ControlBoard();
         drive = new DriveTrain();
         comp = new CompressorInit();
@@ -54,7 +56,9 @@ public class BTRobot extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
+        System.out.println("In Operator Control");
         comp.run();
+        
         while(isOperatorControl())
         {
            // drive.update(cb);
