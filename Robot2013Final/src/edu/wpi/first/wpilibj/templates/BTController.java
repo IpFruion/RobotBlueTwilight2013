@@ -1,4 +1,3 @@
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -20,7 +19,7 @@ public class BTController {
     Joystick xboxController;
     public BTController()
     {
-        xboxController = new Joystick(3);
+        xboxController = new Joystick(1);
     }
     public boolean getShifterSetting() {
         if(buttonDetector(xboxController.getRawButton(6)))
@@ -72,4 +71,5 @@ public class BTController {
         lastButtonState = currentState;
         return false;
     }
+    
 }

@@ -10,8 +10,10 @@ package edu.wpi.first.wpilibj.templates;
 
 
 
+import com.sun.squawk.debugger.Log;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,23 +30,25 @@ public class BTRobot extends SimpleRobot {
     public ControlBoard cb;
     public DriveTrain drive;
     public CompressorInit comp;
-    public RadialShooter shoot;
-    public HighClimber hc;
+    public LinearShooter shoot;
+//    public HighClimber hc;
     public LowClimber lc;
-    public BTAutonomous auto;
+//    public BTAutonomous auto;
 
+    /**
+     * This is the Robot starting command
+     */
     public void robotInit()
     {
         cb = new ControlBoard();
         drive = new DriveTrain();
         comp = new CompressorInit();
-        //hc = new HighClimber();
-        //lc = new LowClimber();
-        //auto = new BTAutonomous();
-        shoot = new RadialShooter();
+            //        hc = new HighClimber();
+        lc = new LowClimber();
+            //        auto = new BTAutonomous();
+        shoot = new LinearShooter();
     }
-    public void autonomous() {
-        
+    public void autonomous() { 
     }
 
     /**
@@ -52,21 +56,12 @@ public class BTRobot extends SimpleRobot {
      */
     public void operatorControl() {
         comp.run();
+        
         while(isOperatorControl())
         {
             drive.update(cb);
-            if (cb.xboxController.getRawButton(1)) {
-                shoot.update(cb);
-            }
-            else if (cb.xboxController.getRawButton(2)) {
-                shoot.killShot();
-            }
-            else if (cb.xboxController.getRawButton(3)) {
-                shoot.shoot(false);
-            }
-            else if (cb.xboxController.getRawButton(4)) {
-                shoot.shoot(true);
-            }
+            shoot.update(cb);
+            lc.update(cb);
         }
         comp.stop();
     }
