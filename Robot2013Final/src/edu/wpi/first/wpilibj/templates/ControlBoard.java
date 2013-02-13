@@ -15,6 +15,7 @@ public class ControlBoard {
     private DriveInfo right;
     private ShooterInfo shoot;
     private BTController controller;
+    private ClimberInfo climber;
     DigitalInput shooter_switch;
     DigitalInput climber_switch;
     DigitalInput dt_switch;
@@ -32,6 +33,7 @@ public class ControlBoard {
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
         left.percent = controller.getLMotorSpeed();
         right.percent = controller.getRMotorSpeed();
+        climber.canClimb = controller.canClimb();
     }
     
     public boolean getShooterSetting() {
@@ -67,13 +69,20 @@ public class ControlBoard {
     public DriveInfo getDriveRight(){
         return right;
     }
+    
+    public ClimberInfo getClimber(){
+        return climber;
+    }
+    
     public void setDrive(DriveInfo leftTemp, DriveInfo rightTemp){
         left = leftTemp;
         right = rightTemp;
     }
+    
     public void setShooter(ShooterInfo shootInfo){
         shoot = shootInfo;
     }
+    
     public ShooterInfo getShooter(){
         return shoot;
     }

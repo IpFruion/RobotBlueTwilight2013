@@ -14,7 +14,7 @@ public class HighClimber implements Constants, IClimber{
     Piston shortArm;
     Piston longArm;
     Piston tiltPiston;
-    
+    ClimberInfo climbInfo;
     public HighClimber() {
         
         shortArm = new Piston(HIGH_SHORT_ARM_EXTEND_PORT, HIGH_SHORT_ARM_RETRACT_PORT);
@@ -23,8 +23,8 @@ public class HighClimber implements Constants, IClimber{
     }
     
     public void update(ControlBoard cb) {
-        
-        if (cb.canClimb())
+        climbInfo = cb.getClimber();
+        if (climbInfo.canClimb)
         {
             run();
         }

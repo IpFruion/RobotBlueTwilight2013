@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class LowClimber implements Constants, IClimber{
     Piston arm1;
+    ClimberInfo climbInfo;
     //Piston arm2;
     
     public LowClimber() {
@@ -20,7 +21,8 @@ public class LowClimber implements Constants, IClimber{
     }
     
     public void update(ControlBoard cb) {
-        if (cb.canClimb())
+        climbInfo = cb.getClimber();
+        if (climbInfo.canClimb)
         {
             lowPull();
             wait(1000);
