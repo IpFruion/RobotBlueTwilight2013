@@ -25,6 +25,10 @@ public class ControlBoard extends BTController {
         dt_switch = new DigitalInput(3);
     }
     
+    public void update(){
+        
+    }
+    
     public boolean getShooterSetting() {
         if(shooter_switch.get()) {
             return true; // radial shooter
@@ -45,8 +49,7 @@ public class ControlBoard extends BTController {
         }
         return false; // PWM Drive Train
     }
-    
-   
+     
     public double getShootMotorSpeed() {
         //add slider for adjust speed
         return -1.0;

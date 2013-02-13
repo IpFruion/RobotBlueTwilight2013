@@ -19,9 +19,8 @@ public class PWMDriveTrain implements Constants, IDrivetrain {
         
         shifter = new Piston(SHIFTER_EXTEND_PORT,SHIFTER_RETRACT_PORT);
         left = new BTMotor(LEFT_JAG_PORT, false);
-        left_2 = new BTMotor(LEFT_JAG_PORT_2, false);
         right = new BTMotor(RIGHT_JAG_PORT, false);
-        right_2 = new BTMotor(RIGHT_JAG_PORT_2, false);
+        
     }
     public void update(ControlBoard stick)
     {
@@ -30,9 +29,7 @@ public class PWMDriveTrain implements Constants, IDrivetrain {
         boolean isShift = stick.getShifterSetting();
         
         left.setX(leftValue);
-        left_2.setX(leftValue);
         right.setX(rightValue * -1);
-        right_2.setX(rightValue * -1);
         
         shifter.setPistonState(isShift);
         
