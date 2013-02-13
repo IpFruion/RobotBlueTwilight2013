@@ -7,7 +7,7 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Dlock
+ * @author Derrick 
  */
 public abstract class BTClimber {
    public abstract void update(ControlBoard cb); 
