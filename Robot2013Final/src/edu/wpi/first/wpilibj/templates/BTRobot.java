@@ -32,7 +32,7 @@ public class BTRobot extends SimpleRobot {
     private IShooter shoot;
     private IClimber climb;
     private BTVision vi;
-
+    private BTAutonomous auto;
     /**
      * This is the Robot starting command
      */
@@ -45,10 +45,7 @@ public class BTRobot extends SimpleRobot {
         climb = btf.createClimber(cb);
         comp = new CompressorInit();
         vi = new BTVision();
-        
-            //        hc = new HighClimber();
-       
-            //        auto = new BTAutonomous();
+        auto = new BTAutonomous();
     }
     public void autonomous() { 
     }
