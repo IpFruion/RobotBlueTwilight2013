@@ -10,10 +10,8 @@ package edu.wpi.first.wpilibj.templates;
 
 
 
-import com.sun.squawk.debugger.Log;
-import edu.wpi.first.wpilibj.Joystick;
+
 import edu.wpi.first.wpilibj.SimpleRobot;
-import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -46,6 +44,7 @@ public class BTRobot extends SimpleRobot {
         shoot = btf.createShooter(cb);
         climb = btf.createClimber(cb);
         comp = new CompressorInit();
+        vi = new BTVision();
         
             //        hc = new HighClimber();
        
@@ -61,6 +60,8 @@ public class BTRobot extends SimpleRobot {
         comp.run();
         while(isOperatorControl())
         {
+            cb.update();
+            vi.update(cb);
             dt.update(cb);
             shoot.update(cb);
             climb.update(cb);

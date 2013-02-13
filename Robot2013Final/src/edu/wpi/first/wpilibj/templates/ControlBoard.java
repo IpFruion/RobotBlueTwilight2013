@@ -10,10 +10,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
  *
  * @author Alec 
  */
-public class ControlBoard extends BTController {
+public class ControlBoard {
     private DriveInfo left;
     private DriveInfo right;
-
+    private ShooterInfo shoot;
+    private BTController controller;
     DigitalInput shooter_switch;
     DigitalInput climber_switch;
     DigitalInput dt_switch;
@@ -23,10 +24,14 @@ public class ControlBoard extends BTController {
         shooter_switch = new DigitalInput(1);
         climber_switch = new DigitalInput(2);
         dt_switch = new DigitalInput(3);
+        controller = new BTController();
     }
     
     public void update(){
-        
+        shoot.canShoot = controller.canShoot();
+        shoot.isShooterMotorOn = controller.isShooterMotorOn();
+        left.percent = controller.getLMotorSpeed();
+        right.percent = controller.getRMotorSpeed();
     }
     
     public boolean getShooterSetting() {
@@ -65,5 +70,11 @@ public class ControlBoard extends BTController {
     public void setDrive(DriveInfo leftTemp, DriveInfo rightTemp){
         left = leftTemp;
         right = rightTemp;
+    }
+    public void setShooter(ShooterInfo shootInfo){
+        shoot = shootInfo;
+    }
+    public ShooterInfo getShooter(){
+        return shoot;
     }
 }

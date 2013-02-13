@@ -13,7 +13,7 @@ public class DriveInfo {
     //+ or - int
     public int direction = 1;
     //how fast the motors for wheels run
-    public int percent = 1;
+    public double percent = 1;
     //how many cycles this runs
     public int duration = 1;
     

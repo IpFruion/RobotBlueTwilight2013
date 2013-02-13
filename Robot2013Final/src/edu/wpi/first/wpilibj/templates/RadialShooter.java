@@ -24,6 +24,7 @@ public class RadialShooter implements Constants, IShooter {
     public DigitalInput highSensor;
     public AxisCamera a;
     public Piston shooter;
+    private ShooterInfo shootInfo;
     
     public RadialShooter()
     {
@@ -35,8 +36,9 @@ public class RadialShooter implements Constants, IShooter {
     }
     
     public void update(ControlBoard cb) {
-        setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
-        shoot(cb.canShoot());
+        shootInfo = cb.getShooter();
+        setSpeed(shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
+        shoot(shootInfo.canShoot);
     }
     
     public void shoot(boolean canShoot) {

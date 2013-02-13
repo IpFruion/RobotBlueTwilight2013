@@ -17,6 +17,7 @@ public class LinearShooter implements Constants, IShooter {
     public BTMotor motShoot2;
     public Relay pitchMotor;
     public Piston shootPiston;
+    private ShooterInfo shootInfo;
     
     public LinearShooter()
     {
@@ -27,8 +28,9 @@ public class LinearShooter implements Constants, IShooter {
     }
     public void update(ControlBoard cb)
     {
-        setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
-        shoot(cb.canShoot());
+        shootInfo = cb.getShooter();
+        setSpeed(shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
+        shoot(shootInfo.canShoot);
     }
     public void shoot(boolean canShoot)
     {
