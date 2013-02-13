@@ -34,7 +34,7 @@ public class ControlBoard {
         left.percent = controller.getLMotorSpeed();
         right.percent = controller.getRMotorSpeed();
         climber.canClimb = controller.canClimb();
-        
+        left.shifterSetting = controller.getShifterSetting();
     }
     
     public boolean getShooterSetting() {
