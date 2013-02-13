@@ -17,6 +17,8 @@ public class ControlBoard extends BTController {
         
     }
     
+    
+    
     public double getShootMotorSpeed() {
         //add slider for adjust speed
         return -1.0;
@@ -29,7 +31,8 @@ public class ControlBoard extends BTController {
     public DriveInfo getDriveRight(){
         return right;
     }
-    public void setDrive(DriveInfo left, DriveInfo right){
-        
+    public void setDrive(DriveInfo leftTemp, DriveInfo rightTemp){
+        left = leftTemp;
+        right = rightTemp;
     }
 }
