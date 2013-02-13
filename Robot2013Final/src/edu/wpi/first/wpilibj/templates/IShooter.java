@@ -8,7 +8,7 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author Dlock
  */
-public abstract class BTShooter {
+public interface IShooter {
     
     // extends shooter pistons
     public abstract void shoot(boolean canShoot);
@@ -22,9 +22,4 @@ public abstract class BTShooter {
     // shoots the frisbee
     public abstract void update(ControlBoard cb);
     
-    public void init() {
-        // evaluate switch
-        // if (switch), instantiate RadialShooter()
-        // else instantiate LinearShooter()
-    }
 }

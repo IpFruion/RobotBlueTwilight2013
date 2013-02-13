@@ -28,12 +28,12 @@ public class BTRobot extends SimpleRobot {
      * This function is called once each time the robot enters autonomous mode.
      */
     public ControlBoard cb;
-    public DriveTrain drive;
+    public BTFactory btf;
     public CompressorInit comp;
-    public LinearShooter shoot;
-//    public HighClimber hc;
-    public LowClimber lc;
-//    public BTAutonomous auto;
+    private IDrivetrain dt;
+    private IShooter shoot;
+    private IClimber climb;
+    private BTVision vi;
 
     /**
      * This is the Robot starting command
@@ -41,12 +41,15 @@ public class BTRobot extends SimpleRobot {
     public void robotInit()
     {
         cb = new ControlBoard();
-        drive = new DriveTrain();
+        btf = new BTFactory();
+        dt = btf.createDriveTrain(cb);
+        shoot = btf.createShooter(cb);
+        climb = btf.createClimber(cb);
         comp = new CompressorInit();
+        
             //        hc = new HighClimber();
-        lc = new LowClimber();
+       
             //        auto = new BTAutonomous();
-        shoot = new LinearShooter();
     }
     public void autonomous() { 
     }
@@ -58,9 +61,9 @@ public class BTRobot extends SimpleRobot {
         comp.run();
         while(isOperatorControl())
         {
-            drive.update(cb);
+            dt.update(cb);
             shoot.update(cb);
-            lc.update(cb);
+            climb.update(cb);
         }
         comp.stop();
     }

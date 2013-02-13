@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
  *
  * @author alec
  */
-public class HighClimber extends BTClimber implements Constants{
+public class HighClimber implements Constants, IClimber{
     Piston shortArm;
     Piston longArm;
     Piston tiltPiston;

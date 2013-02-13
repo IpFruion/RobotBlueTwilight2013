@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.*;
  *
  * @author alec
  */
-public class LinearShooter extends BTShooter implements Constants {
+public class LinearShooter implements Constants, IShooter {
     
     public BTMotor motShoot1;
     public BTMotor motShoot2;

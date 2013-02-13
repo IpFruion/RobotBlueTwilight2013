@@ -7,9 +7,8 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Derrick 
+ * @author Dlock
  */
-public abstract class BTClimber {
+public interface IClimber {
    public abstract void update(ControlBoard cb); 
-   public abstract void retract();
 }
