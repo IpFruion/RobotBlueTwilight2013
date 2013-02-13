@@ -13,6 +13,8 @@ public class PWMDriveTrain implements Constants, IDrivetrain {
     BTMotor left;
     BTMotor right;
     Piston shifter;
+    DriveInfo rightInfo;
+    DriveInfo leftInfo;
     
     public PWMDriveTrain()
     {
@@ -22,11 +24,13 @@ public class PWMDriveTrain implements Constants, IDrivetrain {
         right = new BTMotor(RIGHT_JAG_PORT, false);
         
     }
-    public void update(ControlBoard stick)
+    public void update(ControlBoard cb)
     {
-        double rightValue = stick.getRMotorSpeed();
-        double leftValue = stick.getLMotorSpeed();
-        boolean isShift = stick.getShifterSetting();
+        rightInfo = cb.getDriveRight();
+        leftInfo = cb.getDriveLeft();
+        double rightValue = rightInfo.percent;
+        double leftValue = leftInfo.percent;
+        boolean isShift = leftInfo.shifterSetting;
         
         left.setX(leftValue);
         right.setX(rightValue * -1);

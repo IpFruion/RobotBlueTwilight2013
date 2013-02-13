@@ -17,4 +17,6 @@ public class DriveInfo {
     //how many cycles this runs
     public int duration = 1;
     
+    public boolean shifterSetting;
+    
 }

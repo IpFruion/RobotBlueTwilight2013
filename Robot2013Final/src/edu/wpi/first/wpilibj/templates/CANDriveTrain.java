@@ -16,6 +16,8 @@ public class CANDriveTrain implements Constants, IDrivetrain {
     BTMotor right;
     BTMotor right_2;
     Piston shifter;
+    DriveInfo rightInfo;
+    DriveInfo leftInfo;
     
     public CANDriveTrain()
     {
@@ -26,11 +28,13 @@ public class CANDriveTrain implements Constants, IDrivetrain {
         right = new BTMotor(RIGHT_JAG_PORT, true);
         right_2 = new BTMotor(RIGHT_JAG_PORT_2, true);
     }
-    public void update(ControlBoard stick)
+    public void update(ControlBoard cb)
     {
-        double rightValue = stick.getRMotorSpeed();
-        double leftValue = stick.getLMotorSpeed();
-        boolean isShift = stick.getShifterSetting();
+        rightInfo = cb.getDriveRight();
+        leftInfo = cb.getDriveLeft();
+        double rightValue = rightInfo.percent;
+        double leftValue = leftInfo.percent;
+        boolean isShift = leftInfo.shifterSetting;
         
         left.setX(leftValue);
         left_2.setX(leftValue);
