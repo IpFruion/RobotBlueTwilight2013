@@ -29,12 +29,23 @@ public class ControlBoard {
     }
     
     public void update(){
+        
+        //MANUAL: currently manual shoot when implemented it will be shoot.canAim for camera targeting 
         shoot.canShoot = controller.canShoot();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
-        left.percent = controller.getLMotorSpeed();
-        right.percent = controller.getRMotorSpeed();
         climber.canClimb = controller.canClimb();
-        left.shifterSetting = controller.getShifterSetting();
+        updateDrive();
+    }
+    public void updateDrive()
+    {
+        if (left.cycles < 1)
+        {
+            left.percent = controller.getLMotorSpeed();
+            right.percent = controller.getRMotorSpeed();
+            left.cycles = 1;
+            right.cycles = 1;
+            left.shifterSetting = controller.getShifterSetting();
+        }
     }
     
     public boolean getShooterSetting() {

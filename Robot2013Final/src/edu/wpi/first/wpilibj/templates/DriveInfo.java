@@ -15,7 +15,9 @@ public class DriveInfo {
     //how fast the motors for wheels run
     public double percent = 1;
     //how many cycles this runs
-    public int duration = 1;
+    public int cycles = 1;
+    //suggestion of how long to take running?
+    public int duration = 0;
     
     public boolean shifterSetting;
     

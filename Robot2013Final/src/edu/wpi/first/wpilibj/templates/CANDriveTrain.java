@@ -42,7 +42,8 @@ public class CANDriveTrain implements Constants, IDrivetrain {
         right_2.setX(rightValue * -1);
         
         shifter.setPistonState(isShift);
-        
+        leftInfo.cycles--;
+        rightInfo.cycles--;
         
     }
     public boolean yawSet(int centerX)

@@ -50,6 +50,10 @@ public class BTVision {
     CriteriaCollection cc;      // the criteria for doing the particle filter operation
     double centerRange;
     
+    private ShooterInfo shootInfo;
+    private DriveInfo right;
+    private DriveInfo left;
+    
     public class Scores {
         double rectangularity;
         double aspectRatioInner;
@@ -73,6 +77,9 @@ public class BTVision {
     }
 
     public void update(ControlBoard cb) {
+        
+            shootInfo = cb.getShooter();
+            if (shootInfo.canAim){
             try {
                 /**
                  * Do the image capture with the camera and apply the algorithm described above. This
@@ -150,8 +157,14 @@ public class BTVision {
             } catch (NIVisionException ex) {
                 Log.log("NIVision Exception, error targeting");
             }
+            
+            //sets the commands to the drivetrain
+            //I would suggest to add the duration feature of cycles
+            cb.setDrive(left, right);
+            cb.setShooter(shootInfo);
         }
-    
+        
+    }
     /**
      * Tells the control board what the necessary adjustments are to hit the optimal target.
      * 

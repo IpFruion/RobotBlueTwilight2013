@@ -7,11 +7,11 @@ package edu.wpi.first.wpilibj.templates;
 public class BTAutonomous{
     int currentStep;
     public void update(ControlBoard cb){
-    //drive forward for duration 10
+    //drive forward for cycles 10
     DriveInfo di = new DriveInfo();
     di.direction = 1;
     di.percent = 50;
-    di.duration = 10;
+    di.cycles = 10;
     
     currentStep = 1;
     cb.setDrive(di, di);

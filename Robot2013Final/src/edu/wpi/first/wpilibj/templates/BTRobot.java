@@ -28,10 +28,10 @@ public class BTRobot extends SimpleRobot {
     public ControlBoard cb;
     public BTFactory btf;
     public CompressorInit comp;
-    private IDrivetrain dt;
+    private IDrivetrain drive;
     private IShooter shoot;
     private IClimber climb;
-    private BTVision vi;
+    private BTVision vision;
     private BTAutonomous auto;
     /**
      * This is the Robot starting command
@@ -40,11 +40,11 @@ public class BTRobot extends SimpleRobot {
     {
         cb = new ControlBoard();
         btf = new BTFactory();
-        dt = btf.createDriveTrain(cb);
+        drive = btf.createDriveTrain(cb);
         shoot = btf.createShooter(cb);
         climb = btf.createClimber(cb);
         comp = new CompressorInit();
-        vi = new BTVision();
+        vision = new BTVision();
         auto = new BTAutonomous();
     }
     public void autonomous() { 
@@ -58,8 +58,8 @@ public class BTRobot extends SimpleRobot {
         while(isOperatorControl())
         {
             cb.update();
-            vi.update(cb);
-            dt.update(cb);
+            vision.update(cb);
+            drive.update(cb);
             shoot.update(cb);
             climb.update(cb);
         }
