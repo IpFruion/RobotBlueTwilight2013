@@ -33,20 +33,17 @@ public class HighClimber implements Constants, IClimber{
     public void run()
     {
         tilt();
+        lowPull();
         highPull();
-        for (int i = 0; i<2; i++)
-        {
-            lowPull();
-            highPull();
-        }
+        lowPull();
+        highPull();
     }
     public void tilt()
     {
         tiltPiston.setPistonState(true);
         wait(500);
-        lowPull();
+        highPull();
         tiltPiston.setPistonState(false);
-        
     }
     public void lowPull() {
         shortArm.setPistonState(true);
