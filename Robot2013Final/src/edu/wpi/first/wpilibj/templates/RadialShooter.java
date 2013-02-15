@@ -37,7 +37,7 @@ public class RadialShooter implements Constants, IShooter {
     
     public void update(ControlBoard cb) {
         shootInfo = cb.getShooter();
-        setSpeed(shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
+        setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
         shoot(shootInfo.canShoot);
         shootInfo.cycles--;
         cb.setShooter(shootInfo);
@@ -51,12 +51,12 @@ public class RadialShooter implements Constants, IShooter {
         motShoot.setX(0);
     }
     
-    public void setSpeed(boolean speedset, double speed)
+    public void setSpeed(boolean setOff, boolean setOn, double speed)
     {
-        if (speedset) {
+        if (setOn) {
             motShoot.setX(speed);
         }
-        else {
+        else if (setOff) {
             killShot();
         }
     }
@@ -78,4 +78,6 @@ public class RadialShooter implements Constants, IShooter {
         }
         return isCenter;
     }
+
+    
 }

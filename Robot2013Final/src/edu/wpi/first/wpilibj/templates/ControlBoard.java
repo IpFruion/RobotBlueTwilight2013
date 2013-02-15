@@ -34,6 +34,7 @@ public class ControlBoard {
         shoot.canAim = controller.canAim();
         shoot.canShoot = controller.canShoot();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
+        shoot.isShooterMotorOff = controller.isShooterMotorOff();
         climber.canClimb = controller.canClimb();
         updateCycles();
     }

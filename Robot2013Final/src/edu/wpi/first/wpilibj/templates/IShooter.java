@@ -17,7 +17,7 @@ public interface IShooter {
     public abstract void killShot();
     
     // sets the speed of the motor
-    public abstract void setSpeed(boolean set, double speed);
+    public abstract void setSpeed(boolean setOff, boolean setOn, double speed);
     
     // shoots the frisbee
     public abstract void update(ControlBoard cb);

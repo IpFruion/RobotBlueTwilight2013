@@ -67,12 +67,13 @@ public class BTController {
     }
 
     public boolean isShooterMotorOn() {
-        if(xboxController.getRawButton(4))
-        {
-            motorstate = !motorstate;
-        }
-        return motorstate;
+        return xboxController.getRawButton(4);
     }
+    public boolean isShooterMotorOff()
+    {
+        return xboxController.getRawButton(3);
+    }
+    
     public boolean canClimb()
     {
         if (xboxController.getRawButton(1))
