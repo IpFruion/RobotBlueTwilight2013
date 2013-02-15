@@ -11,6 +11,7 @@ package edu.wpi.first.wpilibj.templates;
 public class ShooterInfo {
     
     public boolean isShooterMotorOn;
+    public boolean isShooterMotorOff;
     public double shooterMotorSpeed = .5;
     public boolean canShoot;
     public boolean canAim;

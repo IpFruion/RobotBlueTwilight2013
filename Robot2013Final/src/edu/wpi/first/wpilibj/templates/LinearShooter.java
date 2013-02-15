@@ -29,7 +29,7 @@ public class LinearShooter implements Constants, IShooter {
     public void update(ControlBoard cb)
     {
         shootInfo = cb.getShooter();
-        setSpeed(shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
+        setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
         shoot(shootInfo.canShoot);
         shootInfo.cycles--;
         cb.setShooter(shootInfo);
@@ -47,12 +47,12 @@ public class LinearShooter implements Constants, IShooter {
         motShoot2.setX(0);
     }
     
-    public void setSpeed(boolean set, double speed) {
-        if (set) {
+    public void setSpeed(boolean setOff, boolean setOn, double speed) {
+        if (setOn) {
             motShoot1.setX(speed);
             motShoot2.setX(speed);
         }
-        else {
+        else if (setOff) {
             killShot();
         }
     }
