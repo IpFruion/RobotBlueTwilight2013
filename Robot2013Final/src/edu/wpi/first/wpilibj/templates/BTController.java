@@ -21,6 +21,19 @@ public class BTController {
     {
         xboxController = new Joystick(1);
     }
+    public double getShooterYaw()
+    {
+        if (xboxController.getRawButton(11))
+        {
+            return .5;
+        }
+        else if (xboxController.getRawButton(12))
+        {
+            return -.5;
+
+        }
+        return 0;
+    }
     public boolean getShifterSetting() {
         if(buttonDetector(xboxController.getRawButton(6)))
         {

@@ -35,9 +35,9 @@ public class ControlBoard {
         shoot.canShoot = controller.canShoot();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
         climber.canClimb = controller.canClimb();
-        updateDrive();
+        updateCycles();
     }
-    public void updateDrive()
+    public void updateCycles()
     {
         if (left.cycles < 1)
         {
@@ -46,6 +46,10 @@ public class ControlBoard {
             left.cycles = 1;
             right.cycles = 1;
             left.shifterSetting = controller.getShifterSetting();
+        }
+        if (shoot.cycles < 1)
+        {
+            shoot.windowMotor = controller.getShooterYaw();
         }
     }
     
