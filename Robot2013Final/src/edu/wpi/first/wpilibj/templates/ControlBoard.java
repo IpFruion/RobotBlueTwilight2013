@@ -31,6 +31,7 @@ public class ControlBoard {
     public void update(){
         
         //MANUAL: currently manual shoot when implemented it will be shoot.canAim for camera targeting 
+        shoot.canAim = controller.canAim();
         shoot.canShoot = controller.canShoot();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
         climber.canClimb = controller.canClimb();

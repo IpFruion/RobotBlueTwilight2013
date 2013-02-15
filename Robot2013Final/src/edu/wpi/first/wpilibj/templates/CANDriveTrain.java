@@ -45,6 +45,7 @@ public class CANDriveTrain implements Constants, IDrivetrain {
         leftInfo.cycles--;
         rightInfo.cycles--;
         
+        cb.setDrive(leftInfo, rightInfo);
     }
     public boolean yawSet(int centerX)
     {

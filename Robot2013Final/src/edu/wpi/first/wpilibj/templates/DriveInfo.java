@@ -11,13 +11,11 @@ package edu.wpi.first.wpilibj.templates;
 public class DriveInfo {
 //These are examples for the int
     //+ or - int
-    public int direction = 1;
+    public int direction = 0;
     //how fast the motors for wheels run
-    public double percent = 1;
+    public double percent = 0;
     //how many cycles this runs
-    public int cycles = 1;
-    //suggestion of how long to take running?
-    public int duration = 0;
+    public int cycles = 0;
     
     public boolean shifterSetting;
     

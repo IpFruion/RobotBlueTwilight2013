@@ -36,8 +36,10 @@ public class PWMDriveTrain implements Constants, IDrivetrain {
         right.setX(rightValue * -1);
         
         shifter.setPistonState(isShift);
+        leftInfo.cycles--;
+        rightInfo.cycles--;
         
-        
+        cb.setDrive(leftInfo, rightInfo);
     }
     public boolean yawSet(int centerX)
     {

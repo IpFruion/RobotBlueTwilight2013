@@ -45,6 +45,13 @@ public class BTController {
         }
         return false;
     }
+    public boolean canAim(){
+        if(xboxController.getRawAxis(3) == 1)
+        {
+            return true;
+        }
+        return false;
+    }
 
     public boolean isShooterMotorOn() {
         if(xboxController.getRawButton(4))
