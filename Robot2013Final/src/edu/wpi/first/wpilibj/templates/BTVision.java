@@ -51,8 +51,6 @@ public class BTVision implements Constants {
     CriteriaCollection cc;      // the criteria for doing the particle filter operation
     double centerRange;
     
-    int CYCLE_LENGTH = 20; //Time to delay for each cycles (in seconds)
-    
     private ShooterInfo shootInfo;
     private DriveInfo right;
     private DriveInfo left;
@@ -179,35 +177,33 @@ public class BTVision implements Constants {
         double lower = 140, upper = 180, upperY = 140, lowerY = 180;
         //These should be fixed once we figure out how
         //Calculate upper, lower bounds for x center of mass
-        int time = 5000 / CYCLE_LENGTH;
         if (tg.centerMassX < lower) {
             //calculate how much to rotate
             left.percent = .25;
-            left.cycles = time;
+            left.cycles = CYCLES_FOR_VISION;
             right.percent = -.25;
-            right.cycles = time;
+            right.cycles = CYCLES_FOR_VISION;
             //tell controlboard to rotate robot by that much
         }
         
         else if (tg.centerMassX > upper) {
             //calculate how much to rotate
             left.percent = -.25;
-            left.cycles = time;
+            left.cycles = CYCLES_FOR_VISION;
             right.percent = .25;
-            right.cycles = time;
+            right.cycles = CYCLES_FOR_VISION;
             //tell controlboard to rotate robot by that much
         }
-        
         //calculate distance/speed of motors needed based on tg.centerMassY
         if (tg.centerMassY > upperY)
         {
-            shootInfo.windowMotor = WINDOW_MOTOR_SPEED;
-            shootInfo.cycles = time;
+            shootInfo.windowMotor = -1.0;
+            shootInfo.cycles = CYCLES_FOR_VISION;
         }
         else if (tg.centerMassY < lowerY )
         {
-            shootInfo.windowMotor = -1*WINDOW_MOTOR_SPEED;
-            shootInfo.cycles = time;
+            shootInfo.windowMotor = 1.0;
+            shootInfo.cycles = CYCLES_FOR_VISION;
         }
         //tell control board to change whatever is necessary
         

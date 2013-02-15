@@ -54,5 +54,5 @@ public interface Constants
     public static final int SHOOTER_PITCH_LOW_PORT = 8;
     
     //Constants
-    public double WINDOW_MOTOR_SPEED = 0.5;
+    public static final int CYCLES_FOR_VISION = 11;
 }
