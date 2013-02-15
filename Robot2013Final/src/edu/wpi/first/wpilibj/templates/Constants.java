@@ -52,4 +52,7 @@ public interface Constants
     //Digital Input Sensor 1-6 are part of the Collector
     public static final int SHOOTER_PITCH_HIGH_PORT = 7;
     public static final int SHOOTER_PITCH_LOW_PORT = 8;
+    
+    //Constants
+    public double WINDOW_MOTOR_SPEED = 0.5;
 }

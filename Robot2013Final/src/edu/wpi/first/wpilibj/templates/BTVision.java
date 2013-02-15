@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj.image.*;
  *
  * @author Abby, Tim, Austin
  */
-public class BTVision {
+public class BTVision implements Constants {
 
     final int XMAXSIZE = 24;
     final int XMINSIZE = 24;
@@ -51,7 +51,7 @@ public class BTVision {
     CriteriaCollection cc;      // the criteria for doing the particle filter operation
     double centerRange;
     
-    double CYCLE_LENGTH = 1; //Time to delay for each cycles (in seconds)
+    int CYCLE_LENGTH = 20; //Time to delay for each cycles (in seconds)
     
     private ShooterInfo shootInfo;
     private DriveInfo right;
@@ -164,21 +164,9 @@ public class BTVision {
             //sets the commands to the drivetrain
             //I would suggest to add the duration feature of cycles
             }
-        checkCycles();
         cb.setDrive(left, right);
         cb.setShooter(shootInfo);
 
-    }
-    
-    /**
-     * Checks if cycles are equal to 1, if they are, waits 1 second
-     */
-    public void checkCycles() {
-        if (left.cycles == 2) {
-            Timer.delay(CYCLE_LENGTH);
-            left.cycles--;
-            right.cycles--;
-        }
     }
     
     /**
@@ -188,27 +176,39 @@ public class BTVision {
      */
     //TODO: add overrides in case adjustments are impractical/impossible
     public void targetingAdjustments(Target tg) {
-        double lower = 140, upper = 180; //These should be fixed once we figure out how
+        double lower = 140, upper = 180, upperY = 140, lowerY = 180;
+        //These should be fixed once we figure out how
         //Calculate upper, lower bounds for x center of mass
+        int time = 5000 / CYCLE_LENGTH;
         if (tg.centerMassX < lower) {
             //calculate how much to rotate
             left.percent = .25;
-            left.cycles = 3;
+            left.cycles = time;
             right.percent = -.25;
-            right.cycles = 3;
+            right.cycles = time;
             //tell controlboard to rotate robot by that much
         }
+        
         else if (tg.centerMassX > upper) {
             //calculate how much to rotate
             left.percent = -.25;
-            left.cycles = 3;
+            left.cycles = time;
             right.percent = .25;
-            right.cycles = 3;
+            right.cycles = time;
             //tell controlboard to rotate robot by that much
         }
         
         //calculate distance/speed of motors needed based on tg.centerMassY
-        
+        if (tg.centerMassY > upperY)
+        {
+            shootInfo.windowMotor = WINDOW_MOTOR_SPEED;
+            shootInfo.cycles = time;
+        }
+        else if (tg.centerMassY < lowerY )
+        {
+            shootInfo.windowMotor = -1*WINDOW_MOTOR_SPEED;
+            shootInfo.cycles = time;
+        }
         //tell control board to change whatever is necessary
         
         //TODO: Robot.shoot

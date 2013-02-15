@@ -14,4 +14,6 @@ public class ShooterInfo {
     public double shooterMotorSpeed = .5;
     public boolean canShoot;
     public boolean canAim;
+    public double windowMotor;
+    public int cycles = 0;
 }

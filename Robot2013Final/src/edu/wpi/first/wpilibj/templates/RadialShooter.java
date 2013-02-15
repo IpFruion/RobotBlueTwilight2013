@@ -39,6 +39,8 @@ public class RadialShooter implements Constants, IShooter {
         shootInfo = cb.getShooter();
         setSpeed(shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
         shoot(shootInfo.canShoot);
+        shootInfo.cycles--;
+        cb.setShooter(shootInfo);
     }
     
     public void shoot(boolean canShoot) {
