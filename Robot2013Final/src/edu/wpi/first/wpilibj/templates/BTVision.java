@@ -1,6 +1,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 import com.sun.squawk.debugger.Log;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.*;
@@ -50,6 +51,8 @@ public class BTVision {
     CriteriaCollection cc;      // the criteria for doing the particle filter operation
     double centerRange;
     
+    double CYCLE_LENGTH = 1; //Time to delay for each cycles (in seconds)
+    
     private ShooterInfo shootInfo;
     private DriveInfo right;
     private DriveInfo left;
@@ -79,7 +82,7 @@ public class BTVision {
     public void update(ControlBoard cb) {
         
             shootInfo = cb.getShooter();
-            if (shootInfo.canAim){
+            if (shootInfo.canAim) {
             try {
                 /**
                  * Do the image capture with the camera and apply the algorithm described above. This
@@ -160,11 +163,24 @@ public class BTVision {
             
             //sets the commands to the drivetrain
             //I would suggest to add the duration feature of cycles
-            cb.setDrive(left, right);
-            cb.setShooter(shootInfo);
-        }
-        
+            }
+        checkCycles();
+        cb.setDrive(left, right);
+        cb.setShooter(shootInfo);
+
     }
+    
+    /**
+     * Checks if cycles are equal to 1, if they are, waits 1 second
+     */
+    public void checkCycles() {
+        if (left.cycles == 2) {
+            Timer.delay(CYCLE_LENGTH);
+            left.cycles--;
+            right.cycles--;
+        }
+    }
+    
     /**
      * Tells the control board what the necessary adjustments are to hit the optimal target.
      * 
@@ -176,14 +192,23 @@ public class BTVision {
         //Calculate upper, lower bounds for x center of mass
         if (tg.centerMassX < lower) {
             //calculate how much to rotate
+            left.percent = .25;
+            left.cycles = 3;
+            right.percent = -.25;
+            right.cycles = 3;
             //tell controlboard to rotate robot by that much
         }
-        else if (tg.centerMassY > upper) {
+        else if (tg.centerMassX > upper) {
             //calculate how much to rotate
+            left.percent = -.25;
+            left.cycles = 3;
+            right.percent = .25;
+            right.cycles = 3;
             //tell controlboard to rotate robot by that much
         }
         
         //calculate distance/speed of motors needed based on tg.centerMassY
+        
         //tell control board to change whatever is necessary
         
         //TODO: Robot.shoot
