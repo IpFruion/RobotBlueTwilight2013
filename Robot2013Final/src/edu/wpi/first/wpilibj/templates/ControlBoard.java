@@ -21,10 +21,10 @@ public class ControlBoard {
     DigitalInput dt_switch;
     
     public ControlBoard() {
-        // 
-        shooter_switch = new DigitalInput(1);
-        climber_switch = new DigitalInput(2);
-        dt_switch = new DigitalInput(3);
+        //
+        shooter_switch = new DigitalInput(Constants.DIGITAL_INPUT_SHOOTER);
+        climber_switch = new DigitalInput(Constants.DIGITAL_INPUT_CLIMBER);
+        dt_switch = new DigitalInput(Constants.DIGITAL_INPUT_DRIVE_TRAIN);
         controller = new BTController();
     }
     

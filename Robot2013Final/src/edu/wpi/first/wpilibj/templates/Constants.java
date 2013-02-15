@@ -24,6 +24,7 @@ public interface Constants
     //Joysticks
     public static final int LEFT_STICK_PORT = 1;
     public static final int RIGHT_STICK_PORT = 2;
+    public static final int XBOX_CONTROLLER_PORT = 1;
     
     //Solenoids
     public static final int SHIFTER_EXTEND_PORT = 11;
@@ -55,4 +56,21 @@ public interface Constants
     
     //Constants
     public static final int CYCLES_FOR_VISION = 11;
+    public static final int DIGITAL_INPUT_SHOOTER = 1;
+    public static final int DIGITAL_INPUT_CLIMBER = 2;
+    public static final int DIGITAL_INPUT_DRIVE_TRAIN = 3;
+    
+    //Controller Constants 
+    //I WOULD NOT CHANGE THESE
+    public static final int D_PAD_UP = 11;
+    public static final int D_PAD_DOWN = 12;
+    public static final int TRIGGER_AXIS = 3;
+    public static final int RIGHT_TRIGGER = -1;
+    public static final int LEFT_TRIGGER = 1;
+    public static final int LEFT_STICK = 2;
+    public static final int RIGHT_STICK = 5;
+    public static final int RIGHT_BUMBER = 6;
+    public static final int Y_BUTTON = 4;
+    public static final int X_BUTTON = 3;
+    public static final int A_BUTTON = 1;
 }

@@ -11,7 +11,7 @@ package edu.wpi.first.wpilibj.templates;
  */
 import edu.wpi.first.wpilibj.Joystick;
 
-public class BTController {
+public class BTController implements Constants {
 
     private boolean shifterState = false;
     private boolean lastButtonState = false;
@@ -19,15 +19,15 @@ public class BTController {
     Joystick xboxController;
     public BTController()
     {
-        xboxController = new Joystick(1);
+        xboxController = new Joystick(XBOX_CONTROLLER_PORT);
     }
     public double getShooterYaw()
     {
-        if (xboxController.getRawButton(11))
+        if (xboxController.getRawButton(D_PAD_UP))
         {
             return .5;
         }
-        else if (xboxController.getRawButton(12))
+        else if (xboxController.getRawButton(D_PAD_DOWN))
         {
             return -.5;
 
@@ -35,7 +35,7 @@ public class BTController {
         return 0;
     }
     public boolean getShifterSetting() {
-        if(buttonDetector(xboxController.getRawButton(6)))
+        if(buttonDetector(xboxController.getRawButton(RIGHT_BUMBER)))
         {
             shifterState = !shifterState;
         }
@@ -43,23 +43,23 @@ public class BTController {
     }
 
     public double getLMotorSpeed() {
-        return xboxController.getRawAxis(2);
+        return xboxController.getRawAxis(LEFT_STICK);
     }
 
     public double getRMotorSpeed() {
-        return xboxController.getRawAxis(5);
+        return xboxController.getRawAxis(RIGHT_STICK);
     }
 
     public boolean canShoot() {
         
-        if(xboxController.getRawAxis(3) == -1)
+        if(xboxController.getRawAxis(TRIGGER_AXIS) == RIGHT_TRIGGER)
         {
             return true;
         }
         return false;
     }
     public boolean canAim(){
-        if(xboxController.getRawAxis(3) == 1)
+        if(xboxController.getRawAxis(TRIGGER_AXIS) == LEFT_TRIGGER)
         {
             return true;
         }
@@ -67,16 +67,16 @@ public class BTController {
     }
 
     public boolean isShooterMotorOn() {
-        return xboxController.getRawButton(4);
+        return xboxController.getRawButton(Y_BUTTON);
     }
     public boolean isShooterMotorOff()
     {
-        return xboxController.getRawButton(3);
+        return xboxController.getRawButton(X_BUTTON);
     }
     
     public boolean canClimb()
     {
-        if (xboxController.getRawButton(1))
+        if (xboxController.getRawButton(A_BUTTON))
         {
             return true;
         }
