@@ -16,6 +16,7 @@ public class BTMotor {
     private boolean isCANBus = false;
     private CANJaguar CANMotor;
     private Jaguar PWMMotor;
+    private boolean bAlive = true;
     
     public BTMotor(int port, boolean isCan)
     {
@@ -26,6 +27,7 @@ public class BTMotor {
             }
             catch(Exception CANTimeoutException){
                 System.out.println("Error initialising CANJaguar for Shooter");
+                bAlive = false;
             }
         }
         else
@@ -35,6 +37,9 @@ public class BTMotor {
     }
     public void setX(double x)
     {
+        if (!bAlive)
+            return;
+        
         if(isCANBus)
         {
             try{

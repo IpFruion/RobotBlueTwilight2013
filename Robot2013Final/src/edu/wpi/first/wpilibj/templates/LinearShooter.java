@@ -21,11 +21,11 @@ public class LinearShooter implements Constants, IShooter {
     public DigitalInput highSensor;
     private ShooterInfo shootInfo;
     
-    public LinearShooter()
+    public LinearShooter(boolean isCan)
     {
-        motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, true);
-        motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, true);
-        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, true);
+        motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, isCan);
+        motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, isCan);
+        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, isCan);
         shootPiston = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
         lowSensor = new DigitalInput(SHOOTER_PITCH_LOW_PORT);
         highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);

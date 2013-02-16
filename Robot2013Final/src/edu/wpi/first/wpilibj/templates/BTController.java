@@ -54,6 +54,7 @@ public class BTController implements Constants {
         
         if(xboxController.getRawAxis(TRIGGER_AXIS) == RIGHT_TRIGGER)
         {
+            System.out.println("shooting!!");
             return true;
         }
         return false;

@@ -64,6 +64,7 @@ public interface Constants
     //Constants
     public static final int CYCLES_FOR_VISION = 11;
     public static final double PITCH_MOTOR_SPEED = .5;
+    public static final boolean USE_CAN = false;
     
     //Controller Constants 
     //I WOULD NOT CHANGE THESE

@@ -58,7 +58,7 @@ public class BTRobot extends SimpleRobot {
         comp.run();
         while(isOperatorControl())
         {
-            cb.update();
+            cb = cb.update();
             vision.update(cb);
             drive.update(cb);
             shoot.update(cb);

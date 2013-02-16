@@ -81,6 +81,8 @@ public class BTVision implements Constants {
         
             shootInfo = cb.getShooter();
             if (shootInfo.canAim) {
+                left = cb.getDriveLeft();
+                right = cb.getDriveRight();
             try {
                 /**
                  * Do the image capture with the camera and apply the algorithm described above. This
@@ -161,9 +163,9 @@ public class BTVision implements Constants {
             
             //sets the commands to the drivetrain
             //I would suggest to add the duration feature of cycles
+            cb.setDrive(left, right);
+            cb.setShooter(shootInfo);
             }
-        cb.setDrive(left, right);
-        cb.setShooter(shootInfo);
 
     }
     

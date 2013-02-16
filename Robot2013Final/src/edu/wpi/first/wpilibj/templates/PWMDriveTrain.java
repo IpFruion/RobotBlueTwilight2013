@@ -26,6 +26,8 @@ public class PWMDriveTrain implements Constants, IDrivetrain {
     }
     public void update(ControlBoard cb)
     {
+        
+        
         rightInfo = cb.getDriveRight();
         leftInfo = cb.getDriveLeft();
         double rightValue = rightInfo.percent;

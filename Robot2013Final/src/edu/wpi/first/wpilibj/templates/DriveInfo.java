@@ -18,5 +18,11 @@ public class DriveInfo {
     public int cycles = 0;
     
     public boolean shifterSetting;
+
+    public String debug()
+    {
+        return "d = "+direction+" p = "+percent+" c = "+cycles+ " s = "+shifterSetting;
+    }
+    
     
 }

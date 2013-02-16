@@ -21,22 +21,28 @@ public class ControlBoard {
     DigitalInput dt_switch;
     
     public ControlBoard() {
-        //
         shooter_switch = new DigitalInput(Constants.DIGITAL_INPUT_SHOOTER);
         climber_switch = new DigitalInput(Constants.DIGITAL_INPUT_CLIMBER);
         dt_switch = new DigitalInput(Constants.DIGITAL_INPUT_DRIVE_TRAIN);
         controller = new BTController();
+        shoot = new ShooterInfo();
+        left = new DriveInfo();
+        right = new DriveInfo();
+        climber = new ClimberInfo();
     }
     
-    public void update(){
+    public ControlBoard update(){
         
         shoot.canAim = controller.canAim();
         shoot.canShoot = controller.canShoot();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
         shoot.isShooterMotorOff = controller.isShooterMotorOff();
+        
         climber.canClimb = controller.canClimb();
         updateCycles();
+        return this;
     }
+    
     public void updateCycles()
     {
         if (left.cycles < 1 && right.cycles < 1)
@@ -46,7 +52,10 @@ public class ControlBoard {
             left.cycles = 1;
             right.cycles = 1;
             left.shifterSetting = controller.getShifterSetting();
+            right.shifterSetting = controller.getShifterSetting();
+            
         }
+
         if (shoot.cycles < 1)
         {
             shoot.pitchMotor = controller.getShooterYaw();

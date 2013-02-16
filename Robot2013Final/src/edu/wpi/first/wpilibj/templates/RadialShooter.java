@@ -26,10 +26,10 @@ public class RadialShooter implements Constants, IShooter {
     public Piston shooter;
     private ShooterInfo shootInfo;
     
-    public RadialShooter()
+    public RadialShooter(boolean isCan)
     {
-        motShoot = new BTMotor(RADIAL_SHOOTER_MOTOR_PORT, true);
-        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, true);
+        motShoot = new BTMotor(RADIAL_SHOOTER_MOTOR_PORT, isCan);
+        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, isCan);
         lowSensor = new DigitalInput(SHOOTER_PITCH_LOW_PORT);
         highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
         shooter = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
