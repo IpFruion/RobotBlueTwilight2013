@@ -29,9 +29,11 @@ public class LinearShooter implements Constants, IShooter {
     public void update(ControlBoard cb)
     {
         shootInfo = cb.getShooter();
+        
         setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
         shoot(shootInfo.canShoot);
         pitch(shootInfo.pitchTopLimit, shootInfo.pitchBottomLimit, shootInfo.pitchMotor);
+        
         shootInfo.cycles--;
         cb.setShooter(shootInfo);
     }

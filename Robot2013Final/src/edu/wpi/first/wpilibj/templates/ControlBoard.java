@@ -51,6 +51,7 @@ public class ControlBoard {
         if (shoot.cycles < 1)
         {
             shoot.pitchMotor = controller.getShooterYaw();
+            shoot.cycles = 1;
         }
     }
     
