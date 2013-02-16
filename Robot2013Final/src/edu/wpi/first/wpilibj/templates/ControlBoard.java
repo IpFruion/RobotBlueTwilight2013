@@ -30,7 +30,6 @@ public class ControlBoard {
     
     public void update(){
         
-        //MANUAL: currently manual shoot when implemented it will be shoot.canAim for camera targeting 
         shoot.canAim = controller.canAim();
         shoot.canShoot = controller.canShoot();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
@@ -40,7 +39,7 @@ public class ControlBoard {
     }
     public void updateCycles()
     {
-        if (left.cycles < 1)
+        if (left.cycles < 1 && right.cycles < 1)
         {
             left.percent = controller.getLMotorSpeed();
             right.percent = controller.getRMotorSpeed();

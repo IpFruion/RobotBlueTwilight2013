@@ -17,6 +17,8 @@ public class LinearShooter implements Constants, IShooter {
     public BTMotor motShoot2;
     public BTMotor pitchMotor;
     public Piston shootPiston;
+    public DigitalInput lowSensor;
+    public DigitalInput highSensor;
     private ShooterInfo shootInfo;
     
     public LinearShooter()
@@ -25,6 +27,8 @@ public class LinearShooter implements Constants, IShooter {
         motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, true);
         pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, true);
         shootPiston = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
+        lowSensor = new DigitalInput(SHOOTER_PITCH_LOW_PORT);
+        highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
     }
     public void update(ControlBoard cb)
     {
@@ -32,7 +36,7 @@ public class LinearShooter implements Constants, IShooter {
         
         setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
         shoot(shootInfo.canShoot);
-        pitch(shootInfo.pitchTopLimit, shootInfo.pitchBottomLimit, shootInfo.pitchMotor);
+        pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchMotor);
         
         shootInfo.cycles--;
         cb.setShooter(shootInfo);

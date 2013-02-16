@@ -55,6 +55,9 @@ public interface Constants
     public static final int RIGHT_DRIVE_ENCODER_B_PORT = 5;
     public static final int SHOOTER_PITCH_HIGH_PORT = 6;
     public static final int SHOOTER_PITCH_LOW_PORT = 7;
+    public static final int DIGITAL_INPUT_SHOOTER = 14;
+    public static final int DIGITAL_INPUT_CLIMBER = 13;
+    public static final int DIGITAL_INPUT_DRIVE_TRAIN = 12;
     
     //Analog Ports
     public static final int AUTONOMOUS_SELECTION_PORT = 3;
@@ -62,9 +65,6 @@ public interface Constants
     
     //Constants
     public static final int CYCLES_FOR_VISION = 11;
-    public static final int DIGITAL_INPUT_SHOOTER = 14;
-    public static final int DIGITAL_INPUT_CLIMBER = 13;
-    public static final int DIGITAL_INPUT_DRIVE_TRAIN = 12;
     public static final double PITCH_MOTOR_SPEED = .5;
     
     //Controller Constants 

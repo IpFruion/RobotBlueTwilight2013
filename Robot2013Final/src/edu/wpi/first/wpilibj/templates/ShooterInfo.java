@@ -16,8 +16,6 @@ public class ShooterInfo {
     public boolean canShoot;
     public boolean canAim;
     public double pitchMotor;
-    public boolean pitchTopLimit;
-    public boolean pitchBottomLimit;
  
     public int cycles = 0;
 }
