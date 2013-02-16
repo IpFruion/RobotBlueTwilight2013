@@ -15,7 +15,7 @@ public class LinearShooter implements Constants, IShooter {
     
     public BTMotor motShoot1;
     public BTMotor motShoot2;
-    public Relay pitchMotor;
+    public BTMotor pitchMotor;
     public Piston shootPiston;
     private ShooterInfo shootInfo;
     
@@ -23,7 +23,7 @@ public class LinearShooter implements Constants, IShooter {
     {
         motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, true);
         motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, true);
-        pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
+        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, true);
         shootPiston = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
     }
     public void update(ControlBoard cb)
@@ -56,15 +56,15 @@ public class LinearShooter implements Constants, IShooter {
             killShot();
         }
     }
-    public void pitch(boolean hitLimit)
+    public void pitch(boolean limitHigh, boolean limitLow)  //TODO: Finish this method and implement it
     {
-        if(hitLimit)
+        if(limitHigh)
         {
-            pitchMotor.set(Relay.Value.kOff);
+            pitchMotor.setX(0);
         }
-        else
+        else 
         {
-            pitchMotor.set(Relay.Value.kForward);
+            pitchMotor.setX(PITCH_MOTOR_SPEED);
         }
     }
 }

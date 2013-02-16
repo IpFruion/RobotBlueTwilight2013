@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
 public class RadialShooter implements Constants, IShooter {
     
     public BTMotor motShoot;
-    public Relay pitchMotor;
+    public BTMotor pitchMotor;
     public DigitalInput lowSensor;
     public DigitalInput highSensor;
     public AxisCamera a;
@@ -29,7 +29,7 @@ public class RadialShooter implements Constants, IShooter {
     public RadialShooter()
     {
         motShoot = new BTMotor(RADIAL_SHOOTER_MOTOR_PORT, true);
-        pitchMotor = new Relay(SHOOTER_PITCH_RELAY_PORT);
+        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, true);
         //lowSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
         //highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
         shooter = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
@@ -60,7 +60,7 @@ public class RadialShooter implements Constants, IShooter {
             killShot();
         }
     }
-    public boolean pitchSet(int centerY)
+/**    public boolean pitchSet(int centerY)    //TODO: Fix and implement this
     {
         boolean isCenter = false;
         if (centerY < .1 && !lowSensor.get() && !highSensor.get())
@@ -78,6 +78,6 @@ public class RadialShooter implements Constants, IShooter {
         }
         return isCenter;
     }
-
+*/
     
 }
