@@ -25,11 +25,11 @@ public class BTController implements Constants {
     {
         if (xboxController.getRawButton(D_PAD_UP))
         {
-            return .5;
+            return Constants.PITCH_MOTOR_SPEED;
         }
         else if (xboxController.getRawButton(D_PAD_DOWN))
         {
-            return -.5;
+            return -Constants.PITCH_MOTOR_SPEED;
 
         }
         return 0;

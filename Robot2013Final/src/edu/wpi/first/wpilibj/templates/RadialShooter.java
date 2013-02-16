@@ -37,8 +37,11 @@ public class RadialShooter implements Constants, IShooter {
     
     public void update(ControlBoard cb) {
         shootInfo = cb.getShooter();
+        
         setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
         shoot(shootInfo.canShoot);
+        pitch(shootInfo.pitchTopLimit, shootInfo.pitchBottomLimit, shootInfo.pitchMotor);
+        
         shootInfo.cycles--;
         cb.setShooter(shootInfo);
     }
@@ -58,6 +61,25 @@ public class RadialShooter implements Constants, IShooter {
         }
         else if (setOff) {
             killShot();
+        }
+    }
+    public void pitch(boolean limitHigh, boolean limitLow, double pitchSpeed)
+    {
+        if(limitHigh)
+        {
+            pitchMotor.setX(0);
+        }
+        else 
+        {
+            pitchMotor.setX(pitchSpeed);
+        }
+        if(limitLow)
+        {
+            pitchMotor.setX(0);
+        }
+        else 
+        {
+            pitchMotor.setX(pitchSpeed);
         }
     }
 /**    public boolean pitchSet(int centerY)    //TODO: Fix and implement this

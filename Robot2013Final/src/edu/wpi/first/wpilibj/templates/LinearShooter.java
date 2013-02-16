@@ -31,6 +31,7 @@ public class LinearShooter implements Constants, IShooter {
         shootInfo = cb.getShooter();
         setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
         shoot(shootInfo.canShoot);
+        pitch(shootInfo.pitchTopLimit, shootInfo.pitchBottomLimit, shootInfo.pitchMotor);
         shootInfo.cycles--;
         cb.setShooter(shootInfo);
     }
@@ -56,7 +57,7 @@ public class LinearShooter implements Constants, IShooter {
             killShot();
         }
     }
-    public void pitch(boolean limitHigh, boolean limitLow)  //TODO: Finish this method and implement it
+    public void pitch(boolean limitHigh, boolean limitLow, double pitchSpeed)
     {
         if(limitHigh)
         {
@@ -64,7 +65,15 @@ public class LinearShooter implements Constants, IShooter {
         }
         else 
         {
-            pitchMotor.setX(PITCH_MOTOR_SPEED);
+            pitchMotor.setX(pitchSpeed);
+        }
+        if(limitLow)
+        {
+            pitchMotor.setX(0);
+        }
+        else 
+        {
+            pitchMotor.setX(pitchSpeed);
         }
     }
 }

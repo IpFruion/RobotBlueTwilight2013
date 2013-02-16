@@ -50,7 +50,7 @@ public class ControlBoard {
         }
         if (shoot.cycles < 1)
         {
-            shoot.windowMotor = controller.getShooterYaw();
+            shoot.pitchMotor = controller.getShooterYaw();
         }
     }
     

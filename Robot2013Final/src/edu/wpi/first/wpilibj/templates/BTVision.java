@@ -197,12 +197,12 @@ public class BTVision implements Constants {
         //calculate distance/speed of motors needed based on tg.centerMassY
         if (tg.centerMassY > upperY)
         {
-            shootInfo.windowMotor = -1.0;
+            shootInfo.pitchMotor = -PITCH_MOTOR_SPEED;
             shootInfo.cycles = CYCLES_FOR_VISION;
         }
         else if (tg.centerMassY < lowerY )
         {
-            shootInfo.windowMotor = 1.0;
+            shootInfo.pitchMotor = PITCH_MOTOR_SPEED;
             shootInfo.cycles = CYCLES_FOR_VISION;
         }
         //tell control board to change whatever is necessary
