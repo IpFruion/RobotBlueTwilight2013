@@ -22,7 +22,7 @@ public class CANDriveTrain implements Constants, IDrivetrain {
     public CANDriveTrain()
     {
         
-        shifter = new Piston(SHIFTER_EXTEND_PORT,SHIFTER_RETRACT_PORT);
+        shifter = new Piston(DRIVE_SHIFTER_PORT);
         left = new BTMotor(LEFT_JAG_PORT, true);
         left_2 = new BTMotor(LEFT_JAG_PORT_2, true);
         right = new BTMotor(RIGHT_JAG_PORT, true);

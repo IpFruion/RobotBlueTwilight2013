@@ -19,7 +19,7 @@ public class PWMDriveTrain implements Constants, IDrivetrain {
     public PWMDriveTrain()
     {
         
-        shifter = new Piston(SHIFTER_EXTEND_PORT,SHIFTER_RETRACT_PORT);
+        shifter = new Piston(DRIVE_SHIFTER_PORT);
         left = new BTMotor(LEFT_JAG_PORT, false);
         right = new BTMotor(RIGHT_JAG_PORT, false);
         
