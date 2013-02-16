@@ -47,7 +47,8 @@ public class BTRobot extends SimpleRobot {
         vision = new BTVision();
         auto = new BTAutonomous();
     }
-    public void autonomous() { 
+    public void autonomous() {
+        
     }
 
     /**

@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.Joystick;
 public class LowClimber implements Constants, IClimber{
     Piston arm1;
     ClimberInfo climbInfo;
-    //Piston arm2;
+    
     
     public LowClimber() {
         arm1 = new Piston(LOW_ARM1_EXTEND_PORT, LOW_ARM1_RETRACT_PORT);
-        //arm2 = new Piston(LOW_ARM2_EXTEND_PORT, LOW_ARM2_RETRACT_PORT);
+        
     }
     
     public void update(ControlBoard cb) {
@@ -32,13 +32,13 @@ public class LowClimber implements Constants, IClimber{
 
     public void lowPull() {
         arm1.setPistonState(false);
-        //arm2.setPistonState(true);
+        
     }
 
     public void retract() {
        
         arm1.setPistonState(true);
-        //arm2.setPistonState(false); 
+         
        
     }
     

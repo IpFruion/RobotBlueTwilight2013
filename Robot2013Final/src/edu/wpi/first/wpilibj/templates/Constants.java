@@ -38,8 +38,6 @@ public interface Constants
     public static final int HIGH_TILT_RETRACT_PORT = 8;
     public static final int LOW_ARM1_EXTEND_PORT = 3;
     public static final int LOW_ARM1_RETRACT_PORT = 4;
-//    public static final int LOW_ARM2_EXTEND_PORT = 13;
-//    public static final int LOW_ARM2_RETRACT_PORT = 14;
     
     
     //Relay
