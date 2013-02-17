@@ -10,29 +10,48 @@ package edu.wpi.first.wpilibj.templates;
  * @author Dlock
  */
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class BTController implements Constants {
 
+    
     private boolean shifterState = false;
     private boolean lastButtonState = false;
     private boolean motorstate = false;
     Joystick xboxController;
     public BTController()
     {
+        
         xboxController = new Joystick(XBOX_CONTROLLER_PORT);
     }
     public double getShooterYaw()
     {
-        if (xboxController.getRawButton(D_PAD_UP))
+        if (xboxController.getRawButton(LEFT_STICK_BUTTON))
         {
-            return Constants.PITCH_MOTOR_SPEED;
+            return PITCH_MOTOR_SPEED;
         }
-        else if (xboxController.getRawButton(D_PAD_DOWN))
+        else if (xboxController.getRawButton(RIGHT_STICK_BUTTON))
         {
-            return -Constants.PITCH_MOTOR_SPEED;
+            return -PITCH_MOTOR_SPEED;
 
         }
         return 0;
+    }
+    double speed = SHOOT_MOTOR_SPEED_LOW;
+    public double getShooterShifter()
+    {
+        if(xboxController.getRawButton(BACK))
+        {
+            
+            speed = (DriverStation.getInstance().getAnalogIn(1)*20)/100;
+            //speed = SHOOT_MOTOR_SPEED_LOW;
+        }
+        else if (xboxController.getRawButton(START))
+        {
+            speed = (DriverStation.getInstance().getAnalogIn(2)*20)/100;
+            //speed = SHOOT_MOTOR_SPEED_HIGH;
+        }
+        return speed;
     }
     public boolean getShifterSetting() {
         if(buttonDetector(xboxController.getRawButton(RIGHT_BUMBER)))
@@ -73,14 +92,14 @@ public class BTController implements Constants {
     {
         return xboxController.getRawButton(X_BUTTON);
     }
-    
+    boolean isClimb = false;
     public boolean canClimb()
     {
-        if (xboxController.getRawButton(A_BUTTON))
+        if (buttonDetector(xboxController.getRawButton(A_BUTTON)))
         {
-            return true;
+            isClimb = !isClimb;
         }
-        return false;
+        return isClimb;
     }
     public boolean buttonDetector(boolean isButton)
     {

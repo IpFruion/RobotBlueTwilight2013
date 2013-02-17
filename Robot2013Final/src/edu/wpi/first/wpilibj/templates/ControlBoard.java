@@ -31,16 +31,16 @@ public class ControlBoard {
         climber = new ClimberInfo();
     }
     
-    public ControlBoard update(){
+    public void update(){
         
         shoot.canAim = controller.canAim();
         shoot.canShoot = controller.canShoot();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
         shoot.isShooterMotorOff = controller.isShooterMotorOff();
+        shoot.shooterMotorSpeed = controller.getShooterShifter();
         
         climber.canClimb = controller.canClimb();
         updateCycles();
-        return this;
     }
     
     public void updateCycles()

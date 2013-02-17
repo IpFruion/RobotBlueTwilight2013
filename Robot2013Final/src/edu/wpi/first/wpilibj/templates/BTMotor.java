@@ -16,18 +16,26 @@ public class BTMotor {
     private boolean isCANBus = false;
     private CANJaguar CANMotor;
     private Jaguar PWMMotor;
-    private boolean bAlive = true;
+    private boolean successJag = false;
     
-    public BTMotor(int port, boolean isCan)
+    public BTMotor(int port, boolean isCan, boolean isVoltage)
     {
         isCANBus = isCan;
         if (isCANBus) {
             try{
                 CANMotor = new CANJaguar(port);
+                if (isVoltage)
+                {
+                    CANMotor.changeControlMode(CANJaguar.ControlMode.kVoltage);
+                }
+                else
+                {
+                    CANMotor.changeControlMode(CANJaguar.ControlMode.kPercentVbus);
+                }
+                successJag = true;
             }
             catch(Exception CANTimeoutException){
-                System.out.println("Error initialising CANJaguar for Shooter");
-                bAlive = false;
+                System.out.println("Error initialising CANJaguar at port: " +port);
             }
         }
         else
@@ -37,21 +45,23 @@ public class BTMotor {
     }
     public void setX(double x)
     {
-        if (!bAlive)
-            return;
         
         if(isCANBus)
         {
-            try{
-                CANMotor.setX(x);
-            }
-            catch(Exception CANTimeoutException){
-                System.out.println("Error setting CANJaguar speed");
+            if (successJag)
+            {
+                try{
+                    CANMotor.setX(x);
+                }
+                catch(Exception CANTimeoutException){
+                    System.out.println("Error setting CANJaguar speed");
+                }
             }
         }
         else
         {
             PWMMotor.set(x);
         }
+        
     }
 }

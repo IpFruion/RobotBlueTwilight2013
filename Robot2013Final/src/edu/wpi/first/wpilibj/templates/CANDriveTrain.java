@@ -18,15 +18,17 @@ public class CANDriveTrain implements Constants, IDrivetrain {
     Piston shifter;
     DriveInfo rightInfo;
     DriveInfo leftInfo;
+    boolean isCan = true;
+    boolean isVoltage = false;
     
     public CANDriveTrain()
     {
         
         shifter = new Piston(DRIVE_SHIFTER_PORT);
-        left = new BTMotor(LEFT_JAG_PORT, true);
-        left_2 = new BTMotor(LEFT_JAG_PORT_2, true);
-        right = new BTMotor(RIGHT_JAG_PORT, true);
-        right_2 = new BTMotor(RIGHT_JAG_PORT_2, true);
+        left = new BTMotor(LEFT_JAG_PORT, isCan, isVoltage);
+        left_2 = new BTMotor(LEFT_JAG_PORT_2, isCan, isVoltage);
+        right = new BTMotor(RIGHT_JAG_PORT, isCan, isVoltage);
+        right_2 = new BTMotor(RIGHT_JAG_PORT_2, isCan, isVoltage);
     }
     public void update(ControlBoard cb)
     {

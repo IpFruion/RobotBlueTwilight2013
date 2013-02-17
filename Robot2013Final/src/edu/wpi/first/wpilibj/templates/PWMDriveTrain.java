@@ -15,13 +15,15 @@ public class PWMDriveTrain implements Constants, IDrivetrain {
     Piston shifter;
     DriveInfo rightInfo;
     DriveInfo leftInfo;
+    boolean isCan = false;
+    boolean isVoltage = false;
     
     public PWMDriveTrain()
     {
         
         shifter = new Piston(DRIVE_SHIFTER_PORT);
-        left = new BTMotor(LEFT_JAG_PORT, false);
-        right = new BTMotor(RIGHT_JAG_PORT, false);
+        left = new BTMotor(LEFT_JAG_PORT, isCan, isVoltage);
+        right = new BTMotor(RIGHT_JAG_PORT, isCan, isVoltage);
         
     }
     public void update(ControlBoard cb)

@@ -20,12 +20,13 @@ public class LinearShooter implements Constants, IShooter {
     public DigitalInput lowSensor;
     public DigitalInput highSensor;
     private ShooterInfo shootInfo;
+    boolean isVoltage = true;
     
     public LinearShooter(boolean isCan)
     {
-        motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, isCan);
-        motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, isCan);
-        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, isCan);
+        motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, isCan, isVoltage);
+        motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, isCan, isVoltage);
+        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, isCan, false);
         shootPiston = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
         lowSensor = new DigitalInput(SHOOTER_PITCH_LOW_PORT);
         highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
@@ -45,7 +46,10 @@ public class LinearShooter implements Constants, IShooter {
     {
         if (canShoot) {            
            shootPiston.setPistonState(true);
-           shootPiston.setPistonState(false);
+        }
+        else
+        {
+            shootPiston.setPistonState(false);
         }
     }
     

@@ -19,25 +19,32 @@ public class LowClimber implements Constants, IClimber{
         arm1 = new Piston(LOW_ARM1_EXTEND_PORT, LOW_ARM1_RETRACT_PORT);
         
     }
-    
+    boolean isStart = true;
     public void update(ControlBoard cb) {
         climbInfo = cb.getClimber();
+        if (isStart)
+        {
+            retract();
+            isStart = false;
+        }
         if (climbInfo.canClimb)
         {
             lowPull();
-            wait(1000);
-            retract();
+        }
+        if (!climbInfo.canClimb)
+        {
+            isStart = true;
         }
     }
 
     public void lowPull() {
-        arm1.setPistonState(false);
+        arm1.setPistonState(true);
         
     }
 
     public void retract() {
        
-        arm1.setPistonState(true);
+        arm1.setPistonState(false);
          
        
     }
