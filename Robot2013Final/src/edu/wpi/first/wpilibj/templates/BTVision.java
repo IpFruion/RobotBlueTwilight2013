@@ -27,7 +27,10 @@ import edu.wpi.first.wpilibj.image.*;
  * @author Abby, Tim, Austin
  */
 public class BTVision implements Constants {
-
+    
+    boolean bAimingMsgSent = false;
+    int hl, hh, sl, sh, vl, vh;
+    
     final int XMAXSIZE = 24;
     final int XMINSIZE = 24;
     final int YMAXSIZE = 24;
@@ -74,13 +77,15 @@ public class BTVision implements Constants {
     public BTVision() {
         camera = AxisCamera.getInstance();  // get an instance of the camera
         cc = new CriteriaCollection();      // create the criteria for the particle filter
-        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 500, 65535, false);
+        //changed 2 param to 200 was 500
+        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 200, 65535, false);
     }
 
     public void update(ControlBoard cb) {
         
             shootInfo = cb.getShooter();
             if (shootInfo.canAim) {
+                System.out.println("BTV ln84: Working on Aiming...");
                 left = cb.getDriveLeft();
                 right = cb.getDriveRight();
             try {
@@ -90,7 +95,8 @@ public class BTVision implements Constants {
                  * level directory in the flash memory on the cRIO. The file name in this case is "testImage.jpg"
                  */
                 ColorImage image = camera.getImage();     // comment if using stored images
-                BinaryImage thresholdImage = image.thresholdHSV(60, 100, 90, 255, 20, 255);   // keep only red objects
+                //BinaryImage thresholdImage = image.thresholdHSV(60, 100, 90, 255, 20, 255);   // keep only red objects
+                BinaryImage thresholdImage = image.thresholdHSV(60, 100, 0, 255, 0, 255);   // keep only red objects
                 BinaryImage convexHullImage = thresholdImage.convexHull(false);          // fill in occluded rectangles
                 BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // filter out small particles
                 
@@ -106,10 +112,10 @@ public class BTVision implements Constants {
                     scores[i].aspectRatioInner = scoreAspectRatio(filteredImage, report, i, false);
                     scores[i].xEdge = scoreXEdge(thresholdImage, report);
                     scores[i].yEdge = scoreYEdge(thresholdImage, report);
+                    target[i] = new Target();
                     
                     if(scoreCompare(scores[i], false))
                     {
-                        target[i] = new Target();
                         target[i].isTarget = true;
                         target[i].isHigh = true;
                         target[i].centerMassX = report.center_mass_x_normalized;
@@ -128,24 +134,35 @@ public class BTVision implements Constants {
                         target[i].centerMassX = -10000.;
                         //target is not a target
                     }
-			System.out.println("rect: " + scores[i].rectangularity + "ARinner: " + scores[i].aspectRatioInner);
-			System.out.println("ARouter: " + scores[i].aspectRatioOuter + "xEdge: " + scores[i].xEdge + "yEdge: " + scores[i].yEdge);	
+			//System.out.println("rect: " + scores[i].rectangularity + "ARinner: " + scores[i].aspectRatioInner);
+			//System.out.println("ARouter: " + scores[i].aspectRatioOuter + "xEdge: " + scores[i].xEdge + "yEdge: " + scores[i].yEdge);
+                        System.out.println("center mass: X:"+target[i].centerMassX + " Y: "+target[i].centerMassY+" Is high: "+target[i].isHigh);
+                        
                 }
                 
-                centerRange = Math.abs(target[0].centerMassX - 160.);
-                int bestTarget = 0;
-                for (int i = 0; i < target.length; i++) {
-                    if(Math.abs(160 - target[i].centerMassX) < centerRange) {
-                        centerRange = Math.abs(160 - target[i].centerMassX);
-                        bestTarget = i;
-                    }
-                }
-                if (target[bestTarget].centerMassX > 0.) {
-                    targetingAdjustments(target[bestTarget]);
+                if (target.length < 1) {
+                    System.out.print("BTV ln136: NO TARGETS ACQUIRED!");
+                    
                 }
                 else {
-                    Log.log("No targets found");
+                    // Identify BEST target.
+                    System.out.println("BTV ln141: Working on BEST target...");
+                    centerRange = Math.abs(target[0].centerMassX - 160.);
+                    int bestTarget = 0;
+                    for (int i = 0; i < target.length; i++) {
+                        if(Math.abs(160 - target[i].centerMassX) < centerRange) {
+                            centerRange = Math.abs(160 - target[i].centerMassX);
+                            bestTarget = i;
+                        }
+                    }
+                    if (target[bestTarget].centerMassX > 0.) {
+                        targetingAdjustments(target[bestTarget]);
+                    }
+                    else {
+                        Log.log("No targets found");
+                    }
                 }
+                
                 /**
                  * all images in Java must be freed after they are used since they are allocated out
                  * of C data structures. Not calling free() will cause the memory to accumulate over
@@ -165,6 +182,14 @@ public class BTVision implements Constants {
             //I would suggest to add the duration feature of cycles
             cb.setDrive(left, right);
             cb.setShooter(shootInfo);
+            
+            bAimingMsgSent = false;
+            }
+            else {
+                if (!this.bAimingMsgSent) {
+                    System.out.println("BTV ln180: Not in Aiming mode.");
+                    bAimingMsgSent = true;
+                }
             }
 
     }
@@ -274,6 +299,13 @@ public class BTVision implements Constants {
      */
     boolean scoreCompare(Scores scores, boolean outer){
             boolean isTarget = true;
+            
+            System.out.println("BTV ln 298: O/I=" + outer 
+                                + " R=" + scores.rectangularity
+                                + " AO=" + scores.aspectRatioOuter
+                                + " AI=" + scores.aspectRatioInner
+                                + " XE=" + scores.xEdge
+                                + " YE=" + scores.yEdge);
 
             isTarget &= scores.rectangularity > RECTANGULARITY_LIMIT;
             if(outer){

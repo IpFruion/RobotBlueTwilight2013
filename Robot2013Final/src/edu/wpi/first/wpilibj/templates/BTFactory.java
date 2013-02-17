@@ -12,12 +12,11 @@ public class BTFactory {
     
     public IShooter createShooter(ControlBoard cb) {
         if(cb.getShooterSetting()) {
-            System.out.println("radial");
+            
             //check for can in radial shooter
             RadialShooter radialshoot = new RadialShooter(cb.getDriveTrainSetting());
             return radialshoot;
         } else {
-            System.out.println("linear");
             LinearShooter linearshoot = new LinearShooter(cb.getDriveTrainSetting());
             return linearshoot;
         }       
@@ -33,11 +32,9 @@ public class BTFactory {
     }
     public IDrivetrain createDriveTrain(ControlBoard cb) {
         if(cb.getDriveTrainSetting()) {
-            System.out.println("can");
             CANDriveTrain can = new CANDriveTrain();
             return can;
         } else {
-            System.out.println("pwm");
             PWMDriveTrain pwm = new PWMDriveTrain();
             return pwm;
         }
