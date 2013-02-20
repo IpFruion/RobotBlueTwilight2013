@@ -26,11 +26,11 @@ public class BTController implements Constants {
     }
     public double getShooterYaw()
     {
-        if (xboxController.getRawButton(LEFT_STICK_BUTTON))
+        if (xboxController.getRawButton(A_BUTTON))
         {
             return PITCH_MOTOR_SPEED;
         }
-        else if (xboxController.getRawButton(RIGHT_STICK_BUTTON))
+        else if (xboxController.getRawButton(B_BUTTON))
         {
             return -PITCH_MOTOR_SPEED;
 
@@ -95,9 +95,13 @@ public class BTController implements Constants {
     boolean isClimb = false;
     public boolean canClimb()
     {
-        if (buttonDetector(xboxController.getRawButton(A_BUTTON)))
+        if (xboxController.getRawButton(LEFT_STICK_BUTTON))
         {
-            isClimb = !isClimb;
+            isClimb = true;
+        }
+        if (xboxController.getRawButton(RIGHT_STICK_BUTTON))
+        {
+            isClimb = false;
         }
         return isClimb;
     }

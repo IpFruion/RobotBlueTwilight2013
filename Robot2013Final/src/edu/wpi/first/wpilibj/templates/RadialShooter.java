@@ -74,8 +74,7 @@ public class RadialShooter implements Constants, IShooter {
     }
     public void pitch(boolean limitHigh, boolean limitLow, double pitchSpeed)
     {
-        //limitHigh
-        if(false)
+        if(limitHigh)
         {
             pitchMotor.setX(0);
         }
@@ -83,8 +82,7 @@ public class RadialShooter implements Constants, IShooter {
         {
             pitchMotor.setX(pitchSpeed);
         }
-        //limitLow
-        if(false)
+        if(limitLow)
         {
             pitchMotor.setX(0);
         }
@@ -93,24 +91,5 @@ public class RadialShooter implements Constants, IShooter {
             pitchMotor.setX(pitchSpeed);
         }
     }
-/**    public boolean pitchSet(int centerY)    //TODO: Fix and implement this
-    {
-        boolean isCenter = false;
-        if (centerY < .1 && !lowSensor.get() && !highSensor.get())
-        {
-            pitchMotor.set(Relay.Value.kForward);
-        }
-        else if (centerY > 100 && !lowSensor.get() && !highSensor.get())
-        {
-            pitchMotor.set(Relay.Value.kReverse);
-        }
-        else
-        {
-            isCenter = true;
-            pitchMotor.set(Relay.Value.kOff);
-        }
-        return isCenter;
-    }
-*/
     
 }
