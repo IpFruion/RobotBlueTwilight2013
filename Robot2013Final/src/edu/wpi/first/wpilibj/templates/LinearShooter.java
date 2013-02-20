@@ -20,6 +20,7 @@ public class LinearShooter implements Constants, IShooter {
     public DigitalInput lowSensor;
     public DigitalInput highSensor;
     private ShooterInfo shootInfo;
+    private BTMotor collectorMotor;
     boolean isVoltage = true;
     
     public LinearShooter(boolean isCan)
@@ -30,6 +31,7 @@ public class LinearShooter implements Constants, IShooter {
         shootPiston = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
         lowSensor = new DigitalInput(SHOOTER_PITCH_LOW_PORT);
         highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
+        collectorMotor = new BTMotor(COLLECTOR_MOTOR_PORT, isCan, isVoltage);
     }
     public void update(ControlBoard cb)
     {
@@ -38,9 +40,14 @@ public class LinearShooter implements Constants, IShooter {
         setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
         shoot(shootInfo.canShoot);
         pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchMotor);
+        reload(shootInfo.reloadMotor);
         
         shootInfo.cycles--;
         cb.setShooter(shootInfo);
+    }
+    public void reload(double motorspeed)
+    {
+        collectorMotor.setX(motorspeed);
     }
     public void shoot(boolean canShoot)
     {

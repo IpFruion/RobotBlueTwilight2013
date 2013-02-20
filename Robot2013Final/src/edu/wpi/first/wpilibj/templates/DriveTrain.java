@@ -10,7 +10,7 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author Alec Pierce
  */
-public class CANDriveTrain implements Constants, IDrivetrain {
+public class DriveTrain implements Constants, IDrivetrain {
     BTMotor left;
     BTMotor left_2;
     BTMotor right;
@@ -18,10 +18,9 @@ public class CANDriveTrain implements Constants, IDrivetrain {
     Piston shifter;
     DriveInfo rightInfo;
     DriveInfo leftInfo;
-    boolean isCan = true;
     boolean isVoltage = false;
     
-    public CANDriveTrain()
+    public DriveTrain(boolean isCan)
     {
         
         shifter = new Piston(DRIVE_SHIFTER_PORT);
@@ -34,16 +33,15 @@ public class CANDriveTrain implements Constants, IDrivetrain {
     {
         rightInfo = cb.getDriveRight();
         leftInfo = cb.getDriveLeft();
+        
         double rightValue = rightInfo.percent;
         double leftValue = leftInfo.percent;
-        boolean isShift = leftInfo.shifterSetting;
         
         left.setX(leftValue);
         left_2.setX(leftValue);
         right.setX(rightValue * -1);
         right_2.setX(rightValue * -1);
         
-        shifter.setPistonState(isShift);
         leftInfo.cycles--;
         rightInfo.cycles--;
         

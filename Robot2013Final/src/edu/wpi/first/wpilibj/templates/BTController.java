@@ -9,8 +9,9 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author Dlock
  */
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Joystick;
+
 
 public class BTController implements Constants {
 
@@ -19,9 +20,9 @@ public class BTController implements Constants {
     private boolean lastButtonState = false;
     private boolean motorstate = false;
     Joystick xboxController;
+    
     public BTController()
     {
-        
         xboxController = new Joystick(XBOX_CONTROLLER_PORT);
     }
     public double getShooterYaw()
@@ -34,6 +35,18 @@ public class BTController implements Constants {
         {
             return -PITCH_MOTOR_SPEED;
 
+        }
+        return 0;
+    }
+    public double getReloadSpeed()
+    {
+        if (xboxController.getRawButton(LEFT_BUMPER))
+        {
+            return RELOAD_SPEED;
+        }
+        else if (xboxController.getRawButton(RIGHT_BUMPER))
+        {
+            return -RELOAD_SPEED;
         }
         return 0;
     }
@@ -52,13 +65,6 @@ public class BTController implements Constants {
             //speed = SHOOT_MOTOR_SPEED_HIGH;
         }
         return speed;
-    }
-    public boolean getShifterSetting() {
-        if(buttonDetector(xboxController.getRawButton(RIGHT_BUMBER)))
-        {
-            shifterState = !shifterState;
-        }
-        return shifterState;
     }
 
     public double getLMotorSpeed() {

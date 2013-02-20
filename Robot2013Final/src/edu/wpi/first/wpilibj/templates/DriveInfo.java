@@ -16,12 +16,10 @@ public class DriveInfo {
     public double percent = 0;
     //how many cycles this runs
     public int cycles = 0;
-    
-    public boolean shifterSetting;
 
     public String debug()
     {
-        return "d = "+direction+" p = "+percent+" c = "+cycles+ " s = "+shifterSetting;
+        return "d = "+direction+" p = "+percent+" c = "+cycles+ " s = ";
     }
     
     

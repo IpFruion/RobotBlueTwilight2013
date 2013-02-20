@@ -40,11 +40,11 @@ public class BTFactory {
         //add cb.getDriveTrainSetting()
         if(true) {
             //System.out.println("can");
-            CANDriveTrain can = new CANDriveTrain();
+            DriveTrain can = new DriveTrain(true);
             return can;
         } else {
            //System.out.println("pwm");
-            PWMDriveTrain pwm = new PWMDriveTrain();
+            DriveTrain pwm = new DriveTrain(false);
             return pwm;
         }
     }

@@ -20,6 +20,7 @@ public class RadialShooter implements Constants, IShooter {
     
     public BTMotor motShoot;
     public BTMotor pitchMotor;
+    public BTMotor collectorMotor;
     public DigitalInput lowSensor;
     public DigitalInput highSensor;
     public AxisCamera a;
@@ -31,7 +32,8 @@ public class RadialShooter implements Constants, IShooter {
     {
         motShoot = new BTMotor(RADIAL_SHOOTER_MOTOR_PORT, isCan, isVoltage);
         //WRONG!! change pitchmotor to isCan as the 2ND param not false
-        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, isCan, false);
+        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, isCan, isVoltage);
+        collectorMotor = new BTMotor(COLLECTOR_MOTOR_PORT, isCan, isVoltage);
         lowSensor = new DigitalInput(SHOOTER_PITCH_LOW_PORT);
         highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
         shooter = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
@@ -43,9 +45,14 @@ public class RadialShooter implements Constants, IShooter {
         setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
         shoot(shootInfo.canShoot);
         pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchMotor);
+        reload(shootInfo.reloadMotor);
         
         shootInfo.cycles--;
         cb.setShooter(shootInfo);
+    }
+    public void reload(double motorspeed)
+    {
+        collectorMotor.setX(motorspeed);
     }
     
     public void shoot(boolean canShoot) {

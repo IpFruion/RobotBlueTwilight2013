@@ -38,6 +38,7 @@ public class ControlBoard {
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
         shoot.isShooterMotorOff = controller.isShooterMotorOff();
         shoot.shooterMotorSpeed = controller.getShooterShifter();
+        shoot.reloadMotor = controller.getReloadSpeed();
         
         climber.canClimb = controller.canClimb();
         updateCycles();
@@ -51,9 +52,6 @@ public class ControlBoard {
             right.percent = controller.getRMotorSpeed();
             left.cycles = 1;
             right.cycles = 1;
-            left.shifterSetting = controller.getShifterSetting();
-            right.shifterSetting = controller.getShifterSetting();
-            
         }
 
         if (shoot.cycles < 1)

@@ -20,6 +20,7 @@ public interface Constants
     public static final int LINEAR_SHOOTER_MOTOR1_PORT = 6;
     public static final int LINEAR_SHOOTER_MOTOR2_PORT = 3;
     public static final int SHOOTER_PITCH_MOTOR_PORT = 7;
+    public static final int COLLECTOR_MOTOR_PORT = 8;
 
     
     //Joysticks
@@ -67,6 +68,7 @@ public interface Constants
     public static final double SHOOT_MOTOR_SPEED_LOW = .55;
     public static final double SHOOT_MOTOR_SPEED_HIGH = .85;
     public static final boolean USE_CAN = false;
+    public static final double RELOAD_SPEED = .5;
     
     //Controller Constants 
     //I WOULD NOT CHANGE THESE
@@ -80,7 +82,7 @@ public interface Constants
     public static final int LEFT_STICK = 2;
     public static final int RIGHT_STICK = 5;
     public static final int LEFT_BUMPER = 5;
-    public static final int RIGHT_BUMBER = 6;
+    public static final int RIGHT_BUMPER = 6;
     public static final int Y_BUTTON = 4;
     public static final int X_BUTTON = 3;
     public static final int A_BUTTON = 1;
