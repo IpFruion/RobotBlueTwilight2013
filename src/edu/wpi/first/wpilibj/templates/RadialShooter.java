@@ -37,11 +37,14 @@ public class RadialShooter extends BTShooter implements Constants {
     }
     public void update(ControlBoard cb)
     {
+        try {
         if(motShoot == null) {
             Log.log("Not working");
         }
         setSpeed(cb.isShooterMotorOn(), cb.getShootMotorSpeed());
         shoot(cb.canShoot());
+        } catch(Exception e) {
+            e.printStackTrace();
     }
     public void shoot(boolean canShoot)
     {
