@@ -52,6 +52,7 @@ public class BTVision implements Constants {
     
     AxisCamera camera;          // the axis camera object (connected to the switch)
     CriteriaCollection cc;      // the criteria for doing the particle filter operation
+    CriteriaCollection pyramidCC;
     double centerRange;
     
     private ShooterInfo shootInfo;
@@ -77,12 +78,35 @@ public class BTVision implements Constants {
     public BTVision() {
         camera = AxisCamera.getInstance();  // get an instance of the camera
         cc = new CriteriaCollection();      // create the criteria for the particle filter
-        //changed 2 param to 200 was 500
-        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 200, 65535, false);
+        /* @Mr. Meredith
+         * Need some criteria that will discard "particles" in our image - question is what are they?
+         * Given a camera resolution of 320x240 the width of the middle and high
+         * goals IN PIXELS depends on our range from the targets. 
+         * At 6 feet, the high and middle goals will be ~317 pixels wide, while at 52
+         * feet they will be ~36 pixels wide.
+         * I set the outsideRange parameter to false (not sure that is right).
+         */
+//        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 36, 317, false);
+        
+        /* Given a camera resolution of 320x240 the height of the middle and high
+         * goals IN PIXELS depends on our range from the targets.
+         * At 6 feet, the height of the high goal will be ~75 pixels wide, while at 52 feet it will
+         * be ~8 pixels wide.
+         * At 6 feet, the height of the middle goal will be ~109 pixels wide, while at 52 feet
+         * it will be 12 pixels wide.
+         * We want both to keep both of these, so ...
+         */
+//        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 8, 109, false);
+        
+//        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 250, 5000, false);
+        
+        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA_BY_IMAGE_AREA, (float) 10, (float) 90, false);
+        
+        pyramidCC = new CriteriaCollection();
+        //TODO: pyramidCC.addCriteria(Whatever it needs);
     }
 
     public void update(ControlBoard cb) {
-        
             shootInfo = cb.getShooter();
             if (shootInfo.canAim) {
                 System.out.println("BTV ln84: Working on Aiming...");
@@ -95,6 +119,8 @@ public class BTVision implements Constants {
                  * level directory in the flash memory on the cRIO. The file name in this case is "testImage.jpg"
                  */
                 ColorImage image = camera.getImage();     // comment if using stored images
+                image =  new RGBImage("/52ft.jpg");
+
                 //BinaryImage thresholdImage = image.thresholdHSV(60, 100, 90, 255, 20, 255);   // keep only red objects
                 BinaryImage thresholdImage = image.thresholdHSV(60, 100, 0, 255, 0, 255);   // keep only red objects
                 BinaryImage convexHullImage = thresholdImage.convexHull(false);          // fill in occluded rectangles
@@ -103,12 +129,13 @@ public class BTVision implements Constants {
                 //iterate through each particle and score to see if it is a target
                 Scores scores[] = new Scores[filteredImage.getNumberParticles()];
                 Target target[] = new Target[filteredImage.getNumberParticles()];
+                System.out.println("Particles found: " + filteredImage.getNumberParticles());
                 
                 for (int i = 0; i < scores.length; i++) {
                     ParticleAnalysisReport report = filteredImage.getParticleAnalysisReport(i);
                     scores[i] = new Scores();
                     scores[i].rectangularity = scoreRectangularity(report);
-                    scores[i].aspectRatioOuter = scoreAspectRatio(filteredImage,report, i, true);
+                    scores[i].aspectRatioOuter = scoreAspectRatio(filteredImage, report, i, true);
                     scores[i].aspectRatioInner = scoreAspectRatio(filteredImage, report, i, false);
                     scores[i].xEdge = scoreXEdge(thresholdImage, report);
                     scores[i].yEdge = scoreYEdge(thresholdImage, report);

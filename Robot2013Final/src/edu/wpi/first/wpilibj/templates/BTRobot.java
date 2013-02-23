@@ -44,7 +44,7 @@ public class BTRobot extends SimpleRobot {
         shoot = btf.createShooter(cb);
         climb = btf.createClimber(cb);
         comp = new CompressorInit();
-        //vision = new BTVision();
+        vision = new BTVision();
         auto = new BTAutonomous();
     }
     public void autonomous() {
@@ -59,7 +59,7 @@ public class BTRobot extends SimpleRobot {
         while(isOperatorControl())
         {
             cb.update();
-            //vision.update(cb);
+            vision.update(cb);
             drive.update(cb);
             shoot.update(cb);
             climb.update(cb);
