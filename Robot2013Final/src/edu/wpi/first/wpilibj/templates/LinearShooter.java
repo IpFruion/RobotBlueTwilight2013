@@ -22,7 +22,7 @@ public class LinearShooter implements Constants, IShooter {
     private ShooterInfo shootInfo;
     private BTMotor collectorMotor;
     boolean isVoltage = true;
-    
+    private int reloadCycles = 0;
     public LinearShooter(boolean isCan)
     {
         motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, isCan, isVoltage);
@@ -37,27 +37,40 @@ public class LinearShooter implements Constants, IShooter {
     {
         shootInfo = cb.getShooter();
         
-        setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
-        shoot(shootInfo.canShoot);
-        pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchMotor);
-        reload(shootInfo.reloadMotor);
-        
-        shootInfo.cycles--;
+        if (shootInfo.cycles > 0)
+        {
+            setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
+            shoot(shootInfo.canShoot);
+            pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchMotor);
+            reload(shootInfo.reloadMotor);
+            
+            shootInfo.cycles--;
+        }
         cb.setShooter(shootInfo);
     }
     public void reload(double motorspeed)
     {
-        collectorMotor.setX(motorspeed);
+        if (!shootInfo.reloaded)
+        {
+            collectorMotor.setX(motorspeed);
+            reloadCycles = reloadCycles - reloadCycles;
+        }
     }
     public void shoot(boolean canShoot)
     {
-        if (canShoot) {            
-           shootPiston.setPistonState(true);
+        if (canShoot && shootInfo.reloaded) {            
+            shootPiston.setPistonState(true);
         }
-        else
+        else if (!canShoot && shootInfo.reloaded)
         {
             shootPiston.setPistonState(false);
         }
+        else if (!shootInfo.reloaded)
+        {
+            shootPiston.setPistonState(false);
+            reloadCycles++;
+        }
+
     }
     
     public void killShot(){
