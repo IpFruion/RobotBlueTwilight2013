@@ -57,6 +57,7 @@ public interface Constants
     public static final int DIGITAL_INPUT_SHOOTER = 14;
     public static final int DIGITAL_INPUT_CLIMBER = 13;
     public static final int DIGITAL_INPUT_DRIVE_TRAIN = 12;
+    public static final int DIGITAL_INPUT_SENSE_DISK = 8; // probably needs to be changed
     
     //Analog Ports
     public static final int AUTONOMOUS_SELECTION_PORT = 3;

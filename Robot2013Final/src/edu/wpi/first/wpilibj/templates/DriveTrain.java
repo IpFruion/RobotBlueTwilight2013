@@ -19,6 +19,7 @@ public class DriveTrain implements Constants, IDrivetrain {
     DriveInfo rightInfo;
     DriveInfo leftInfo;
     boolean isVoltage = false;
+    double deadband = .1, lowrange = .55, midrange = .6, lowY = .3, highY = .8;
     
     public DriveTrain(boolean isCan)
     {
@@ -33,19 +34,48 @@ public class DriveTrain implements Constants, IDrivetrain {
     {
         rightInfo = cb.getDriveRight();
         leftInfo = cb.getDriveLeft();
-        
-        double rightValue = rightInfo.percent;
-        double leftValue = leftInfo.percent;
-        
-        left.setX(leftValue);
-        left_2.setX(leftValue);
-        right.setX(rightValue * -1);
-        right_2.setX(rightValue * -1);
-        
-        leftInfo.cycles--;
-        rightInfo.cycles--;
+        if (rightInfo.cycles > 0 && leftInfo.cycles > 0)
+        {
+            double rightValue = rightInfo.percent;
+            double leftValue = leftInfo.percent;
+            leftValue = calcPower(leftValue);
+            rightValue = calcPower(rightValue);
+
+            left.setX(leftValue);
+            left_2.setX(leftValue);
+            right.setX(rightValue * -1);
+            right_2.setX(rightValue * -1);
+
+            leftInfo.cycles--;
+            rightInfo.cycles--;
+        }
         
         cb.setDrive(leftInfo, rightInfo);
+    }
+    public double calcPower(double input)
+    {
+        double templeft = 0;
+        if (Math.abs(input) > deadband)
+        {
+            templeft = (Math.abs(input) - deadband) / (1-deadband);
+            if (templeft <lowrange)
+            {
+                templeft = lowY;
+            }
+            else if (templeft < midrange)
+            {
+                templeft = ((highY-lowY)/(midrange-lowrange))* (templeft - lowrange) + lowrange;
+            }
+            else
+            {
+                templeft = ((1-highY)/(1-midrange)) * (templeft - midrange) + midrange;
+            }
+            if (input < 0)
+            {
+                templeft *= -1;
+            }
+        }
+        return templeft;
     }
     public boolean yawSet(int centerX)
     {

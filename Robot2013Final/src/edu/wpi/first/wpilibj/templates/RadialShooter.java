@@ -42,25 +42,36 @@ public class RadialShooter implements Constants, IShooter {
     public void update(ControlBoard cb) {
         shootInfo = cb.getShooter();
         
-        setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
-        shoot(shootInfo.canShoot);
-        pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchMotor);
-        reload(shootInfo.reloadMotor);
-        
-        shootInfo.cycles--;
+        if (shootInfo.cycles > 0)
+        {
+            setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
+            shoot(shootInfo.canShoot);
+            pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchMotor);
+            reload(shootInfo.reloadMotor);
+            
+            shootInfo.cycles--;
+        }
         cb.setShooter(shootInfo);
     }
     public void reload(double motorspeed)
     {
-        collectorMotor.setX(motorspeed);
+        if (!shootInfo.reloaded)
+        {
+            collectorMotor.setX(motorspeed);
+        }
+       
     }
     
     public void shoot(boolean canShoot) {
-        if(canShoot)
+        if (shootInfo.reloaded)
         {
-            shooter.setPistonState(false);
+            if(canShoot)
+            {
+                shooter.setPistonState(false);
+            }
         }
-        else{
+        else
+        {
             shooter.setPistonState(true);
         }
      }
