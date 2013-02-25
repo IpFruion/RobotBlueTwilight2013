@@ -17,6 +17,7 @@ public class ShooterInfo {
     public boolean canAim;
     public double pitchMotor;
     public double reloadMotor;
+    public boolean reloaded = false;
  
     public int cycles = 0;
 }

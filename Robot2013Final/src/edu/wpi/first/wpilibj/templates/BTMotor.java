@@ -17,10 +17,13 @@ public class BTMotor {
     private CANJaguar CANMotor;
     private Jaguar PWMMotor;
     private boolean successJag = false;
+    private int portNum;
+   
     
     public BTMotor(int port, boolean isCan, boolean isVoltage)
     {
         isCANBus = isCan;
+        portNum = port;
         if (isCANBus) {
             try{
                 CANMotor = new CANJaguar(port);
@@ -54,7 +57,7 @@ public class BTMotor {
                     CANMotor.setX(x);
                 }
                 catch(Exception CANTimeoutException){
-                    System.out.println("Error setting CANJaguar speed");
+                    System.out.println("Error setting CANJaguar speed at "+portNum);
                 }
             }
         }
@@ -62,6 +65,42 @@ public class BTMotor {
         {
             PWMMotor.set(x);
         }
-        
+       
+    }
+    public double getBTBusVoltage(){
+        if(isCANBus)
+        {
+            try{
+                return CANMotor.getBusVoltage();
+            }
+            catch(Exception e){
+                System.out.println("Error in getting voltage at "+portNum);
+            }
+        }
+    return 0;
+    }
+    public double getBTOutputCurrent(){
+        if(isCANBus)
+        {            
+            try{
+                return CANMotor.getOutputCurrent();
+        }
+            catch(Exception e){
+                System.out.println("Error in getting current at "+portNum);
+            }
+        }
+    return 0;
+    }
+    public double getBTTemperature(){
+        if(isCANBus)
+        {
+            try{
+                return CANMotor.getTemperature();
+        }
+            catch (Exception e){
+                System.out.println("Error in getting temperature at "+portNum);
+            }    
+        }
+    return 0;
     }
 }

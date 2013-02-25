@@ -48,7 +48,15 @@ public class BTRobot extends SimpleRobot {
         auto = new BTAutonomous();
     }
     public void autonomous() {
-        
+        comp.run();
+        while(isAutonomous())
+        {
+            auto.update(cb);
+            //vision.update(cb);
+            drive.update(cb);
+            shoot.update(cb);
+        }
+        comp.stop();
     }
 
     /**

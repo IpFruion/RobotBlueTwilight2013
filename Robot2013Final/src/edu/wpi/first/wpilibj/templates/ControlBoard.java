@@ -13,17 +13,19 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class ControlBoard {
     private DriveInfo left;
     private DriveInfo right;
-    private ShooterInfo shoot;
+    public ShooterInfo shoot;
     private BTController controller;
     private ClimberInfo climber;
     DigitalInput shooter_switch;
     DigitalInput climber_switch;
     DigitalInput dt_switch;
+    DigitalInput diskInTray;
     
     public ControlBoard() {
         shooter_switch = new DigitalInput(Constants.DIGITAL_INPUT_SHOOTER);
         climber_switch = new DigitalInput(Constants.DIGITAL_INPUT_CLIMBER);
         dt_switch = new DigitalInput(Constants.DIGITAL_INPUT_DRIVE_TRAIN);
+        diskInTray = new DigitalInput(Constants.DIGITAL_INPUT_SENSE_DISK);
         controller = new BTController();
         shoot = new ShooterInfo();
         left = new DriveInfo();
@@ -35,6 +37,7 @@ public class ControlBoard {
         
         shoot.canAim = controller.canAim();
         shoot.canShoot = controller.canShoot();
+        shoot.reloaded = diskInTray.get();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
         shoot.isShooterMotorOff = controller.isShooterMotorOff();
         shoot.shooterMotorSpeed = controller.getShooterShifter();
