@@ -1,7 +1,6 @@
 package edu.wpi.first.wpilibj.templates;
 
 import com.sun.squawk.debugger.Log;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.*;
@@ -26,11 +25,8 @@ import edu.wpi.first.wpilibj.image.*;
  *
  * @author Abby, Tim, Austin
  */
-public class BTVision implements Constants {
-    
-    boolean bAimingMsgSent = false;
-    int hl, hh, sl, sh, vl, vh;
-    
+public class BTVision {
+
     final int XMAXSIZE = 24;
     final int XMINSIZE = 24;
     final int YMAXSIZE = 24;
@@ -52,12 +48,8 @@ public class BTVision implements Constants {
     
     AxisCamera camera;          // the axis camera object (connected to the switch)
     CriteriaCollection cc;      // the criteria for doing the particle filter operation
-    CriteriaCollection pyramidCC;
     double centerRange;
-    
-    private ShooterInfo shootInfo;
-    private DriveInfo right;
-    private DriveInfo left;
+    int onlyone = 0; // controls image capture while in loop (only want one!)
     
     public class Scores {
         double rectangularity;
@@ -78,40 +70,10 @@ public class BTVision implements Constants {
     public BTVision() {
         camera = AxisCamera.getInstance();  // get an instance of the camera
         cc = new CriteriaCollection();      // create the criteria for the particle filter
-        /* @Mr. Meredith
-         * Need some criteria that will discard "particles" in our image - question is what are they?
-         * Given a camera resolution of 320x240 the width of the middle and high
-         * goals IN PIXELS depends on our range from the targets. 
-         * At 6 feet, the high and middle goals will be ~317 pixels wide, while at 52
-         * feet they will be ~36 pixels wide.
-         * I set the outsideRange parameter to false (not sure that is right).
-         */
-//        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 36, 317, false);
-        
-        /* Given a camera resolution of 320x240 the height of the middle and high
-         * goals IN PIXELS depends on our range from the targets.
-         * At 6 feet, the height of the high goal will be ~75 pixels wide, while at 52 feet it will
-         * be ~8 pixels wide.
-         * At 6 feet, the height of the middle goal will be ~109 pixels wide, while at 52 feet
-         * it will be 12 pixels wide.
-         * We want both to keep both of these, so ...
-         */
-//        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 8, 109, false);
-        
-//        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 250, 5000, false);
-        
-        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA_BY_IMAGE_AREA, (float) 10, (float) 90, false);
-        
-        pyramidCC = new CriteriaCollection();
-        //TODO: pyramidCC.addCriteria(Whatever it needs);
+        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 500, 65535, false);
     }
 
     public void update(ControlBoard cb) {
-            shootInfo = cb.getShooter();
-            if (shootInfo.canAim) {
-                System.out.println("BTV ln84: Working on Aiming...");
-                left = cb.getDriveLeft();
-                right = cb.getDriveRight();
             try {
                 /**
                  * Do the image capture with the camera and apply the algorithm described above. This
@@ -119,17 +81,22 @@ public class BTVision implements Constants {
                  * level directory in the flash memory on the cRIO. The file name in this case is "testImage.jpg"
                  */
                 ColorImage image = camera.getImage();     // comment if using stored images
-                image =  new RGBImage("/52ft.jpg");
-
-                //BinaryImage thresholdImage = image.thresholdHSV(60, 100, 90, 255, 20, 255);   // keep only red objects
-                BinaryImage thresholdImage = image.thresholdHSV(60, 100, 0, 255, 0, 255);   // keep only red objects
+                BinaryImage thresholdImage = image.thresholdHSV(60, 100, 90, 255, 20, 255);   // keep only red objects
                 BinaryImage convexHullImage = thresholdImage.convexHull(false);          // fill in occluded rectangles
                 BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // filter out small particles
+                
+                // let's capture these images so we can see them ...
+                if (onlyone == 0) {
+                    onlyone++;
+                    image.write("/colorimage.bmp");
+                    thresholdImage.write("/thresholdimage.bmp");
+                    convexHullImage.write("/convexhullimage.bmp");
+                    filteredImage.write("/filteredimage.bmp");
+                }
                 
                 //iterate through each particle and score to see if it is a target
                 Scores scores[] = new Scores[filteredImage.getNumberParticles()];
                 Target target[] = new Target[filteredImage.getNumberParticles()];
-                System.out.println("Particles found: " + filteredImage.getNumberParticles());
                 
                 for (int i = 0; i < scores.length; i++) {
                     ParticleAnalysisReport report = filteredImage.getParticleAnalysisReport(i);
@@ -139,10 +106,10 @@ public class BTVision implements Constants {
                     scores[i].aspectRatioInner = scoreAspectRatio(filteredImage, report, i, false);
                     scores[i].xEdge = scoreXEdge(thresholdImage, report);
                     scores[i].yEdge = scoreYEdge(thresholdImage, report);
-                    target[i] = new Target();
                     
                     if(scoreCompare(scores[i], false))
                     {
+                        target[i] = new Target();
                         target[i].isTarget = true;
                         target[i].isHigh = true;
                         target[i].centerMassX = report.center_mass_x_normalized;
@@ -161,35 +128,24 @@ public class BTVision implements Constants {
                         target[i].centerMassX = -10000.;
                         //target is not a target
                     }
-			//System.out.println("rect: " + scores[i].rectangularity + "ARinner: " + scores[i].aspectRatioInner);
-			//System.out.println("ARouter: " + scores[i].aspectRatioOuter + "xEdge: " + scores[i].xEdge + "yEdge: " + scores[i].yEdge);
-                        System.out.println("center mass: X:"+target[i].centerMassX + " Y: "+target[i].centerMassY+" Is high: "+target[i].isHigh);
-                        
+			System.out.println("rect: " + scores[i].rectangularity + "ARinner: " + scores[i].aspectRatioInner);
+			System.out.println("ARouter: " + scores[i].aspectRatioOuter + "xEdge: " + scores[i].xEdge + "yEdge: " + scores[i].yEdge);	
                 }
                 
-                if (target.length < 1) {
-                    System.out.print("BTV ln136: NO TARGETS ACQUIRED!");
-                    
+                centerRange = Math.abs(target[0].centerMassX - 160.);
+                int bestTarget = 0;
+                for (int i = 0; i < target.length; i++) {
+                    if(Math.abs(160 - target[i].centerMassX) < centerRange) {
+                        centerRange = Math.abs(160 - target[i].centerMassX);
+                        bestTarget = i;
+                    }
+                }
+                if (target[bestTarget].centerMassX > 0.) {
+                    targetingAdjustments(target[bestTarget]);
                 }
                 else {
-                    // Identify BEST target.
-                    System.out.println("BTV ln141: Working on BEST target...");
-                    centerRange = Math.abs(target[0].centerMassX - 160.);
-                    int bestTarget = 0;
-                    for (int i = 0; i < target.length; i++) {
-                        if(Math.abs(160 - target[i].centerMassX) < centerRange) {
-                            centerRange = Math.abs(160 - target[i].centerMassX);
-                            bestTarget = i;
-                        }
-                    }
-                    if (target[bestTarget].centerMassX > 0.) {
-                        targetingAdjustments(target[bestTarget]);
-                    }
-                    else {
-                        Log.log("No targets found");
-                    }
+                    Log.log("No targets found");
                 }
-                
                 /**
                  * all images in Java must be freed after they are used since they are allocated out
                  * of C data structures. Not calling free() will cause the memory to accumulate over
@@ -204,22 +160,7 @@ public class BTVision implements Constants {
             } catch (NIVisionException ex) {
                 Log.log("NIVision Exception, error targeting");
             }
-            
-            //sets the commands to the drivetrain
-            //I would suggest to add the duration feature of cycles
-            cb.setDrive(left, right);
-            cb.setShooter(shootInfo);
-            
-            bAimingMsgSent = false;
-            }
-            else {
-                if (!this.bAimingMsgSent) {
-                    System.out.println("BTV ln180: Not in Aiming mode.");
-                    bAimingMsgSent = true;
-                }
-            }
-
-    }
+        }
     
     /**
      * Tells the control board what the necessary adjustments are to hit the optimal target.
@@ -228,37 +169,18 @@ public class BTVision implements Constants {
      */
     //TODO: add overrides in case adjustments are impractical/impossible
     public void targetingAdjustments(Target tg) {
-        double lower = 140, upper = 180, upperY = 140, lowerY = 180;
-        //These should be fixed once we figure out how
+        double lower = 140, upper = 180; //These should be fixed once we figure out how
         //Calculate upper, lower bounds for x center of mass
         if (tg.centerMassX < lower) {
             //calculate how much to rotate
-            left.percent = .25;
-            left.cycles = CYCLES_FOR_VISION;
-            right.percent = -.25;
-            right.cycles = CYCLES_FOR_VISION;
+            //tell controlboard to rotate robot by that much
+        }
+        else if (tg.centerMassY > upper) {
+            //calculate how much to rotate
             //tell controlboard to rotate robot by that much
         }
         
-        else if (tg.centerMassX > upper) {
-            //calculate how much to rotate
-            left.percent = -.25;
-            left.cycles = CYCLES_FOR_VISION;
-            right.percent = .25;
-            right.cycles = CYCLES_FOR_VISION;
-            //tell controlboard to rotate robot by that much
-        }
         //calculate distance/speed of motors needed based on tg.centerMassY
-        if (tg.centerMassY > upperY)
-        {
-            shootInfo.pitchMotor = -PITCH_MOTOR_SPEED;
-            shootInfo.cycles = CYCLES_FOR_VISION;
-        }
-        else if (tg.centerMassY < lowerY )
-        {
-            shootInfo.pitchMotor = PITCH_MOTOR_SPEED;
-            shootInfo.cycles = CYCLES_FOR_VISION;
-        }
         //tell control board to change whatever is necessary
         
         //TODO: Robot.shoot
@@ -281,7 +203,7 @@ public class BTVision implements Constants {
             //using the smaller of the estimated rectangle short side and the bounding rectangle height results in better performance
             //on skewed rectangles
             height = Math.min(report.boundingRectHeight, rectShort);
-            targetHeight = outer ? 29 : 21;
+            targetHeight = outer ? 29 : 20;
 
             return X_IMAGE_RES * targetHeight / (height * 12 * 2 * Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
     }
@@ -303,8 +225,12 @@ public class BTVision implements Constants {
 
         rectLong = NIVision.MeasureParticle(image.image, particleNumber, false, NIVision.MeasurementType.IMAQ_MT_EQUIVALENT_RECT_LONG_SIDE);
         rectShort = NIVision.MeasureParticle(image.image, particleNumber, false, NIVision.MeasurementType.IMAQ_MT_EQUIVALENT_RECT_SHORT_SIDE);
+        
         idealAspectRatio = outer ? (62/29) : (62/20);	//Dimensions of goal opening + 4 inches on all 4 sides for reflective tape
 	
+        System.out.println("rectLong:  " + rectLong );
+        System.out.println("rectShort:  " + rectShort);
+        
         //Divide width by height to measure aspect ratio
         if(report.boundingRectWidth > report.boundingRectHeight){
             //particle is wider than it is tall, divide long by short
@@ -313,7 +239,7 @@ public class BTVision implements Constants {
             //particle is taller than it is wide, divide short by long
                 aspectRatio = 100*(1-Math.abs((1-((rectShort/rectLong)/idealAspectRatio))));
         }
-	return (Math.max(0, Math.min(aspectRatio, 100.0)));		//force to be in range 0-100
+	return (Math.max(0, Math.min(aspectRatio, 100.0))); //force to be in range 0-100
     }
 
     /**
@@ -326,13 +252,6 @@ public class BTVision implements Constants {
      */
     boolean scoreCompare(Scores scores, boolean outer){
             boolean isTarget = true;
-            
-            System.out.println("BTV ln 298: O/I=" + outer 
-                                + " R=" + scores.rectangularity
-                                + " AO=" + scores.aspectRatioOuter
-                                + " AI=" + scores.aspectRatioInner
-                                + " XE=" + scores.xEdge
-                                + " YE=" + scores.yEdge);
 
             isTarget &= scores.rectangularity > RECTANGULARITY_LIMIT;
             if(outer){
