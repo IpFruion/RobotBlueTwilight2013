@@ -42,7 +42,6 @@ public class ControlBoard {
         shoot.isShooterMotorOff = controller.isShooterMotorOff();
         shoot.shooterMotorSpeed = controller.getShooterShifter();
         shoot.reloadMotor = controller.getReloadSpeed();
-        
         climber.canClimb = controller.canClimb();
         updateCycles();
     }

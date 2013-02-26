@@ -18,6 +18,7 @@ public class ShooterInfo {
     public double pitchMotor;
     public double reloadMotor;
     public boolean reloaded = false;
+    public boolean abortAim;
  
     public int cycles = 0;
 }

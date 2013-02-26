@@ -156,7 +156,7 @@ public class BTAutonomous {
 	    }
 
 	    // See if we got 'stuck' and couldn't find the target in a reasonable time
-	    if (cb.getShotInfo().elapsedLoops > cb.getShotInfo().MAX_ELAPSED_LOOPS) {
+	    if (cb.getShooter().abortAim) {
 		// We're stuck, bail out on shooting.
 		cb.shoot.canAim = false;
 		goToNextStep();
