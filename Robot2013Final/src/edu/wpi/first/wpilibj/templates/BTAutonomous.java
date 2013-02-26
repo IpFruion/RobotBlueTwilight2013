@@ -152,13 +152,17 @@ public class BTAutonomous {
 	    if (cb.getShooter().cycles == 0) {
 		// We just finished this step, go on to the next step
 	        cb.shoot.canAim = false;
+                cb.shoot.isShooterMotorOff = true;
+                cb.shoot.isShooterMotorOn = false;
 		goToNextStep();
 	    }
 
 	    // See if we got 'stuck' and couldn't find the target in a reasonable time
-	    if (cb.getShooter().abortAim) {
+	    if (cb.getShooter().cycles == 200) {
 		// We're stuck, bail out on shooting.
 		cb.shoot.canAim = false;
+                cb.shoot.isShooterMotorOff = true;
+                cb.shoot.isShooterMotorOn = false;
 		goToNextStep();
 	    }
 
@@ -221,7 +225,6 @@ public class BTAutonomous {
         diTurnWheel.percent = turnSpeed;
         diStationaryWheel.cycles = turnCycles;
         diStationaryWheel.percent = 0;
-        
 
 	// If the degrees value was negative turn the RIGHT wheel,
 	//  otherwise turn the LEFT wheel.
@@ -239,6 +242,7 @@ public class BTAutonomous {
 
 	ShooterInfo shootInfo = new ShooterInfo();
         shootInfo.isShooterMotorOn = true;
+        shootInfo.isShooterMotorOff = false;
         shootInfo.canAim = true;
         shootInfo.cycles = shotsToTake;
         
