@@ -38,7 +38,7 @@ public class BTVision {
 								.05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05,
 								.05, .05, .6, 0};
     
-    final int RECTANGULARITY_LIMIT = 60;
+    final int RECTANGULARITY_LIMIT = 50;
     final int ASPECT_RATIO_LIMIT = 75;
     final int X_EDGE_LIMIT = 40;
     final int Y_EDGE_LIMIT = 60;
@@ -70,7 +70,7 @@ public class BTVision {
     public BTVision() {
         camera = AxisCamera.getInstance();  // get an instance of the camera
         cc = new CriteriaCollection();      // create the criteria for the particle filter
-        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 500, 65535, false);
+        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 420, 65535, false);
     }
 
     public void update(ControlBoard cb) {
@@ -81,7 +81,8 @@ public class BTVision {
                  * level directory in the flash memory on the cRIO. The file name in this case is "testImage.jpg"
                  */
                 ColorImage image = camera.getImage();     // comment if using stored images
-                BinaryImage thresholdImage = image.thresholdHSV(60, 100, 90, 255, 20, 255);   // keep only red objects
+                BinaryImage thresholdImage = image.thresholdHSV(88, 118, 0, 255, 210, 255);   // keep only red objects
+                //BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  //Remove small objects
                 BinaryImage convexHullImage = thresholdImage.convexHull(false);          // fill in occluded rectangles
                 BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // filter out small particles
                 
@@ -106,10 +107,10 @@ public class BTVision {
                     scores[i].aspectRatioInner = scoreAspectRatio(filteredImage, report, i, false);
                     scores[i].xEdge = scoreXEdge(thresholdImage, report);
                     scores[i].yEdge = scoreYEdge(thresholdImage, report);
-                    
+         
+                    target[i] = new Target();
                     if(scoreCompare(scores[i], false))
                     {
-                        target[i] = new Target();
                         target[i].isTarget = true;
                         target[i].isHigh = true;
                         target[i].centerMassX = report.center_mass_x_normalized;
@@ -132,19 +133,24 @@ public class BTVision {
 			System.out.println("ARouter: " + scores[i].aspectRatioOuter + "xEdge: " + scores[i].xEdge + "yEdge: " + scores[i].yEdge);	
                 }
                 
-                centerRange = Math.abs(target[0].centerMassX - 160.);
-                int bestTarget = 0;
-                for (int i = 0; i < target.length; i++) {
-                    if(Math.abs(160 - target[i].centerMassX) < centerRange) {
-                        centerRange = Math.abs(160 - target[i].centerMassX);
-                        bestTarget = i;
-                    }
-                }
-                if (target[bestTarget].centerMassX > 0.) {
-                    targetingAdjustments(target[bestTarget]);
+                if (target.length < 1) {
+                    System.out.println("No targets found.");
                 }
                 else {
-                    Log.log("No targets found");
+                    centerRange = Math.abs(target[0].centerMassX - 160.);
+                    int bestTarget = 0;
+                    for (int i = 0; i < target.length; i++) {
+                        if(Math.abs(160 - target[i].centerMassX) < centerRange) {
+                            centerRange = Math.abs(160 - target[i].centerMassX);
+                            bestTarget = i;
+                        }
+                    }
+                    if (target[bestTarget].centerMassX > 0.) {
+                        targetingAdjustments(target[bestTarget]);
+                    }
+                    else {
+                        System.out.println("No targets found");
+                    }
                 }
                 /**
                  * all images in Java must be freed after they are used since they are allocated out
@@ -153,6 +159,7 @@ public class BTVision {
                  */
                 filteredImage.free();
                 convexHullImage.free();
+                //gObjectsImage.free();
                 thresholdImage.free();
                 image.free();
             } catch (AxisCameraException ex) {        // this is needed if the camera.getImage() is called
@@ -254,11 +261,11 @@ public class BTVision {
             boolean isTarget = true;
 
             isTarget &= scores.rectangularity > RECTANGULARITY_LIMIT;
-            if(outer){
+            /* if(outer){
                     isTarget &= scores.aspectRatioOuter > ASPECT_RATIO_LIMIT;
             } else {
                     isTarget &= scores.aspectRatioInner > ASPECT_RATIO_LIMIT;
-            }
+            } */
             isTarget &= scores.xEdge > X_EDGE_LIMIT;
             isTarget &= scores.yEdge > Y_EDGE_LIMIT;
 
