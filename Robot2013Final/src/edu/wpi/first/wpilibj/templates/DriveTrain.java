@@ -19,7 +19,7 @@ public class DriveTrain implements Constants, IDrivetrain {
     DriveInfo rightInfo;
     DriveInfo leftInfo;
     boolean isVoltage = false;
-    double deadband = .1, lowrange = .55, midrange = .6, lowY = .3, highY = .8;
+    double deadband = .1, lowrange = .3, lowY = .3, highY = .8, slope = 1.27, y_intercept = .27;
     
     public DriveTrain(boolean isCan)
     {
@@ -43,8 +43,8 @@ public class DriveTrain implements Constants, IDrivetrain {
 
             left.setX(leftValue);
             left_2.setX(leftValue);
-            right.setX(rightValue * -1);
-            right_2.setX(rightValue * -1);
+            right.setX(-rightValue);
+            right_2.setX(-rightValue);
 
             leftInfo.cycles--;
             rightInfo.cycles--;
@@ -57,18 +57,10 @@ public class DriveTrain implements Constants, IDrivetrain {
         double templeft = 0;
         if (Math.abs(input) > deadband)
         {
-            templeft = (Math.abs(input) - deadband) / (1-deadband);
+            templeft = Math.abs(input);
             if (templeft <lowrange)
             {
                 templeft = lowY;
-            }
-            else if (templeft < midrange)
-            {
-                templeft = ((highY-lowY)/(midrange-lowrange))* (templeft - lowrange) + lowrange;
-            }
-            else
-            {
-                templeft = ((1-highY)/(1-midrange)) * (templeft - midrange) + midrange;
             }
             if (input < 0)
             {
@@ -93,5 +85,9 @@ public class DriveTrain implements Constants, IDrivetrain {
             isCenter = true;
         }
         return isCenter;
+    }
+
+    public DriveTrain getInstance() {
+        return this;
     }
 }

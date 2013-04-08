@@ -29,11 +29,7 @@ public class BTMotor {
                 CANMotor = new CANJaguar(port);
                 if (isVoltage)
                 {
-                    CANMotor.changeControlMode(CANJaguar.ControlMode.kVoltage);
-                }
-                else
-                {
-                    CANMotor.changeControlMode(CANJaguar.ControlMode.kPercentVbus);
+                    setVoltageControlMode();
                 }
                 successJag = true;
             }
@@ -49,16 +45,13 @@ public class BTMotor {
     public void setX(double x)
     {
         
-        if(isCANBus)
+        if(isCANBus && successJag)
         {
-            if (successJag)
-            {
-                try{
-                    CANMotor.setX(x);
-                }
-                catch(Exception CANTimeoutException){
-                    System.out.println("Error setting CANJaguar speed at "+portNum);
-                }
+            try{
+                CANMotor.setX(x);
+            }
+            catch(Exception CANTimeoutException){
+                System.out.println("Error setting CANJaguar speed at "+portNum);
             }
         }
         else
@@ -68,7 +61,7 @@ public class BTMotor {
        
     }
     public double getBTBusVoltage(){
-        if(isCANBus)
+        if(isCANBus && successJag)
         {
             try{
                 return CANMotor.getBusVoltage();
@@ -80,7 +73,7 @@ public class BTMotor {
     return 0;
     }
     public double getBTOutputCurrent(){
-        if(isCANBus)
+        if(isCANBus && successJag)
         {            
             try{
                 return CANMotor.getOutputCurrent();
@@ -102,5 +95,13 @@ public class BTMotor {
             }    
         }
     return 0;
+    }
+    private void setVoltageControlMode()
+    {
+        try {
+            CANMotor.changeControlMode(CANJaguar.ControlMode.kVoltage);
+            CANMotor.enableControl();
+        }
+        catch(Exception e){}
     }
 }

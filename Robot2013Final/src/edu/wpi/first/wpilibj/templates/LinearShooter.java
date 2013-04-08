@@ -27,11 +27,11 @@ public class LinearShooter implements Constants, IShooter {
     {
         motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, isCan, isVoltage);
         motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, isCan, isVoltage);
-        pitchMotor = new BTMotor(SHOOTER_PITCH_MOTOR_PORT, isCan, false);
-        shootPiston = new Piston(SHOOTER_EXTEND_PORT, SHOOTER_RETRACT_PORT);
+        pitchMotor = new BTMotor(SHOOTER_FLIP_MOTOR_PORT, isCan, false);
+        shootPiston = new Piston(PITCH_EXTEND_PORT, PITCH_RETRACT_PORT);
         lowSensor = new DigitalInput(SHOOTER_PITCH_LOW_PORT);
         highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
-        collectorMotor = new BTMotor(COLLECTOR_MOTOR_PORT, isCan, isVoltage);
+        collectorMotor = new BTMotor(RAD_PISTON_MOTOR_PORT, isCan, isVoltage);
     }
     public void update(ControlBoard cb)
     {
@@ -41,7 +41,7 @@ public class LinearShooter implements Constants, IShooter {
         {
             setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
             shoot(shootInfo.canShoot);
-            pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchMotor);
+            //pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchPiston);
             reload(shootInfo.reloadMotor);
             
             shootInfo.cycles--;
@@ -105,5 +105,13 @@ public class LinearShooter implements Constants, IShooter {
         {
             pitchMotor.setX(pitchSpeed);
         }
+    }
+
+    public RadialShooter getRadialInst() {
+        return null;
+    }
+
+    public LinearShooter getLinearInst() {
+        return this;
     }
 }

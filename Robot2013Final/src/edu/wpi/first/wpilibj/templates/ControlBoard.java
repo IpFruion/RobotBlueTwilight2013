@@ -6,6 +6,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
+
 /**
  *
  * @author Alec 
@@ -40,9 +41,10 @@ public class ControlBoard {
         shoot.reloaded = diskInTray.get();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
         shoot.isShooterMotorOff = controller.isShooterMotorOff();
-        shoot.shooterMotorSpeed = controller.getShooterShifter();
+        shoot.shooterMotorSpeed = controller.getShooterSetting(false);
         shoot.reloadMotor = controller.getReloadSpeed();
         climber.canClimb = controller.canClimb();
+        shoot.isReverseShoot = controller.isReverseShooter();
         updateCycles();
     }
     
@@ -58,7 +60,7 @@ public class ControlBoard {
 
         if (shoot.cycles < 1)
         {
-            shoot.pitchMotor = controller.getShooterYaw();
+            shoot.pitchPiston = controller.getShooterPitch();
             shoot.cycles = 1;
         }
     }
@@ -86,7 +88,7 @@ public class ControlBoard {
      
     public double getShootMotorSpeed() {
         //add slider for adjust speed
-        return -1.0;
+        return controller.getShooterSetting(true);
     }
     
     public DriveInfo getDriveLeft(){

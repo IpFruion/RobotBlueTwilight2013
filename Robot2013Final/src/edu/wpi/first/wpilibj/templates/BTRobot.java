@@ -45,19 +45,18 @@ public class BTRobot extends SimpleRobot {
         climb = btf.createClimber(cb);
         comp = new CompressorInit();
         //vision = new BTVision();
-        auto = new BTAutonomous();
+        auto = new BTAutonomous(this, drive, shoot);
     }
+    
     public void autonomous() {
-        /*comp.run();
-        while(isAutonomous())
+        boolean incycle = true;
+        comp.run();
+        while(isAutonomous() && incycle)
         {
-            auto.update(cb);
-            //vision.update(cb);
-            drive.update(cb);
-            shoot.update(cb);
+            auto.update();
+            incycle = false;
         }
         comp.stop();
-        */
     }
 
     /**

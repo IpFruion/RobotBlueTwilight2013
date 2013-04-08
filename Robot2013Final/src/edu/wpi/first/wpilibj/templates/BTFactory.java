@@ -14,8 +14,7 @@ public class BTFactory {
     private int robotVersion = 2;
     public IShooter createShooter(ControlBoard cb) {
         //add cb.getShooterSetting()
-        if(true) {
-            
+        if(shooterSettingV2) {
             //check for can in radial shooter
             //System.out.println("radial");
             RadialShooter radialshoot = new RadialShooter(cb.getDriveTrainSetting());
@@ -28,7 +27,7 @@ public class BTFactory {
     }
     public IClimber createClimber(ControlBoard cb) {
         //add cb.getClimberSetting()
-        if(false) {
+        if(climberSettingV2) {
             HighClimber high = new HighClimber();
             return high;
         } else {
@@ -38,7 +37,7 @@ public class BTFactory {
     }
     public IDrivetrain createDriveTrain(ControlBoard cb) {
         //add cb.getDriveTrainSetting()
-        if(true) {
+        if(driveTrainSettingV2) {
             //System.out.println("can");
             DriveTrain can = new DriveTrain(true);
             return can;

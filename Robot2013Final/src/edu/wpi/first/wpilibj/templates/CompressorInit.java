@@ -17,7 +17,6 @@ public class CompressorInit implements Constants {
     public CompressorInit()
     {
         comp = new Compressor(COMP_SENSOR_PORT, COMP_RELAY_PORT);
-        
     }
     public void run()
     {

@@ -12,5 +12,5 @@ public interface IDrivetrain {
     
     public abstract void update(ControlBoard cb);
     public abstract boolean yawSet(int centerX);
-    
+    public abstract DriveTrain getInstance();
 }

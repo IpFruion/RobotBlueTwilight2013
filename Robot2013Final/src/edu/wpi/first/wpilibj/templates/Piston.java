@@ -4,8 +4,10 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.AnalogModule;
 
 /**
  *
@@ -15,11 +17,24 @@ public class Piston {
     private Solenoid extend, retract;
     private Relay forward;
     private boolean isSolenoid;
+    private AnalogChannel ai;
+    private int pressureReaderport;
+    private double psi;
+    
     
     public Piston(int extendPort, int retractPort){
+        //System.out.println("Piston Init");
         extend = new Solenoid(extendPort);
         retract = new Solenoid(retractPort);
         isSolenoid = true;
+        pressureReaderport = -1;
+    }
+    public Piston(int extendPort, int retractPort, int readerport){
+        extend = new Solenoid(extendPort);
+        retract = new Solenoid(retractPort);
+        isSolenoid = true;
+        pressureReaderport = readerport;
+        ai = new AnalogChannel(pressureReaderport);
     }
     
     public Piston (int port) {
@@ -58,4 +73,16 @@ public class Piston {
             }
         }
     }
+    
+    public double getPSI()
+    {
+        if (pressureReaderport != -1)
+        {
+            psi = ai.getValue();
+            //psi = (psi*29.54)-10.41;
+            return psi;
+        }
+        return -1;
+    }
+    
 }

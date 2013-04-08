@@ -24,19 +24,21 @@ public class BTController implements Constants {
     public BTController()
     {
         xboxController = new Joystick(XBOX_CONTROLLER_PORT);
+        speed = (DriverStation.getInstance().getAnalogIn(1)*2.4);
     }
-    public double getShooterYaw()
+    boolean pitchState;
+    public boolean getShooterPitch()
     {
         if (xboxController.getRawButton(A_BUTTON))
         {
-            return PITCH_MOTOR_SPEED;
+            pitchState = true;
         }
         else if (xboxController.getRawButton(B_BUTTON))
         {
-            return -PITCH_MOTOR_SPEED;
+            pitchState = false;
 
         }
-        return 0;
+        return pitchState;
     }
     public double getReloadSpeed()
     {
@@ -50,19 +52,34 @@ public class BTController implements Constants {
         }
         return 0;
     }
-    double speed = SHOOT_MOTOR_SPEED_LOW;
-    public double getShooterShifter()
+    double speed = DriverStation.getInstance().getAnalogIn(1)*2.4;
+    boolean inShooterCycle = true;
+    public double getShooterSetting(boolean isAutonomous)
     {
-        if(xboxController.getRawButton(BACK))
+        if (!isAutonomous)
         {
+            if(inShooterCycle)
+            {
+                speed = DriverStation.getInstance().getAnalogIn(1)*2.4;
+                inShooterCycle = false;
+            }
+            if(xboxController.getRawButton(BACK))
+            {
             
-            speed = (DriverStation.getInstance().getAnalogIn(1)*20)/100;
-            //speed = SHOOT_MOTOR_SPEED_LOW;
+                speed = (DriverStation.getInstance().getAnalogIn(1)*2.4);
+                //System.out.println("speed of first analog "+speed);
+                //speed = SHOOT_MOTOR_SPEED_LOW;
+            }
+            else if (xboxController.getRawButton(START))
+            {
+                speed = (DriverStation.getInstance().getAnalogIn(2)*2.4);
+                //System.out.println("speed of second analog "+speed);
+                //speed = SHOOT_MOTOR_SPEED_HIGH;
+            }
         }
-        else if (xboxController.getRawButton(START))
+        else
         {
-            speed = (DriverStation.getInstance().getAnalogIn(2)*20)/100;
-            //speed = SHOOT_MOTOR_SPEED_HIGH;
+            speed = DriverStation.getInstance().getAnalogIn(1)*2.4;
         }
         return speed;
     }
@@ -90,7 +107,15 @@ public class BTController implements Constants {
         }
         return false;
     }
-
+    boolean shooterSwitch = false;
+    public boolean isReverseShooter()
+    {
+        if (xboxController.getRawButton(LEFT_BUMPER))
+            shooterSwitch = true;
+        if (xboxController.getRawButton(RIGHT_BUMPER))
+            shooterSwitch = false;
+        return shooterSwitch;
+    }
     public boolean isShooterMotorOn() {
         return xboxController.getRawButton(Y_BUTTON);
     }

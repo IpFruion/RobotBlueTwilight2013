@@ -15,10 +15,11 @@ public class ShooterInfo {
     public double shooterMotorSpeed = .5;
     public boolean canShoot;
     public boolean canAim;
-    public double pitchMotor;
+    public boolean pitchPiston;
     public double reloadMotor;
     public boolean reloaded = false;
     public boolean abortAim;
+    public boolean isReverseShoot;
  
     public int cycles = 0;
 }

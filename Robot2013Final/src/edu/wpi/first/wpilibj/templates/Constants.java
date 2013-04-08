@@ -16,11 +16,12 @@ public interface Constants
     public static final int LEFT_JAG_PORT_2 = 4;
     public static final int RIGHT_JAG_PORT = 2;
     public static final int RIGHT_JAG_PORT_2 = 5;
-    public static final int RADIAL_SHOOTER_MOTOR_PORT = 6;
+    public static final int RADIAL_SHOOTER_MOTOR1_PORT = 6;
+    public static final int RADIAL_SHOOTER_MOTOR2_PORT = 3;
     public static final int LINEAR_SHOOTER_MOTOR1_PORT = 6;
     public static final int LINEAR_SHOOTER_MOTOR2_PORT = 3;
-    public static final int SHOOTER_PITCH_MOTOR_PORT = 7;
-    public static final int COLLECTOR_MOTOR_PORT = 8;
+    public static final int SHOOTER_FLIP_MOTOR_PORT = 7;
+    public static final int RAD_PISTON_MOTOR_PORT = 7;
 
     
     //Joysticks
@@ -29,22 +30,27 @@ public interface Constants
     public static final int XBOX_CONTROLLER_PORT = 1;
     
     //Solenoids
-    public static final int SHOOTER_EXTEND_PORT = 1;
-    public static final int SHOOTER_RETRACT_PORT = 2;
+    public static final int PITCH_EXTEND_PORT = 1;
+    public static final int PITCH_RETRACT_PORT = 2;
     public static final int HIGH_SHORT_ARM_EXTEND_PORT = 5;
     public static final int HIGH_SHORT_ARM_RETRACT_PORT = 6;
     public static final int HIGH_LONG_EXTEND_PORT = 3;
     public static final int HIGH_LONG_RETRACT_PORT = 4;
     public static final int HIGH_TILT_EXTEND_PORT = 7;
     public static final int HIGH_TILT_RETRACT_PORT = 8;
-    public static final int LOW_ARM1_EXTEND_PORT = 7;
-    public static final int LOW_ARM1_RETRACT_PORT = 8;
+    public static final int LOW_ARM1_EXTEND_PORT = 3;
+    public static final int LOW_ARM1_RETRACT_PORT = 4;
+    
+    public static final int RADIAL_PITCH_PRESSURE_READER = 1;
+    public static final int LOW_CLIMBER_PRESSURE_READER = 2;
+    public static final int LINEAR_SHOOTER_PRESSURE_READER = 3;
+    public static final int HIGH_CLIMBER_PRESSURE_READER = 4;
     
     
     //Relay
-    public static final int COMP_RELAY_PORT = 1;
+    public static final int COMP_RELAY_PORT = 3;
     public static final int DRIVE_SHIFTER_PORT = 2;
-    public static final int CLIMBING_ENHANCE_PISTON_PORT = 3;
+    public static final int CLIMBING_ENHANCE_PISTON_PORT = 1;
     
     //Digital I/O Ports
     public static final int COMP_SENSOR_PORT = 1;
@@ -68,7 +74,7 @@ public interface Constants
     public static final double PITCH_MOTOR_SPEED = .5;
     public static final double SHOOT_MOTOR_SPEED_LOW = .55;
     public static final double SHOOT_MOTOR_SPEED_HIGH = .85;
-    public static final boolean USE_CAN = false;
+    //public static final boolean USE_CAN = false;
     public static final double RELOAD_SPEED = .5;
     
     //Controller Constants 

@@ -24,12 +24,12 @@ public class LowClimber implements Constants, IClimber{
         climbInfo = cb.getClimber();
         if (isStart)
         {
-            retract();
+            lowPull();
             isStart = false;
         }
         if (climbInfo.canClimb)
         {
-            lowPull();
+            retract();
         }
         if (!climbInfo.canClimb)
         {
@@ -45,8 +45,6 @@ public class LowClimber implements Constants, IClimber{
     public void retract() {
        
         arm1.setPistonState(false);
-         
-       
     }
     
     public void wait(int millis) {
