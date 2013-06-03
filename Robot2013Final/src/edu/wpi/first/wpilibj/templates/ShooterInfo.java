@@ -12,10 +12,11 @@ public class ShooterInfo {
     
     public boolean isShooterMotorOn;
     public boolean isShooterMotorOff;
+    public boolean isShooterMotorValue;
     public double shooterMotorSpeed = .5;
     public boolean canShoot;
     public boolean canAim;
-    public boolean pitchPiston;
+    public boolean shieldPiston;
     public double reloadMotor;
     public boolean reloaded = false;
     public boolean abortAim;

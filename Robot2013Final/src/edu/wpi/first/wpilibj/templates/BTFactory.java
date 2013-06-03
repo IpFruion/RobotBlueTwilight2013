@@ -6,10 +6,10 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Sai V.
+ * @author Derrick Lockwood
  */
 public class BTFactory {
-    private boolean shooterSettingV2 = true, climberSettingV2 = false, driveTrainSettingV2 = true;
+    private boolean shooterSettingV2 = false, climberSettingV2 = false, driveTrainSettingV2 = true;
     
     private int robotVersion = 2;
     public IShooter createShooter(ControlBoard cb) {

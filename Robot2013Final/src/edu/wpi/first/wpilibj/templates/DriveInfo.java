@@ -13,13 +13,15 @@ public class DriveInfo {
     //+ or - int
     public int direction = 0;
     //how fast the motors for wheels run
-    public double percent = 0;
+    public double speed = 0;
     //how many cycles this runs
     public int cycles = 0;
 
+    public boolean shifterSetting1;
+    public boolean shifterSetting2;
     public String debug()
     {
-        return "d = "+direction+" p = "+percent+" c = "+cycles+ " s = ";
+        return "d = "+direction+" p = "+speed+" c = "+cycles+ " s = ";
     }
     
     

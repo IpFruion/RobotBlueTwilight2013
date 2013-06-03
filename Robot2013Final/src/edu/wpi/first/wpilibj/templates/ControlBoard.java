@@ -23,8 +23,8 @@ public class ControlBoard {
     DigitalInput diskInTray;
     
     public ControlBoard() {
-        shooter_switch = new DigitalInput(Constants.DIGITAL_INPUT_SHOOTER);
-        climber_switch = new DigitalInput(Constants.DIGITAL_INPUT_CLIMBER);
+        //shooter_switch = new DigitalInput(Constants.DIGITAL_INPUT_SHOOTER);
+        //climber_switch = new DigitalInput(Constants.DIGITAL_INPUT_CLIMBER);
         dt_switch = new DigitalInput(Constants.DIGITAL_INPUT_DRIVE_TRAIN);
         diskInTray = new DigitalInput(Constants.DIGITAL_INPUT_SENSE_DISK);
         controller = new BTController();
@@ -41,8 +41,8 @@ public class ControlBoard {
         shoot.reloaded = diskInTray.get();
         shoot.isShooterMotorOn = controller.isShooterMotorOn();
         shoot.isShooterMotorOff = controller.isShooterMotorOff();
+        shoot.isShooterMotorValue = controller.isShooterMotorValue();
         shoot.shooterMotorSpeed = controller.getShooterSetting(false);
-        shoot.reloadMotor = controller.getReloadSpeed();
         climber.canClimb = controller.canClimb();
         shoot.isReverseShoot = controller.isReverseShooter();
         updateCycles();
@@ -52,15 +52,17 @@ public class ControlBoard {
     {
         if (left.cycles < 1 && right.cycles < 1)
         {
-            left.percent = controller.getLMotorSpeed();
-            right.percent = controller.getRMotorSpeed();
+            left.speed = controller.getLMotorSpeed();
+            right.speed = controller.getRMotorSpeed();
+            right.shifterSetting1 = controller.getShifterSetting1();
+            right.shifterSetting2 = controller.getShifterSetting2();
             left.cycles = 1;
             right.cycles = 1;
         }
 
         if (shoot.cycles < 1)
         {
-            shoot.pitchPiston = controller.getShooterPitch();
+            shoot.shieldPiston = controller.getShooterShield();
             shoot.cycles = 1;
         }
     }

@@ -17,6 +17,7 @@ public class BTMotor {
     private CANJaguar CANMotor;
     private Jaguar PWMMotor;
     private boolean successJag = false;
+    private boolean voltage;
     private int portNum;
    
     
@@ -24,6 +25,14 @@ public class BTMotor {
     {
         isCANBus = isCan;
         portNum = port;
+        voltage = isVoltage;
+        instanciate(port,isCan,isVoltage);
+    }
+    public void instanciate(int port, boolean isCan, boolean isVoltage)
+    {
+        isCANBus = isCan;
+        portNum = port;
+        voltage = isVoltage;
         if (isCANBus) {
             try{
                 CANMotor = new CANJaguar(port);
@@ -48,10 +57,11 @@ public class BTMotor {
         if(isCANBus && successJag)
         {
             try{
+                
                 CANMotor.setX(x);
             }
             catch(Exception CANTimeoutException){
-                System.out.println("Error setting CANJaguar speed at "+portNum);
+                System.out.println("Error setting CANJaguar speed at "+portNum+" to value: "+x);
             }
         }
         else
@@ -59,6 +69,20 @@ public class BTMotor {
             PWMMotor.set(x);
         }
        
+    }
+    public void setBTVoltageRampRate(double ramprate)
+    {
+        if (voltage&&isCANBus)
+        {
+            try
+            {
+                CANMotor.setVoltageRampRate(ramprate);
+            }
+            catch (Exception CANTimeoutException)
+            {
+                System.out.println("Error setting CANJaguar ramp-rate at"+portNum+" to value: "+ramprate);
+            }
+        }
     }
     public double getBTBusVoltage(){
         if(isCANBus && successJag)
@@ -68,6 +92,7 @@ public class BTMotor {
             }
             catch(Exception e){
                 System.out.println("Error in getting voltage at "+portNum);
+               
             }
         }
     return 0;

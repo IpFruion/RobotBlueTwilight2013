@@ -17,7 +17,7 @@ public class BTAutonomous {
     BTMotor right;
     BTMotor right_2;
     private double speed = 0;
-    private BTMotor trigger;
+    private Piston trigger;
     private BTController xbox;
     private final int SPEED_UP_INCREMENT = 3;
     private final int SHOOT_INCREMENT = 5;
@@ -25,11 +25,10 @@ public class BTAutonomous {
     public BTAutonomous(BTRobot btrtemp, IDrivetrain dt, IShooter rs)
     {
         btr = btrtemp;
-        shoot1 = rs.getRadialInst().motShoot1;
-        shoot2 = rs.getRadialInst().motShoot2;
+        shoot1 = rs.getLinearInst().motShoot1;
+        shoot2 = rs.getLinearInst().motShoot2;
         xbox = new BTController();
-        trigger = rs.getRadialInst().shooter;
-        trigger.setX(0);
+        trigger = rs.getLinearInst().shootPiston;
         left = dt.getInstance().left;
         left_2 = dt.getInstance().left_2;
         right = dt.getInstance().right;
@@ -167,12 +166,15 @@ public class BTAutonomous {
     {
         if (btr.isEnabled())
         {
-            trigger.setX(10);
-            sleep(685);
-            trigger.setX(0);
+            trigger.setPistonState(true);
             sleep(1000);
+            setMotorSpeed();
             sleep(1000);
+            setMotorSpeed();
             sleep(1000);
+            setMotorSpeed();
+            trigger.setPistonState(false);
+            sleep(500);
         }
     }
     public void sleep(double time){if(btr.isEnabled()){try{Thread.sleep((long)time);}catch(Exception e){}}}

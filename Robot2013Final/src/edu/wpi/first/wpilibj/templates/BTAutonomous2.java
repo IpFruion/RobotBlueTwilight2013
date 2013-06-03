@@ -198,7 +198,7 @@ public class BTAutonomous2 {
 	//  thing, we only have to make one DriveInfo object and 
 	//  can use it twice in the call to the control board.
 	DriveInfo di = new DriveInfo();
-        di.percent = DRIVE_SPEED;
+        di.speed = DRIVE_SPEED;
         di.cycles = cycles;
         
  
@@ -222,9 +222,9 @@ public class BTAutonomous2 {
         DriveInfo diStationaryWheel = new DriveInfo();
         
         diTurnWheel.cycles = turnCycles;
-        diTurnWheel.percent = turnSpeed;
+        diTurnWheel.speed = turnSpeed;
         diStationaryWheel.cycles = turnCycles;
-        diStationaryWheel.percent = 0;
+        diStationaryWheel.speed = 0;
 
 	// If the degrees value was negative turn the RIGHT wheel,
 	//  otherwise turn the LEFT wheel.

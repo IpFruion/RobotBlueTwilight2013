@@ -4,8 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
-import com.sun.squawk.debugger.Log;
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  *
@@ -21,17 +20,21 @@ public class LinearShooter implements Constants, IShooter {
     public DigitalInput highSensor;
     private ShooterInfo shootInfo;
     private BTMotor collectorMotor;
+    public Piston shieldPiston;
     boolean isVoltage = true;
     private int reloadCycles = 0;
+    
     public LinearShooter(boolean isCan)
     {
         motShoot1 = new BTMotor(LINEAR_SHOOTER_MOTOR1_PORT, isCan, isVoltage);
         motShoot2 = new BTMotor(LINEAR_SHOOTER_MOTOR2_PORT, isCan, isVoltage);
-        pitchMotor = new BTMotor(SHOOTER_FLIP_MOTOR_PORT, isCan, false);
-        shootPiston = new Piston(PITCH_EXTEND_PORT, PITCH_RETRACT_PORT);
-        lowSensor = new DigitalInput(SHOOTER_PITCH_LOW_PORT);
-        highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
-        collectorMotor = new BTMotor(RAD_PISTON_MOTOR_PORT, isCan, isVoltage);
+        //pitchMotor = new BTMotor(SHOOTER_FLIP_MOTOR_PORT, isCan, false);
+        shootPiston = new Piston(LINEAR_EXTEND_PORT, LINEAR_RETRACT_PORT);
+        shieldPiston = new Piston(SHIELD_EXTEND_PORT, SHIELD_RETRACT_PORT);
+        //lowSensor = new DigitalInput(SHOOTER_PITCH_LOW_PORT);
+        //highSensor = new DigitalInput(SHOOTER_PITCH_HIGH_PORT);
+        //collectorMotor = new BTMotor(RAD_PISTON_MOTOR_PORT, isCan, isVoltage);
+        
     }
     public void update(ControlBoard cb)
     {
@@ -39,10 +42,11 @@ public class LinearShooter implements Constants, IShooter {
         
         if (shootInfo.cycles > 0)
         {
-            setSpeed(shootInfo.isShooterMotorOff, shootInfo.isShooterMotorOn, shootInfo.shooterMotorSpeed);
+            setSpeed(shootInfo.isShooterMotorValue, shootInfo.shooterMotorSpeed);
             shoot(shootInfo.canShoot);
-            //pitch(highSensor.get(), lowSensor.get(), shootInfo.pitchPiston);
-            reload(shootInfo.reloadMotor);
+            deployShield(shootInfo.shieldPiston);
+            //pitch(highSensor.get(), lowSensor.get(), shootInfo.shieldPiston);
+            //reload(shootInfo.reloadMotor);
             
             shootInfo.cycles--;
         }
@@ -52,13 +56,32 @@ public class LinearShooter implements Constants, IShooter {
     {
         if (!shootInfo.reloaded)
         {
-            collectorMotor.setX(motorspeed);
+            //collectorMotor.setX(motorspeed);
             reloadCycles = reloadCycles - reloadCycles;
+        }
+    }
+    public void deployShield(boolean deploy)
+    {
+        if (deploy)
+        {
+            shieldPiston.setPistonState(true);
+        }
+        else
+        {
+            shieldPiston.setPistonState(false);
         }
     }
     public void shoot(boolean canShoot)
     {
-        if (canShoot && shootInfo.reloaded) {            
+        if (canShoot)
+        {
+            shootPiston.setPistonState(false);
+        }
+        else
+        {
+            shootPiston.setPistonState(true);
+        }
+        /*if (canShoot && shootInfo.reloaded) {            
             shootPiston.setPistonState(true);
         }
         else if (!canShoot && shootInfo.reloaded)
@@ -70,7 +93,8 @@ public class LinearShooter implements Constants, IShooter {
             shootPiston.setPistonState(false);
             reloadCycles++;
         }
-
+        * 
+        */
     }
     
     public void killShot(){
@@ -78,12 +102,13 @@ public class LinearShooter implements Constants, IShooter {
         motShoot2.setX(0);
     }
     
-    public void setSpeed(boolean setOff, boolean setOn, double speed) {
+    public void setSpeed(boolean setOn, double speed) {
         if (setOn) {
-            motShoot1.setX(speed);
-            motShoot2.setX(speed);
+            motShoot1.setX(-speed);
+            motShoot2.setX(-speed);
         }
-        else if (setOff) {
+        else
+        {
             killShot();
         }
     }

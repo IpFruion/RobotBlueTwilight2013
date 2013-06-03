@@ -11,6 +11,7 @@ package edu.wpi.first.wpilibj.templates;
  */
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class BTController implements Constants {
@@ -26,33 +27,60 @@ public class BTController implements Constants {
         xboxController = new Joystick(XBOX_CONTROLLER_PORT);
         speed = (DriverStation.getInstance().getAnalogIn(1)*2.4);
     }
-    boolean pitchState;
-    public boolean getShooterPitch()
+    boolean shieldState;
+    public boolean getShooterShield()
     {
         if (xboxController.getRawButton(A_BUTTON))
         {
-            pitchState = true;
+            shieldState = true;
         }
         else if (xboxController.getRawButton(B_BUTTON))
         {
-            pitchState = false;
+            shieldState = false;
 
         }
-        return pitchState;
+        return shieldState;
     }
-    public double getReloadSpeed()
+    /*public boolean getShifterSetting()
     {
         if (xboxController.getRawButton(LEFT_BUMPER))
         {
-            return RELOAD_SPEED;
+            shifterState = false;
         }
         else if (xboxController.getRawButton(RIGHT_BUMPER))
         {
-            return -RELOAD_SPEED;
+            shifterState = true;
         }
-        return 0;
+        return shifterState;
     }
-    double speed = DriverStation.getInstance().getAnalogIn(1)*2.4;
+    * 
+    */
+    public boolean getShifterSetting1()
+    {
+        if (xboxController.getRawButton(RIGHT_BUMPER))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+              
+    }
+    public boolean getShifterSetting2()
+    {
+        if(xboxController.getRawButton(LEFT_BUMPER))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private final double speedConst = 2.4;
+    double speed = DriverStation.getInstance().getAnalogIn(1)*speedConst;
+    //double speed = SmartDashboard.getNumber("Shooter Speed", 12.0);
     boolean inShooterCycle = true;
     public double getShooterSetting(boolean isAutonomous)
     {
@@ -60,26 +88,30 @@ public class BTController implements Constants {
         {
             if(inShooterCycle)
             {
-                speed = DriverStation.getInstance().getAnalogIn(1)*2.4;
+                speed = DriverStation.getInstance().getAnalogIn(1)*speedConst;
+                //speed = SmartDashboard.getNumber("Shooter Speed", 12.0);
                 inShooterCycle = false;
             }
             if(xboxController.getRawButton(BACK))
             {
             
-                speed = (DriverStation.getInstance().getAnalogIn(1)*2.4);
+                //speed = SmartDashboard.getNumber("Shooter Speed", 12.0);
+                speed = (DriverStation.getInstance().getAnalogIn(1)*speedConst);
                 //System.out.println("speed of first analog "+speed);
                 //speed = SHOOT_MOTOR_SPEED_LOW;
             }
             else if (xboxController.getRawButton(START))
             {
-                speed = (DriverStation.getInstance().getAnalogIn(2)*2.4);
+                //speed = SmartDashboard.getNumber("Shooter Speed", 12.0);
+                speed = (DriverStation.getInstance().getAnalogIn(2)*speedConst);
                 //System.out.println("speed of second analog "+speed);
                 //speed = SHOOT_MOTOR_SPEED_HIGH;
             }
         }
         else
         {
-            speed = DriverStation.getInstance().getAnalogIn(1)*2.4;
+            //speed = SmartDashboard.getNumber("Shooter Speed", 12.0);
+            speed = DriverStation.getInstance().getAnalogIn(1)*speedConst;
         }
         return speed;
     }
@@ -116,12 +148,24 @@ public class BTController implements Constants {
             shooterSwitch = false;
         return shooterSwitch;
     }
+    private boolean shooterstate = false;
+    public boolean isShooterMotorValue() {
+        if (xboxController.getRawButton(Y_BUTTON))
+            shooterstate = true;
+        if (xboxController.getRawButton(X_BUTTON))
+            shooterstate = false;
+        return shooterstate;
+    }
     public boolean isShooterMotorOn() {
-        return xboxController.getRawButton(Y_BUTTON);
+        if (xboxController.getRawButton(Y_BUTTON))
+          shooterstate = xboxController.getRawButton(Y_BUTTON);
+        return shooterstate;
     }
     public boolean isShooterMotorOff()
     {
-        return xboxController.getRawButton(X_BUTTON);
+        if (xboxController.getRawButton(X_BUTTON))
+          shooterstate = xboxController.getRawButton(X_BUTTON);
+        return shooterstate;
     }
     boolean isClimb = false;
     public boolean canClimb()

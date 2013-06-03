@@ -10,7 +10,6 @@ package edu.wpi.first.wpilibj.templates;
 
 
 
-
 import edu.wpi.first.wpilibj.SimpleRobot;
 
 /**
@@ -28,11 +27,13 @@ public class BTRobot extends SimpleRobot {
     public ControlBoard cb;
     public BTFactory btf;
     public CompressorInit comp;
+    private BTSmartDashBoard dashboard;
     private IDrivetrain drive;
     private IShooter shoot;
     private IClimber climb;
     private BTVision vision;
     private BTAutonomous auto;
+    private long cycle =0;
     /**
      * This is the Robot starting command
      */
@@ -43,12 +44,15 @@ public class BTRobot extends SimpleRobot {
         drive = btf.createDriveTrain(cb);
         shoot = btf.createShooter(cb);
         climb = btf.createClimber(cb);
+        dashboard = new BTSmartDashBoard(drive, shoot);
         comp = new CompressorInit();
         //vision = new BTVision();
         auto = new BTAutonomous(this, drive, shoot);
+        
     }
     
     public void autonomous() {
+        
         boolean incycle = true;
         comp.run();
         while(isAutonomous() && incycle)
@@ -71,6 +75,12 @@ public class BTRobot extends SimpleRobot {
             drive.update(cb);
             shoot.update(cb);
             climb.update(cb);
+            if(cycle % 100 == 0)
+            {
+                dashboard.update(cb);
+                cycle = 0;
+            }
+            cycle++;
         }
         comp.stop();
     }

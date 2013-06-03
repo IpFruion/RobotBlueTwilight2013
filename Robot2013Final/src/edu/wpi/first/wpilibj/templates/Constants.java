@@ -30,16 +30,20 @@ public interface Constants
     public static final int XBOX_CONTROLLER_PORT = 1;
     
     //Solenoids
-    public static final int PITCH_EXTEND_PORT = 1;
-    public static final int PITCH_RETRACT_PORT = 2;
+    public static final int LINEAR_EXTEND_PORT = 3;
+    public static final int LINEAR_RETRACT_PORT = 4;
+    public static final int SHIFTER_EXTEND_PORT = 1;
+    public static final int SHIFTER_RETRACT_PORT = 2;
+    public static final int SHIELD_EXTEND_PORT = 7;
+    public static final int SHIELD_RETRACT_PORT = 8;
     public static final int HIGH_SHORT_ARM_EXTEND_PORT = 5;
     public static final int HIGH_SHORT_ARM_RETRACT_PORT = 6;
     public static final int HIGH_LONG_EXTEND_PORT = 3;
     public static final int HIGH_LONG_RETRACT_PORT = 4;
     public static final int HIGH_TILT_EXTEND_PORT = 7;
     public static final int HIGH_TILT_RETRACT_PORT = 8;
-    public static final int LOW_ARM1_EXTEND_PORT = 3;
-    public static final int LOW_ARM1_RETRACT_PORT = 4;
+    public static final int LOW_ARM1_EXTEND_PORT = 5;
+    public static final int LOW_ARM1_RETRACT_PORT = 6;
     
     public static final int RADIAL_PITCH_PRESSURE_READER = 1;
     public static final int LOW_CLIMBER_PRESSURE_READER = 2;
@@ -60,10 +64,12 @@ public interface Constants
     public static final int RIGHT_DRIVE_ENCODER_B_PORT = 5;
     public static final int SHOOTER_PITCH_HIGH_PORT = 6;
     public static final int SHOOTER_PITCH_LOW_PORT = 7;
-    public static final int DIGITAL_INPUT_SHOOTER = 14;
-    public static final int DIGITAL_INPUT_CLIMBER = 13;
+    //public static final int DIGITAL_INPUT_SHOOTER = 14;
+    //public static final int DIGITAL_INPUT_CLIMBER = 13;
     public static final int DIGITAL_INPUT_DRIVE_TRAIN = 12;
-    public static final int DIGITAL_INPUT_SENSE_DISK = 8; // probably needs to be changed
+    public static final int DIGITAL_INPUT_SENSE_DISK = 8; // probably needs to be changedf
+    public static final int DRIVE_ENCODER_B_PORT = 14;
+    public static final int DRIVE_ENCODER_A_PORT = 13;
     
     //Analog Ports
     public static final int AUTONOMOUS_SELECTION_PORT = 3;
